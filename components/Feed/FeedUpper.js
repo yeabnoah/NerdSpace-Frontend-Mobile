@@ -49,23 +49,9 @@ export default function FeedUpper() {
                 borderRadius: 10,
               }}
             />
-            {/* <Text
-              style={{
-                color: "#fff",
-                paddingHorizontal: height * 0.019,
-                fontSize: height * 0.03,
-                fontWeight: "900",
-                color: "#fff",
-                marginTop: height * 0.012,
-              }}
-            >
-              Nerd Space
-            </Text> */}
+
             <View
               style={{
-                // backgroundColor: "#7864F6",
-                // height: width * 0.08,
-                // width: width * 0.08,
                 borderRadius: 100,
               }}
             >
@@ -94,7 +80,6 @@ export default function FeedUpper() {
                   padding: height * 0.005,
                   display: "flex",
                   justifyContent: "center",
-                  // backgroundColor: "#7864F6",
                   borderRadius: 10,
                   alignItems: "center",
                 }}
@@ -106,8 +91,8 @@ export default function FeedUpper() {
           <Text
             style={{
               color: "#fff",
-              fontSize: height * 0.035,
-              // fontWeight: "600",
+              fontSize: height * 0.033,
+              fontFamily: "Poppins",
             }}
           >
             TimeLine
@@ -115,6 +100,7 @@ export default function FeedUpper() {
           <Text
             style={{
               color: "#fff",
+              fontFamily: "Poppins",
               fontSize: height * 0.023,
               fontWeight: "400",
               paddingHorizontal: 2,
@@ -158,10 +144,11 @@ export default function FeedUpper() {
                 />
                 <Text
                   style={{
-                    color: "white",
+                    color: "#fff",
                     textAlign: "center",
                     padding: 5,
                     fontSize: 14,
+                    fontFamily: "Poppins",
                   }}
                 >
                   {Post.name}

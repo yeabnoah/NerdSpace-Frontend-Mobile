@@ -7,12 +7,16 @@ import {
   ScrollView,
 } from "react-native";
 import React from "react";
+import { useFonts } from "expo-font";
 import Navigator from "../routes/Navigator";
 import ProfileUpper from "../components/Profile/ProfileUpper";
 import { SafeAreaView } from "react-native-safe-area-context";
 import SearchUpper from "../components/search/SearchUpper";
 
 export default function Search() {
+  const [fontsLoaded] = useFonts({
+    Poppins: require("../assets/fonts/Poppins-Regular.ttf"),
+  });
   return (
     <SafeAreaView style={{ backgroundColor: "#7864F6", color: "#fff" }}>
       <View>

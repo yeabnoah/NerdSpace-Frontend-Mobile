@@ -10,6 +10,7 @@ import React from "react";
 import { AntDesign } from "@expo/vector-icons";
 
 const { height, width } = Dimensions.get("window");
+
 export default function SearchUpper() {
   return (
     <View style={{ height: height, backgroundColor: "#040418" }}>
@@ -27,6 +28,7 @@ export default function SearchUpper() {
             borderWidth: 1.5,
             color: "#fff",
             fontSize: width * 0.043,
+            fontFamily: "Poppins",
           }}
         />
         <TouchableOpacity

@@ -28,7 +28,7 @@ export default function PostBox() {
         backgroundColor: "#181428",
         margin: height * 0.006,
         borderRadius: 10,
-        height: height * 0.4,
+        height: height * 0.42,
         paddingBottom: width * 0.07,
       }}
     >
@@ -54,7 +54,13 @@ export default function PostBox() {
             />
           </View>
           <View>
-            <Text style={{ fontSize: height * 0.025, color: "#fff" }}>
+            <Text
+              style={{
+                fontSize: height * 0.023,
+                color: "#fff",
+                fontFamily: "Poppins",
+              }}
+            >
               Tech Nerd
             </Text>
             <Text
@@ -62,6 +68,7 @@ export default function PostBox() {
                 fontSize: height * 0.021,
                 color: "#745FF4",
                 fontWeight: "600",
+                fontFamily: "Poppins",
               }}
             >
               Mobile Developer
@@ -78,7 +85,12 @@ export default function PostBox() {
       {/* post Content */}
       <View style={{ padding: height * 0.016 }}>
         <Text
-          style={{ color: "#fff", fontSize: height * 0.024, fontWeight: "800" }}
+          style={{
+            color: "#fff",
+            fontSize: height * 0.024,
+            // fontWeight: "800",
+            fontFamily: "Poppins",
+          }}
         >
           #Back-end Projects
         </Text>
@@ -87,6 +99,7 @@ export default function PostBox() {
             color: "#fff",
             fontSize: height * 0.02,
             paddingVertical: width * 0.01,
+            fontFamily: "Poppins",
           }}
         >
           hey guys I've recently pushed my project to GitHub and its open-source
@@ -114,12 +127,22 @@ export default function PostBox() {
                 marginRight: height * 0.01,
               }}
             />
-            <Text style={{ color: "#745FF4", fontWeight: "700" }}>
+            <Text
+              style={{
+                color: "#745FF4",
+                fontFamily: "Poppins",
+              }}
+            >
               @Addis City
             </Text>
           </View>
           <View>
-            <Text style={{ color: "#745FF4", fontWeight: "700" }}>
+            <Text
+              style={{
+                color: "#745FF4",
+                fontFamily: "Poppins",
+              }}
+            >
               | 10 Minutes ago
             </Text>
           </View>
@@ -149,13 +172,13 @@ export default function PostBox() {
                 <AntDesign
                   name="hearto"
                   style={{
-                    color: "white",
+                    color: "#fff",
                     fontSize: height * 0.027,
                     marginRight: height * 0.006,
                     marginTop: height * 0.003,
                   }}
                 />
-                <Text style={{ color: "white", fontSize: height * 0.023 }}>
+                <Text style={{ color: "#fff", fontSize: height * 0.023 }}>
                   22
                 </Text>
               </View>
@@ -169,15 +192,15 @@ export default function PostBox() {
                 }}
               >
                 <MaterialCommunityIcons
-                  name="message-text"
+                  name="message-badge-outline"
                   style={{
-                    color: "white",
+                    color: "#fff",
                     fontSize: height * 0.027,
                     marginRight: height * 0.006,
                     marginTop: height * 0.003,
                   }}
                 />
-                <Text style={{ color: "white", fontSize: height * 0.023 }}>
+                <Text style={{ color: "#fff", fontSize: height * 0.023 }}>
                   22
                 </Text>
               </View>
@@ -193,10 +216,11 @@ export default function PostBox() {
             <Text
               style={{
                 color: "#fff",
-                fontWeight: "900",
+                // fontWeight: "900",
                 marginTop: height * 0.004,
                 fontSize: height * 0.022,
                 marginRight: 10,
+                fontFamily: "Poppins",
               }}
             >
               Liked By 210
@@ -255,6 +279,7 @@ export default function PostBox() {
             paddingHorizontal: width * 0.03,
             color: "#fff",
             fontSize: height * 0.021,
+            fontFamily: "Poppins",
           }}
         />
 
@@ -272,7 +297,7 @@ export default function PostBox() {
         >
           <FontAwesome
             name="send-o"
-            style={{ fontSize: height * 0.02, color: "white" }}
+            style={{ fontSize: height * 0.02, color: "#fff" }}
           />
         </TouchableOpacity>
       </View>
