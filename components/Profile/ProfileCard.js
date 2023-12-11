@@ -16,7 +16,7 @@ export default function ProfileCard() {
   return (
     <View
       style={{
-        height: height * 0.39,
+        height: height * 0.34,
         marginTop: height * 0.018,
         borderRadius: 10,
         marginHorizontal: 12,
@@ -37,11 +37,11 @@ export default function ProfileCard() {
             <Image
               source={TechNerd}
               style={{
-                height: height * 0.17,
-                width: width * 0.195,
+                height: height * 0.13,
+                width: height * 0.13,
                 borderRadius: 100,
                 borderColor: "#fff",
-                borderWidth: 3,
+                borderWidth: 0,
               }}
             />
           </TouchableOpacity>
@@ -52,27 +52,32 @@ export default function ProfileCard() {
               display: "flex",
               flexDirection: "row",
               justifyContent: "space-between",
-              marginHorizontal: width * 0.05,
+              marginHorizontal: width * 0.03,
               width: width * 0.6,
+              marginTop: width * 0.01,
             }}
           >
-            <View>
+            <View style={{ marginLeft: width * 0.02 }}>
               <Text
-                style={{ color: "#fff", fontSize: 17, fontFamily: "Poppins" }}
+                style={{ color: "white", fontSize: 17, fontFamily: "poppins" }}
               >
                 Tech Nerd
               </Text>
               <Text
-                style={{ color: "gray", fontSize: 14, fontFamily: "Poppins" }}
+                style={{ color: "gray", fontSize: 14, fontFamily: "poppins" }}
               >
                 Programmer
               </Text>
             </View>
             <View>
-              <TouchableOpacity>
+              <TouchableOpacity style={{ marginRight: width * 0.063 }}>
                 <MaterialCommunityIcons
                   name="pencil-outline"
-                  style={{ color: "#fff", fontSize: 23 }}
+                  style={{
+                    color: "#fff",
+                    fontSize: width * 0.05,
+                    paddingTop: width * 0.02,
+                  }}
                 />
               </TouchableOpacity>
             </View>
@@ -81,25 +86,23 @@ export default function ProfileCard() {
             style={{
               display: "flex",
               flexDirection: "row",
-              justifyContent: "space-evenly",
+              justifyContent: "flex-start",
+              paddingTop: width * 0.02,
+              marginLeft: width * 0.03,
             }}
           >
             <TouchableOpacity
               style={{
-                height: height * 0.086,
-                width: height * 0.077,
-                backgroundColor: "#A5A3F8",
-                padding: height * 0.017,
-                borderRadius: 22,
-                marginHorizontal: height * 0.018,
-                marginVertical: height * 0.01,
+                paddingRight: width * 0.03,
+                paddingLeft: width * 0.01,
+                paddingRight: width * 0.02,
               }}
             >
               <View>
                 <Text
                   style={{
-                    color: "#040418",
-                    fontSize: 15,
+                    color: "#A5A3F8",
+                    fontSize: width * 0.05,
                     textAlign: "center",
                     fontWeight: "600",
                   }}
@@ -110,8 +113,8 @@ export default function ProfileCard() {
               <View>
                 <Text
                   style={{
-                    color: "#040418",
-                    fontSize: 12,
+                    color: "#A5A3F8",
+                    fontSize: width * 0.04,
                     textAlign: "center",
                     fontWeight: "600",
                   }}
@@ -122,21 +125,13 @@ export default function ProfileCard() {
             </TouchableOpacity>
 
             <TouchableOpacity
-              style={{
-                height: height * 0.086,
-                width: height * 0.1004,
-                backgroundColor: "#A5A3F8",
-                padding: height * 0.015,
-                borderRadius: 22,
-                marginHorizontal: height * 0.0,
-                marginVertical: height * 0.01,
-              }}
+              style={{ paddingRight: width * 0.05, paddingLeft: width * 0.07 }}
             >
               <View>
                 <Text
                   style={{
-                    color: "#040418",
-                    fontSize: 15,
+                    color: "#A5A3F8",
+                    fontSize: width * 0.05,
                     textAlign: "center",
                     fontWeight: "600",
                   }}
@@ -147,8 +142,8 @@ export default function ProfileCard() {
               <View>
                 <Text
                   style={{
-                    color: "#040418",
-                    fontSize: 12,
+                    color: "#A5A3F8",
+                    fontSize: width * 0.04,
                     textAlign: "center",
                     fontWeight: "600",
                   }}
@@ -158,22 +153,12 @@ export default function ProfileCard() {
               </View>
             </TouchableOpacity>
 
-            <TouchableOpacity
-              style={{
-                height: height * 0.086,
-                width: height * 0.1,
-                backgroundColor: "#A5A3F8",
-                padding: height * 0.015,
-                borderRadius: 22,
-                marginHorizontal: height * 0.015,
-                marginVertical: height * 0.01,
-              }}
-            >
+            <TouchableOpacity style={{ paddingHorizontal: width * 0.02 }}>
               <View>
                 <Text
                   style={{
-                    color: "#040418",
-                    fontSize: 15,
+                    color: "#A5A3F8",
+                    fontSize: width * 0.05,
                     textAlign: "center",
                     fontWeight: "600",
                   }}
@@ -184,8 +169,8 @@ export default function ProfileCard() {
               <View>
                 <Text
                   style={{
-                    color: "#040418",
-                    fontSize: 12,
+                    color: "#A5A3F8",
+                    fontSize: width * 0.04,
                     textAlign: "center",
                     fontWeight: "600",
                   }}
@@ -200,14 +185,14 @@ export default function ProfileCard() {
       <View
         style={{
           paddingHorizontal: width * 0.08,
-          paddingTop: width * 0.03,
+          paddingTop: width * 0.04,
         }}
       >
         <Text
           style={{
             color: "white",
             fontSize: 15,
-            fontFamily: "Poppins",
+            fontFamily: "poppins",
           }}
         >
           Tech Nerd
@@ -216,7 +201,7 @@ export default function ProfileCard() {
           style={{
             color: "white",
             fontSize: 15,
-            fontFamily: "Poppins",
+            fontFamily: "poppins",
           }}
         >
           GBBS'22 AAU'27
@@ -225,7 +210,7 @@ export default function ProfileCard() {
           style={{
             color: "white",
             fontSize: 15,
-            fontFamily: "Poppins",
+            fontFamily: "poppins",
           }}
         >
           Self Taught Developer
@@ -260,7 +245,7 @@ export default function ProfileCard() {
             style={{
               color: "#fff",
               marginLeft: width * 0.02,
-              fontFamily: "Poppins",
+              fontFamily: "poppins",
             }}
           >
             Follow
@@ -287,7 +272,7 @@ export default function ProfileCard() {
               color: "#fff",
               marginLeft: width * 0.02,
               fontSize: height * 0.02,
-              fontFamily: "Poppins",
+              fontFamily: "poppins",
             }}
           >
             Message

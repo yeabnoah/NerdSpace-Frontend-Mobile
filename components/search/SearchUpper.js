@@ -28,7 +28,7 @@ export default function SearchUpper() {
             borderWidth: 1.5,
             color: "#fff",
             fontSize: width * 0.043,
-            fontFamily: "Poppins",
+            fontFamily: "poppins",
           }}
         />
         <TouchableOpacity

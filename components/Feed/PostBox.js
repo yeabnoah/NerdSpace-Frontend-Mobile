@@ -5,33 +5,43 @@ import {
   Dimensions,
   TouchableOpacity,
   TextInput,
+  Modal,
+  TouchableHighlight,
 } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import Technerd from "../../assets/images/technerd.jpg";
 import {
   AntDesign,
   Entypo,
   Feather,
   FontAwesome,
+  Ionicons,
   MaterialCommunityIcons,
+  MaterialIcons,
 } from "@expo/vector-icons";
 import MockImages from "../../utils/mockImage";
+import Modals from "./Modal";
 
 const { width, height } = Dimensions.get("window");
-// let counter = 0;
-export default function PostBox() {
+
+export default function PostBox({ content }) {
+  const [aboutPost, setAboutPost] = useState(false);
+  const [liked, setLiked] = useState(false);
+  const [followed, setFollowed] = useState(false);
   return (
     <View
       style={{
-        marginTop: 10,
+        marginTop: width * 0.02,
         marginBottom: 10,
         backgroundColor: "#181428",
-        margin: height * 0.006,
+        margin: width * 0.01,
         borderRadius: 10,
-        height: height * 0.42,
-        paddingBottom: width * 0.07,
+        // height: width * 0.825,
+        height: "max-width",
+        paddingBottom: width * 0.02,
       }}
     >
+      <Modals aboutPost={aboutPost} setAboutPost={setAboutPost} />
       <View
         style={{
           display: "flex",
@@ -58,7 +68,7 @@ export default function PostBox() {
               style={{
                 fontSize: height * 0.023,
                 color: "#fff",
-                fontFamily: "Poppins",
+                fontFamily: "poppins",
               }}
             >
               Tech Nerd
@@ -68,48 +78,101 @@ export default function PostBox() {
                 fontSize: height * 0.021,
                 color: "#745FF4",
                 fontWeight: "600",
-                fontFamily: "Poppins",
+                fontFamily: "poppins",
               }}
             >
               Mobile Developer
             </Text>
           </View>
         </View>
-        <TouchableOpacity>
-          <Feather
-            name="more-vertical"
-            style={{ color: "#745FF4", fontSize: height * 0.036 }}
-          />
-        </TouchableOpacity>
+        <View style={{ display: "flex", flexDirection: "row" }}>
+          {followed ? (
+            <TouchableOpacity
+              onPress={() => {
+                setFollowed(!followed);
+              }}
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                paddingBottom: 0,
+                height: height * 0.04,
+                paddingHorizontal: width * 0.02,
+              }}
+            >
+              <Text
+                style={{
+                  color: "#745FF4",
+                  marginTop: width * 0.01,
+                  paddingLeft: width * 0.01,
+                  fontFamily: "poppins",
+                }}
+              >
+                Following
+              </Text>
+            </TouchableOpacity>
+          ) : (
+            <TouchableOpacity
+              onPress={() => {
+                setFollowed(!followed);
+              }}
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                paddingBottom: 0,
+                height: height * 0.04,
+                paddingHorizontal: width * 0.02,
+              }}
+            >
+              <AntDesign
+                name="plus"
+                style={{
+                  color: "#745FF4",
+                  fontSize: height * 0.0225,
+                  paddingTop: width * 0.01,
+                }}
+              />
+              <Text
+                style={{
+                  color: "white",
+                  marginTop: width * 0.01,
+                  paddingLeft: width * 0.01,
+                  fontFamily: "poppins",
+                }}
+              >
+                Follow
+              </Text>
+            </TouchableOpacity>
+          )}
+
+          <TouchableOpacity onPress={() => setAboutPost(true)}>
+            <Feather
+              name="more-vertical"
+              style={{ color: "#745FF4", fontSize: height * 0.036 }}
+            />
+          </TouchableOpacity>
+        </View>
       </View>
       {/* post Content */}
       <View style={{ padding: height * 0.016 }}>
         <Text
           style={{
             color: "#fff",
-            fontSize: height * 0.024,
-            // fontWeight: "800",
-            fontFamily: "Poppins",
+            fontSize: height * 0.021,
+            paddingHorizontal: width * 0.017,
+            fontFamily: "poppins",
           }}
         >
-          #Back-end Projects
-        </Text>
-        <Text
-          style={{
-            color: "#fff",
-            fontSize: height * 0.02,
-            paddingVertical: width * 0.01,
-            fontFamily: "Poppins",
-          }}
-        >
-          hey guys I've recently pushed my project to GitHub and its open-source
-          ....
+          {/* This is going to be the first post on this social media platform.
+          Welcome to Nerd Space! I am the developer of Nerd Space and I wanted
+          to thank all of you for joining the community and using this app...
+           */}
+          {content}
         </Text>
         <View
           style={{
             display: "flex",
             flexDirection: "row",
-            marginTop: height * 0.0,
+            marginTop: height * -0.01,
           }}
         >
           <View
@@ -118,34 +181,7 @@ export default function PostBox() {
               flexDirection: "row",
               marginRight: height * 0.04,
             }}
-          >
-            <Entypo
-              name="location"
-              style={{
-                color: "#745FF4",
-                fontSize: height * 0.022,
-                marginRight: height * 0.01,
-              }}
-            />
-            <Text
-              style={{
-                color: "#745FF4",
-                fontFamily: "Poppins",
-              }}
-            >
-              @Addis City
-            </Text>
-          </View>
-          <View>
-            <Text
-              style={{
-                color: "#745FF4",
-                fontFamily: "Poppins",
-              }}
-            >
-              | 10 Minutes ago
-            </Text>
-          </View>
+          ></View>
         </View>
         <View
           style={{
@@ -161,7 +197,9 @@ export default function PostBox() {
               flexDirection: "row",
             }}
           >
-            <View style={{ marginRight: height * 0.03 }}>
+            <View
+              style={{ marginRight: height * 0.03, marginLeft: height * 0.01 }}
+            >
               <View
                 style={{
                   display: "flex",
@@ -169,16 +207,33 @@ export default function PostBox() {
                   marginTop: height * 0.005,
                 }}
               >
-                <AntDesign
-                  name="hearto"
-                  style={{
-                    color: "#fff",
-                    fontSize: height * 0.027,
-                    marginRight: height * 0.006,
-                    marginTop: height * 0.003,
-                  }}
-                />
-                <Text style={{ color: "#fff", fontSize: height * 0.023 }}>
+                {liked ? (
+                  <TouchableOpacity onPress={() => setLiked(!liked)}>
+                    <AntDesign
+                      name="heart"
+                      style={{
+                        color: "#745FF4",
+                        fontSize: height * 0.024,
+                        marginRight: height * 0.006,
+                        marginTop: height * 0.0022,
+                      }}
+                    />
+                  </TouchableOpacity>
+                ) : (
+                  <TouchableOpacity onPress={() => setLiked(!liked)}>
+                    <AntDesign
+                      name="hearto"
+                      style={{
+                        color: "gray",
+                        fontSize: height * 0.024,
+                        marginRight: height * 0.006,
+                        marginTop: height * 0.0022,
+                      }}
+                    />
+                  </TouchableOpacity>
+                )}
+
+                <Text style={{ color: "gray", fontSize: height * 0.02 }}>
                   22
                 </Text>
               </View>
@@ -194,13 +249,13 @@ export default function PostBox() {
                 <MaterialCommunityIcons
                   name="message-badge-outline"
                   style={{
-                    color: "#fff",
-                    fontSize: height * 0.027,
+                    color: "gray",
+                    fontSize: height * 0.024,
                     marginRight: height * 0.006,
                     marginTop: height * 0.003,
                   }}
                 />
-                <Text style={{ color: "#fff", fontSize: height * 0.023 }}>
+                <Text style={{ color: "gray", fontSize: height * 0.02 }}>
                   22
                 </Text>
               </View>
@@ -215,39 +270,16 @@ export default function PostBox() {
           >
             <Text
               style={{
-                color: "#fff",
+                color: "gray",
                 // fontWeight: "900",
                 marginTop: height * 0.004,
-                fontSize: height * 0.022,
+                fontSize: height * 0.018,
                 marginRight: 10,
-                fontFamily: "Poppins",
+                fontFamily: "poppins",
               }}
             >
-              Liked By 210
+              10 Minutes ago
             </Text>
-            <View
-              style={{
-                display: "flex",
-                flexDirection: "row",
-                marginRight: height * 0.02,
-              }}
-            >
-              {MockImages.map((image) => {
-                // counter = counter + 1;
-                return (
-                  <Image
-                    key={image.id}
-                    source={Technerd}
-                    style={{
-                      height: height * 0.035,
-                      width: height * 0.035,
-                      borderRadius: 100,
-                      marginRight: -15,
-                    }}
-                  />
-                );
-              })}
-            </View>
           </View>
         </View>
       </View>
@@ -260,6 +292,7 @@ export default function PostBox() {
           borderRadius: height * 0.04,
           display: "flex",
           flexDirection: "row",
+          // marginVertical: 10,
         }}
       >
         <Image
@@ -279,7 +312,7 @@ export default function PostBox() {
             paddingHorizontal: width * 0.03,
             color: "#fff",
             fontSize: height * 0.021,
-            fontFamily: "Poppins",
+            fontFamily: "poppins",
           }}
         />
 

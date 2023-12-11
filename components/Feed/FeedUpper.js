@@ -6,23 +6,39 @@ import {
   ScrollView,
   TouchableOpacity,
 } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import { AntDesign } from "@expo/vector-icons";
 import Technerd from "../../assets/images/technerd.jpg";
 import MockData from "../../utils/MockData";
 import MockImages from "../../utils/mockImage";
 import PostBox from "./PostBox";
 import logo from "../../assets/images/logo-removebg-preview.png";
+import axios from "axios";
+import { useEffect } from "react";
 
 const { width, height } = Dimensions.get("window");
 
 export default function FeedUpper() {
+  const [post, setPost] = useState([]);
+  useEffect(() => {
+    axios
+      .get("http://10.5.214.8:5000/users/mock")
+      .then((response) => {
+        setPost(response.data);
+        // console.log(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, []);
+
   return (
     <View style={{ flex: 1, backgroundColor: "" }}>
       <View
         style={{
           backgroundColor: "#040418",
-          height: height * 0.45,
+          height: height * 0.3,
+          // height: height,
         }}
       >
         <View>
@@ -35,20 +51,21 @@ export default function FeedUpper() {
               paddingHorizontal: height * 0.017,
             }}
           >
-            <AntDesign
-              name="bars"
-              style={{
-                marginTop: height * 0.007,
-                // color: "#201C34",
-                color: "#7864F6",
-                fontSize: height * 0.04,
-                width: height * 0.047,
-                height: height * 0.047,
-                padding: height * 0.005,
-                // backgroundColor: "#7864F6",
-                borderRadius: 10,
-              }}
-            />
+            <TouchableOpacity>
+              <AntDesign
+                name="bars"
+                style={{
+                  marginTop: height * 0.007,
+                  color: "#7864F6",
+                  fontSize: height * 0.04,
+                  width: height * 0.047,
+                  height: height * 0.047,
+                  padding: height * 0.005,
+                  // backgroundColor: "#7864F6",
+                  borderRadius: 10,
+                }}
+              />
+            </TouchableOpacity>
 
             <View
               style={{
@@ -68,42 +85,38 @@ export default function FeedUpper() {
                 justifyContent: "space-between",
               }}
             >
-              <AntDesign
-                name="plus"
-                style={{
-                  marginTop: height * 0.007,
-                  // color: "#fff",
-                  color: "#7864F6",
-                  fontSize: height * 0.039,
-                  width: height * 0.05,
-                  height: height * 0.05,
-                  padding: height * 0.005,
-                  display: "flex",
-                  justifyContent: "center",
-                  borderRadius: 10,
-                  alignItems: "center",
-                }}
-              />
+              <TouchableOpacity>
+                <AntDesign
+                  name="plus"
+                  style={{
+                    marginTop: height * 0.007,
+                    // color: "#fff",
+                    color: "#7864F6",
+                    fontSize: height * 0.039,
+                    width: height * 0.05,
+                    height: height * 0.05,
+                    padding: height * 0.005,
+                    display: "flex",
+                    justifyContent: "center",
+                    borderRadius: 10,
+                    alignItems: "center",
+                  }}
+                />
+              </TouchableOpacity>
             </View>
           </View>
         </View>
-        <View style={{ padding: height * 0.024 }}>
+        <View
+          style={{
+            paddingHorizontal: height * 0.024,
+            paddingVertical: height * 0.01,
+          }}
+        >
           <Text
             style={{
               color: "#fff",
               fontSize: height * 0.033,
-              fontFamily: "Poppins",
-            }}
-          >
-            TimeLine
-          </Text>
-          <Text
-            style={{
-              color: "#fff",
-              fontFamily: "Poppins",
-              fontSize: height * 0.023,
-              fontWeight: "400",
-              paddingHorizontal: 2,
+              fontFamily: "poppins",
             }}
           >
             Friends
@@ -114,7 +127,7 @@ export default function FeedUpper() {
           style={{
             display: "flex",
             flexDirection: "row",
-            margin: height * 0.006,
+            marginHorizontal: height * 0.006,
           }}
         >
           {MockImages.map((Post) => {
@@ -127,7 +140,7 @@ export default function FeedUpper() {
                   width: 65,
                   borderRadius: 30,
                   borderColor: "#fff",
-                  marginHorizontal: 7,
+                  marginHorizontal: width * 0.025,
                 }}
               >
                 <Image
@@ -135,10 +148,10 @@ export default function FeedUpper() {
                     uri: `${Post.imageLink}`,
                   }}
                   style={{
-                    height: 120,
-                    width: 65,
-                    borderRadius: 30,
-                    borderWidth: 3,
+                    height: 75,
+                    width: 75,
+                    borderRadius: 100,
+                    borderWidth: 1,
                     borderColor: "#fff",
                   }}
                 />
@@ -148,7 +161,8 @@ export default function FeedUpper() {
                     textAlign: "center",
                     padding: 5,
                     fontSize: 14,
-                    fontFamily: "Poppins",
+                    fontFamily: "poppins",
+                    marginLeft: width * 0.03,
                   }}
                 >
                   {Post.name}
@@ -158,12 +172,13 @@ export default function FeedUpper() {
           })}
         </ScrollView>
       </View>
-      <View style={{ marginBottom: width * 0.22 }}>
+      <View
+        style={{ marginBottom: width * 0.22, height: height - height * 0.22 }}
+      >
         <ScrollView style={{}}>
-          <PostBox />
-          <PostBox />
-          <PostBox />
-          <PostBox />
+          {post.map((posted) => {
+            return <PostBox key={posted.id} content={posted.content} />;
+          })}
         </ScrollView>
       </View>
     </View>

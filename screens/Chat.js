@@ -15,14 +15,8 @@ import ChatUpper from "../components/Chat/ChatUpper";
 const { width, height } = Dimensions.get("window");
 
 export default function Chat() {
-  const [fontsLoaded] = useFonts({
-    Poppins: require("../assets/fonts/Poppins-Regular.ttf"),
-    SemiBoldPoppins: require("../assets/fonts/Poppins-SemiBold.ttf"),
-    BoldBoldPoppins: require("../assets/fonts/Poppins-Bold.ttf"),
-    Bolder: require("../assets/fonts/Poppins-Italic.ttf"),
-  });
   return (
-    <SafeAreaView style={{ backgroundColor: "#22222C", color: "#fff" }}>
+    <SafeAreaView style={{ backgroundColor: "#7D7DD3", color: "#fff" }}>
       <View>
         <ScrollView style={{}}>
           <ChatUpper />

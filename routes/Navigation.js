@@ -8,15 +8,21 @@ import Feed from "../screens/Feed";
 import LovedPosts from "../screens/LovedPosts";
 import Search from "../screens/Search";
 import Chat from "../screens/Chat";
+import { useFonts } from "expo-font";
+import Login from "../screens/Login";
+import Register from "../screens/Register";
 
 const Stack = createNativeStackNavigator();
 
 export default function AppNavigation() {
+  const [fontsLoaded] = useFonts({
+    poppins: require("../assets/fonts/Poppins-Regular.ttf"),
+  });
   return (
     <NavigationContainer>
       <Stack.Navigator
         screenOptions={{ headerShown: false }}
-        initialRouteName="Feed"
+        initialRouteName="Register"
       >
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="Profile" component={Profile} />
@@ -24,6 +30,8 @@ export default function AppNavigation() {
         <Stack.Screen name="Loved" component={LovedPosts} />
         <Stack.Screen name="Search" component={Search} />
         <Stack.Screen name="Chat" component={Chat} />
+        <Stack.Screen name="Login" component={Login} />
+        <Stack.Screen name="Register" component={Register} />
       </Stack.Navigator>
     </NavigationContainer>
   );

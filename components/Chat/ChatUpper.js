@@ -1,6 +1,7 @@
 import { View, Text, Dimensions, Image } from "react-native";
 import React from "react";
 import logo from "../../assets/images/logo-removebg-preview.png";
+// import PostComponent from "../check/check";
 
 const { height, width } = Dimensions.get("window");
 export default function ChatUpper() {
@@ -29,12 +30,13 @@ export default function ChatUpper() {
             fontSize: width * 0.09,
             marginTop: height * 0.02,
             // fontWeight: "800",
-            fontFamily: "Poppins",
+            fontFamily: "poppins",
           }}
         >
           Coming Soon
         </Text>
       </View>
+      {/* <PostComponent /> */}
     </View>
   );
 }

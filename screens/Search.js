@@ -14,11 +14,8 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import SearchUpper from "../components/search/SearchUpper";
 
 export default function Search() {
-  const [fontsLoaded] = useFonts({
-    Poppins: require("../assets/fonts/Poppins-Regular.ttf"),
-  });
   return (
-    <SafeAreaView style={{ backgroundColor: "#7864F6", color: "#fff" }}>
+    <SafeAreaView style={{ backgroundColor: "#7D7DD3", color: "#fff" }}>
       <View>
         <ScrollView style={{}}>
           <SearchUpper />
