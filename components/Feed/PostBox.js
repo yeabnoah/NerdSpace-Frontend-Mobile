@@ -24,7 +24,7 @@ import Modals from "./Modal";
 
 const { width, height } = Dimensions.get("window");
 
-export default function PostBox({ content }) {
+export default function PostBox({ content, img }) {
   const [aboutPost, setAboutPost] = useState(false);
   const [liked, setLiked] = useState(false);
   const [followed, setFollowed] = useState(false);
@@ -152,8 +152,7 @@ export default function PostBox({ content }) {
           </TouchableOpacity>
         </View>
       </View>
-      {/* post Content */}
-      <View style={{ padding: height * 0.016 }}>
+      <View style={{ paddingHorizontal: height * 0.02 }}>
         <Text
           style={{
             color: "#fff",
@@ -164,15 +163,28 @@ export default function PostBox({ content }) {
         >
           {/* This is going to be the first post on this social media platform.
           Welcome to Nerd Space! I am the developer of Nerd Space and I wanted
-          to thank all of you for joining the community and using this app...
-           */}
+          to thank all of you for joining the community and using this app... */}
           {content}
         </Text>
+        <View style={{ flex: 1, alignItems: "baseline", paddingVertical: 3 }}>
+          <Image
+            source={{ uri: img }}
+            style={{
+              justifyContent: "center",
+              alignItems: "center",
+              height: width * 0.7,
+              width: width * 0.75,
+              borderRadius: width * 0.025,
+            }}
+          />
+        </View>
+      </View>
+      {/* post Content */}
+      <View style={{ paddingHorizontal: height * 0.02 }}>
         <View
           style={{
             display: "flex",
             flexDirection: "row",
-            marginTop: height * -0.01,
           }}
         >
           <View
@@ -188,7 +200,7 @@ export default function PostBox({ content }) {
             display: "flex",
             flexDirection: "row",
             justifyContent: "space-between",
-            marginTop: height * 0.03,
+            marginVertical: height * 0.008,
           }}
         >
           <View

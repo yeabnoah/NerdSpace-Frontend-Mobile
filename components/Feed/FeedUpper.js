@@ -15,14 +15,27 @@ import PostBox from "./PostBox";
 import logo from "../../assets/images/logo-removebg-preview.png";
 import axios from "axios";
 import { useEffect } from "react";
+import Ip from "../../utils/IpAdress";
 
 const { width, height } = Dimensions.get("window");
 
 export default function FeedUpper() {
   const [post, setPost] = useState([]);
+
+  // const getData = async () => {
+  //   try {
+  //     const value = await AsyncStorage.getItem("token");
+  //     if (value !== null) {
+  //       // value previously stored
+  //       this.props.navigation.navigate("Login");
+  //     }
+  //   } catch (e) {
+  //     // error reading value
+  //   }
+  // };
   useEffect(() => {
     axios
-      .get("http://10.5.214.8:5000/users/mock")
+      .get(`http://192.168.214.83:5000/users/mock`)
       .then((response) => {
         setPost(response.data);
         // console.log(response.data);
@@ -172,10 +185,23 @@ export default function FeedUpper() {
           })}
         </ScrollView>
       </View>
-      <View style={{ marginBottom: width * 0.22 }}>
+      <View
+        style={{
+          marginBottom: width * 0.22,
+          height: post ? "max-width" : height,
+        }}
+      >
         <ScrollView style={{}}>
           {post.map((posted) => {
-            return <PostBox key={posted.id} content={posted.content} />;
+            return (
+              <View key={posted.id}>
+                <PostBox
+                  key={posted.id}
+                  content={posted.content}
+                  img={posted.imageUrl}
+                />
+              </View>
+            );
           })}
         </ScrollView>
       </View>
