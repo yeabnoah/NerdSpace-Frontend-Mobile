@@ -24,10 +24,18 @@ import Modals from "./Modal";
 
 const { width, height } = Dimensions.get("window");
 
-export default function PostBox({ content, img }) {
+export default function PostBox({
+  content,
+  img,
+  like,
+  comment,
+  userId,
+  timeStamp,
+}) {
   const [aboutPost, setAboutPost] = useState(false);
   const [liked, setLiked] = useState(false);
   const [followed, setFollowed] = useState(false);
+  const [counter, setCounter] = useState(0);
   return (
     <View
       style={{
@@ -246,7 +254,11 @@ export default function PostBox({ content, img }) {
                 )}
 
                 <Text style={{ color: "gray", fontSize: height * 0.02 }}>
-                  22
+                  {/* {like.map(() => {
+                    setCounter(count + 1);
+                    console.log(counter);
+                  })} */}
+                  {like}
                 </Text>
               </View>
             </View>
@@ -268,7 +280,7 @@ export default function PostBox({ content, img }) {
                   }}
                 />
                 <Text style={{ color: "gray", fontSize: height * 0.02 }}>
-                  22
+                  {comment}
                 </Text>
               </View>
             </View>
@@ -290,7 +302,7 @@ export default function PostBox({ content, img }) {
                 fontFamily: "poppins",
               }}
             >
-              10 Minutes ago
+              {timeStamp}
             </Text>
           </View>
         </View>

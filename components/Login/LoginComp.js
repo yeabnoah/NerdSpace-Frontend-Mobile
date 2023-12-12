@@ -1,54 +1,44 @@
+import React, { useState } from "react";
 import {
   View,
   Text,
-  BackHandler,
   Image,
   TextInput,
   Dimensions,
   TouchableOpacity,
 } from "react-native";
 import axios from "axios";
-import React, { useEffect, useState } from "react";
-import { SafeAreaView } from "react-native-safe-area-context";
-import Logo from "../../assets/images/logo-removebg-preview.png";
 import { useNavigation } from "@react-navigation/native";
-import { AsyncStorage } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
+import Logo from "../../assets/images/logo-removebg-preview.png";
+import Ip from "../../utils/IpAdress";
 
 const { height, width } = Dimensions.get("window");
+
 export default function LoginComp() {
   const navigation = useNavigation();
+  const [username, setUsername] = useState("");
 
-  const [username, setUsername] = useState();
-  const [password, setPassword] = useState();
+  const [password, setPassword] = useState("");
 
-  const postData = () => {
-    axios
-      .post("http://192.168.214.83:5000/users/login", {
-        username: username,
-        password: password,
-      })
-      .then((response) => {
-        if (response.status === 200) {
-          const token = response.data.token;
-          storeData(token); // Call the function to store the token
-
-          navigation.navigate("Feed");
-          console.log("Login successful.");
-        } else {
-          console.log("Login failed.");
-        }
-      })
-      .catch((error) => {
-        console.log("An error occurred:", error);
-      });
-  };
-
-  const storeData = async (token) => {
+  const handleLogin = async () => {
     try {
-      await AsyncStorage.setItem("token", token);
-      console.log(`Token saved: ${token}`);
+      const response = await axios.post(`http://${Ip}:5000/users/login`, {
+        username,
+        password,
+      });
+
+      if (response.status === 200) {
+        const token = response.data.token;
+        await AsyncStorage.setItem("token", token);
+        navigation.navigate("Feed");
+        console.log("Successfully logged in");
+      } else {
+        console.log("Failed to login. Please check your credentials.");
+      }
     } catch (error) {
-      console.log("Error saving the token:", error);
+      console.log("An error occurred while logging in:", error.message);
     }
   };
 
@@ -56,115 +46,90 @@ export default function LoginComp() {
     <View
       style={{
         flex: 1,
-        display: "flex",
-        flexDirection: "row",
         backgroundColor: "#040418",
-        justifyContent: "center",
+        paddingTop: height * 0.25,
+        alignItems: "center",
       }}
     >
-      <View
+      <Image
+        source={Logo}
         style={{
-          width: width,
-          marginTop: width * 0.2,
-          alignItems: "center",
+          height: width * 0.17,
+          width: width * 0.21,
         }}
-      >
-        <Image
-          source={Logo}
+      />
+      <View style={{ marginTop: width * 0.05, alignItems: "center" }}>
+        <TextInput
+          onChangeText={(text) => setUsername(text)}
+          placeholder="Enter your username here"
+          placeholderTextColor="gray"
           style={{
-            height: width * 0.17,
-            width: width * 0.21,
+            borderWidth: 1,
+            borderColor: "#7D7DD3",
+            width: width * 0.8,
+            color: "white",
+            borderRadius: width * 0.05,
+            height: width * 0.15,
+            fontFamily: "poppins",
+            paddingHorizontal: width * 0.05,
+            marginVertical: width * 0.02,
           }}
         />
-
-        <View style={{ marginTop: width * 0.05, alignItems: "center" }}>
-          <TextInput
-            onChangeText={(event) => {
-              setUsername(event);
-            }}
-            placeholder="Enter your username here"
-            placeholderTextColor={"gray"}
-            style={{
-              borderWidth: 1,
-              borderColor: "#7D7DD3",
-              width: width * 0.8,
-              color: "white",
-              borderRadius: width * 0.05,
-              height: width * 0.15,
-              fontFamily: "poppins",
-              paddingHorizontal: width * 0.05,
-              marginVertical: width * 0.02,
-            }}
-          />
-          <TextInput
-            onChangeText={(event) => {
-              setPassword(event);
-            }}
-            placeholder="Enter your password here"
-            placeholderTextColor={"gray"}
-            secureTextEntry={true}
-            style={{
-              borderWidth: 1,
-              borderColor: "#7D7DD3",
-              width: width * 0.8,
-              color: "white",
-              fontFamily: "poppins",
-              borderRadius: width * 0.05,
-              height: width * 0.15,
-              paddingHorizontal: width * 0.05,
-              marginVertical: width * 0.02,
-            }}
-          />
-          <View
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: "space-between",
-            }}
-          >
-            <TouchableOpacity
-              onPress={() => {
-                postData();
-              }}
-              style={{
-                backgroundColor: "#7D7DD3",
-                borderRadius: width * 0.05,
-                height: width * 0.13,
-                width: width * 0.8,
-                justifyContent: "center",
-                marginVertical: width * 0.02,
-              }}
-            >
-              <Text
-                style={{
-                  textAlign: "center",
-                  fontFamily: "poppins",
-                  fontSize: width * 0.05,
-                }}
-              >
-                Login
-              </Text>
-            </TouchableOpacity>
-          </View>
-          <TouchableOpacity onPress={() => navigation.navigate("Register")}>
-            <Text
-              style={{ color: "white", marginTop: 10, fontFamily: "poppins" }}
-            >
-              {/* Don't have an account ? Register Here */}
-              {username} {password}
-            </Text>
-          </TouchableOpacity>
-        </View>
-        <Text
+        <TextInput
+          onChangeText={(text) => setPassword(text)}
+          placeholder="Enter your password here"
+          placeholderTextColor="gray"
+          secureTextEntry={true}
           style={{
-            color: "gray",
-            marginTop: height * 0.4,
+            borderWidth: 1,
+            borderColor: "#7D7DD3",
+            width: width * 0.8,
+            color: "white",
             fontFamily: "poppins",
+            borderRadius: width * 0.05,
+            height: width * 0.15,
+            paddingHorizontal: width * 0.05,
+            marginVertical: width * 0.02,
+          }}
+        />
+        <TouchableOpacity
+          onPress={handleLogin}
+          style={{
+            backgroundColor: "#7D7DD3",
+            borderRadius: width * 0.05,
+            height: width * 0.13,
+            width: width * 0.8,
+            justifyContent: "center",
+            marginVertical: width * 0.02,
           }}
         >
-          Nerd Space
-        </Text>
+          <Text
+            style={{
+              textAlign: "center",
+              fontFamily: "poppins",
+              fontSize: width * 0.05,
+            }}
+          >
+            Login
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate("Register")}>
+          <Text
+            style={{ color: "white", marginTop: 10, fontFamily: "poppins" }}
+          >
+            Don't have an account? Register Here
+          </Text>
+        </TouchableOpacity>
       </View>
+      <Text
+        style={{
+          color: "gray",
+          marginTop: height * 0.4,
+          fontFamily: "poppins",
+        }}
+      >
+        Nerd Space
+      </Text>
     </View>
   );
 }
