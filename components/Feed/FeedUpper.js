@@ -172,9 +172,7 @@ export default function FeedUpper() {
           })}
         </ScrollView>
       </View>
-      <View
-        style={{ marginBottom: width * 0.22, height: height - height * 0.22 }}
-      >
+      <View style={{ marginBottom: width * 0.22 }}>
         <ScrollView style={{}}>
           {post.map((posted) => {
             return <PostBox key={posted.id} content={posted.content} />;
