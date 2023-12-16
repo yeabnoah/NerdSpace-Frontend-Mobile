@@ -74,7 +74,7 @@ export default function Myposts() {
           color: "white",
           borderWidth: 1,
           height: height * 0.002,
-          width: width * 0.91,
+          width: width * 1,
           marginHorizontal: width * 0.05,
           backgroundColor: "white",
         }}
@@ -87,9 +87,21 @@ export default function Myposts() {
           flexWrap: "wrap",
           display: "flex",
           flexDirection: "row",
+          height: height,
         }}
       >
-        {MockData.map((posts) => {
+        <Text
+          style={{
+            color: "gray",
+            textAlign: "center",
+            fontFamily: "poppins",
+            fontSize: width * 0.04,
+            padding: width * 0.35,
+          }}
+        >
+          No posts yet!
+        </Text>
+        {/* {MockData.map((posts) => {
           const ImageLink = posts.imagesLink;
 
           return (
@@ -98,10 +110,8 @@ export default function Myposts() {
               style={{
                 height: height * 0.14,
                 width: height * 0.15,
-                // borderRadius: height * 0.023,
+
                 margin: height * 0.005,
-                // borderWidth: 0.7,
-                // borderColor: "white",
               }}
             >
               <Image
@@ -111,12 +121,11 @@ export default function Myposts() {
                 style={{
                   height: "100%",
                   width: "100%",
-                  // borderRadius: height * 0.023,
                 }}
               />
             </View>
           );
-        })}
+        })} */}
       </View>
     </View>
   );

@@ -13,10 +13,13 @@ import { AntDesign, Entypo, Feather, FontAwesome } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { EvilIcons } from "@expo/vector-icons";
 import { FontAwesome5 } from "@expo/vector-icons";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Ionicons } from "@expo/vector-icons";
 import { useFonts } from "expo-font";
 import { useNavigation } from "@react-navigation/native";
+import Ip from "../utils/IpAdress";
+import axios from "axios";
+import { UidContext } from "../context/UID";
 
 const { width, height } = Dimensions.get("window");
 
@@ -29,10 +32,39 @@ export default function Navigator() {
   });
 
   const navigation = useNavigation();
+  const value = useContext(UidContext);
   const [modalVisible, setModalVisible] = useState(false);
   const [linkVisible, setLinkVisible] = useState(false);
   const [videoVisible, setVideoVisible] = useState(false);
   const [imageVisible, setImageVisible] = useState(false);
+  const [content, setContent] = useState("");
+  const [imageUrl, setImageUrl] = useState("");
+
+  const createPost = () => {
+    axios
+      .post(
+        `http://${Ip}:5000/users/auth/create`,
+        {
+          postText: content,
+          ImageUrl: imageUrl,
+        },
+        {
+          headers: {
+            authorization: value,
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+        }
+      )
+      .then(function (response) {
+        console.log("posted successfully");
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+    setModalVisible(false);
+  };
+
   return (
     <View
       style={{
@@ -111,6 +143,9 @@ export default function Navigator() {
               }}
             >
               <TextInput
+                onChangeText={(event) => {
+                  setContent(event);
+                }}
                 multiline
                 numberOfLines={4}
                 placeholder="Enter your text post right here ......"
@@ -151,6 +186,9 @@ export default function Navigator() {
             {imageVisible && (
               <View>
                 <TextInput
+                  onChangeText={(event) => {
+                    setImageUrl(event);
+                  }}
                   placeholder="Enter image Link here ......"
                   placeholderTextColor={"gray"}
                   style={{
@@ -225,7 +263,9 @@ export default function Navigator() {
               style={{ marginTop: width * 0.02, marginBottom: width * 0.04 }}
             >
               <TouchableOpacity
-                onPress={() => setModalVisible(false)}
+                onPress={() => {
+                  createPost();
+                }}
                 style={{
                   backgroundColor: "#7864F6",
                   borderRadius: width * 0.01,

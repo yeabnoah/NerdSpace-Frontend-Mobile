@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -19,11 +19,19 @@ const { height, width } = Dimensions.get("window");
 export default function LoginComp() {
   const navigation = useNavigation();
   const [username, setUsername] = useState("");
-
   const [password, setPassword] = useState("");
 
   const handleLogin = async () => {
     try {
+      // Check if a token exists
+      const existingToken = await AsyncStorage.getItem("token");
+
+      if (existingToken) {
+        // If a token exists, replace it
+        await AsyncStorage.removeItem("token");
+      }
+
+      // Proceed with login
       const response = await axios.post(`http://${Ip}:5000/users/login`, {
         username,
         password,

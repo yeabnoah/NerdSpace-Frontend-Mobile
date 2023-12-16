@@ -1,5 +1,5 @@
 import { View, Text, Dimensions, TouchableOpacity, Image } from "react-native";
-import React from "react";
+import React, { useContext } from "react";
 import TechNerd from "../../assets/images/technerd.jpg";
 import {
   MaterialCommunityIcons,
@@ -9,10 +9,24 @@ import {
 } from "@expo/vector-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faMessage, faUserPlus } from "@fortawesome/free-solid-svg-icons";
-
+import { PostContext } from "../../context/UID";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useNavigation } from "@react-navigation/native";
 const { width, height } = Dimensions.get("window");
 
 export default function ProfileCard() {
+  const navigation = useNavigation();
+  const logout = async () => {
+    try {
+      await AsyncStorage.removeItem("token");
+      console.log("Data removed");
+      console.log("user successfully logged out");
+      navigation.navigate("Login");
+    } catch (exception) {
+      console.log(exception);
+    }
+  };
+  const userData = useContext(PostContext);
   return (
     <View
       style={{
@@ -35,7 +49,7 @@ export default function ProfileCard() {
         <View>
           <TouchableOpacity onMagicTap={() => console.log("hello")}>
             <Image
-              source={TechNerd}
+              source={{ uri: userData.avatarImage }}
               style={{
                 height: height * 0.13,
                 width: height * 0.13,
@@ -59,24 +73,32 @@ export default function ProfileCard() {
           >
             <View style={{ marginLeft: width * 0.02 }}>
               <Text
-                style={{ color: "white", fontSize: 17, fontFamily: "poppins" }}
+                style={{
+                  color: "white",
+                  fontSize: width * 0.06,
+                  fontFamily: "poppins",
+                  // paddingTop: width * 0.08,
+                }}
               >
-                Tech Nerd
+                {userData.username}
               </Text>
               <Text
                 style={{ color: "gray", fontSize: 14, fontFamily: "poppins" }}
               >
-                Programmer
+                {/* Programmer */}
               </Text>
             </View>
             <View>
-              <TouchableOpacity style={{ marginRight: width * 0.063 }}>
+              <TouchableOpacity
+                onPress={() => logout()}
+                style={{ marginRight: width * 0.063 }}
+              >
                 <MaterialCommunityIcons
                   name="pencil-outline"
                   style={{
                     color: "#fff",
                     fontSize: width * 0.05,
-                    paddingTop: width * 0.02,
+                    paddingTop: width * 0.015,
                   }}
                 />
               </TouchableOpacity>
@@ -87,7 +109,7 @@ export default function ProfileCard() {
               display: "flex",
               flexDirection: "row",
               justifyContent: "flex-start",
-              paddingTop: width * 0.02,
+              // paddingTop: width * 0.02,
               marginLeft: width * 0.03,
             }}
           >
@@ -136,7 +158,7 @@ export default function ProfileCard() {
                     fontWeight: "600",
                   }}
                 >
-                  24
+                  {userData.followers}
                 </Text>
               </View>
               <View>
@@ -163,7 +185,7 @@ export default function ProfileCard() {
                     fontWeight: "600",
                   }}
                 >
-                  14
+                  {userData.following}
                 </Text>
               </View>
               <View>
@@ -195,7 +217,7 @@ export default function ProfileCard() {
             fontFamily: "poppins",
           }}
         >
-          Tech Nerd
+          {userData.username}
         </Text>
         <Text
           style={{
@@ -204,9 +226,9 @@ export default function ProfileCard() {
             fontFamily: "poppins",
           }}
         >
-          GBBS'22 AAU'27
+          {userData.bio}
         </Text>
-        <Text
+        {/* <Text
           style={{
             color: "white",
             fontSize: 15,
@@ -214,7 +236,7 @@ export default function ProfileCard() {
           }}
         >
           Self Taught Developer
-        </Text>
+        </Text> */}
       </View>
       <View
         style={{

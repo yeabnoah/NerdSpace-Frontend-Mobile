@@ -8,7 +8,7 @@ import {
   Modal,
   TouchableHighlight,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Technerd from "../../assets/images/technerd.jpg";
 import {
   AntDesign,
@@ -19,8 +19,11 @@ import {
   MaterialCommunityIcons,
   MaterialIcons,
 } from "@expo/vector-icons";
+import Ip from "../../utils/IpAdress";
 import MockImages from "../../utils/mockImage";
 import Modals from "./Modal";
+import { PostContext, UidContext } from "../../context/UID";
+import axios from "axios";
 
 const { width, height } = Dimensions.get("window");
 
@@ -31,11 +34,42 @@ export default function PostBox({
   comment,
   userId,
   timeStamp,
+  poster,
+  postId,
 }) {
+  const userData = useContext(PostContext);
+  const value = useContext(UidContext);
+  // const userPic = userData.avatarImage;
+  // console.log(userData);
+  // console.log(userPic);
   const [aboutPost, setAboutPost] = useState(false);
   const [liked, setLiked] = useState(false);
   const [followed, setFollowed] = useState(false);
   const [counter, setCounter] = useState(0);
+  const [commenter, setCommenter] = useState("");
+
+  const postComment = () => {
+    axios
+      .post(
+        `http://${Ip}:5000/users/auth/post/comment/${postId})`,
+        {
+          content: commenter,
+        },
+        {
+          headers: {
+            authorization: value,
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+        }
+      )
+      .then(function (response) {
+        console.log("commented successfully: ");
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
   return (
     <View
       style={{
@@ -61,11 +95,11 @@ export default function PostBox({
         <View style={{ display: "flex", flexDirection: "row" }}>
           <View>
             <Image
-              source={Technerd}
+              source={{ uri: poster.avatar_image }}
               alt="hello"
               style={{
-                height: height * 0.07,
-                width: height * 0.07,
+                height: height * 0.05,
+                width: height * 0.05,
                 borderRadius: height * 0.02,
                 marginRight: height * 0.02,
               }}
@@ -77,19 +111,10 @@ export default function PostBox({
                 fontSize: height * 0.023,
                 color: "#fff",
                 fontFamily: "poppins",
+                paddingTop: width * 0.007,
               }}
             >
-              Tech Nerd
-            </Text>
-            <Text
-              style={{
-                fontSize: height * 0.021,
-                color: "#745FF4",
-                fontWeight: "600",
-                fontFamily: "poppins",
-              }}
-            >
-              Mobile Developer
+              {poster.username}
             </Text>
           </View>
         </View>
@@ -174,18 +199,20 @@ export default function PostBox({
           to thank all of you for joining the community and using this app... */}
           {content}
         </Text>
-        <View style={{ flex: 1, alignItems: "baseline", paddingVertical: 3 }}>
-          <Image
-            source={{ uri: img }}
-            style={{
-              justifyContent: "center",
-              alignItems: "center",
-              height: width * 0.7,
-              width: width * 0.75,
-              borderRadius: width * 0.025,
-            }}
-          />
-        </View>
+        {img && (
+          <View style={{ flex: 1, alignItems: "baseline", paddingVertical: 3 }}>
+            <Image
+              source={{ uri: img }}
+              style={{
+                justifyContent: "center",
+                alignItems: "center",
+                height: width * 0.7,
+                width: width * 0.75,
+                borderRadius: width * 0.025,
+              }}
+            />
+          </View>
+        )}
       </View>
       {/* post Content */}
       <View style={{ paddingHorizontal: height * 0.02 }}>
@@ -316,11 +343,11 @@ export default function PostBox({
           borderRadius: height * 0.04,
           display: "flex",
           flexDirection: "row",
-          // marginVertical: 10,
+          // marginVertical: 10
         }}
       >
         <Image
-          source={Technerd}
+          source={{ uri: userData.avatarImage }}
           style={{
             height: height * 0.055,
             width: height * 0.055,
@@ -328,6 +355,9 @@ export default function PostBox({
           }}
         />
         <TextInput
+          onChange={(event) => {
+            setCommenter(event);
+          }}
           placeholder="Enter Your Comment here"
           placeholderTextColor="gray"
           style={{
@@ -341,6 +371,9 @@ export default function PostBox({
         />
 
         <TouchableOpacity
+          onPress={() => {
+            postComment();
+          }}
           style={{
             backgroundColor: "#7864F6",
             height: height * 0.04,
