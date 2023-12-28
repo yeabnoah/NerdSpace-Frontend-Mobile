@@ -43,7 +43,7 @@ export default function Navigator() {
   const [imageVisible, setImageVisible] = useState(false);
   const [content, setContent] = useState("");
   const [imageUrl, setImageUrl] = useState("");
-  const [image, setImage] = useState(null);
+  const [imager, setImager] = useState("");
 
   const [pickedImage, setPickedImage] = useState("");
   const apiUrl = `http://${Ip}:5000/users/auth/create`;
@@ -62,52 +62,60 @@ export default function Navigator() {
 
   const pickImage = async () => {
     try {
-      const docRes = await DocumentPicker.getDocumentAsync({
-        type: "image/*",
+      let result = ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
       });
 
-      const assets = docRes.assets;
-      if (!assets) return;
+      if (!result.canceled) {
+        const imageUri = result.assets[0].uri;
 
-      const imageFile = assets[0];
-      setSelectedImage(imageFile);
+        // Extract the image name correctly
+        const imageName = imageUri.split("/").pop();
+
+        setSelectedImage(imageUri);
+
+        // Call createPost with imageUri and imageName
+        createPost(imageUri, imageName);
+      }
     } catch (error) {
-      console.log("Error while selecting file: ", error);
+      console.error(error);
+      // Handle image picking error here
     }
   };
 
-  const createPost = async () => {
+  const createPost = async (imageUri, imageName) => {
+    const formData = new FormData();
+
+    formData.append("image", {
+      uri: imageUri,
+      type: "image/jpeg",
+      name: imageName,
+    });
+
+    // Assuming 'content' is defined somewhere in your code
+    formData.append("content", content);
+
     try {
-      const formData = new FormData();
-
-      // Add text data to the formData
-      formData.append("content", content);
-
-      // Add image data to the formData if an image is selected
-      if (selectedImage) {
-        formData.append("imageFile", {
-          name: selectedImage.name,
-          uri: selectedImage.uri,
-          type: "image/jpeg",
-        });
-      }
-
-      // Send POST request to the backend
-      const { data } = await axios.post(apiUrl, formData, {
+      const response = await fetch(`http://${Ip}:5000/users/auth/create`, {
+        method: "POST",
+        body: formData,
         headers: {
           authorization: value,
-          Accept: "application/json",
+          Accept: "multipart/form-data",
           "Content-Type": "multipart/form-data",
         },
       });
 
-      console.log(data);
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
 
-      setContent("");
-      setPickedImage("");
-      setModalVisible(false);
+      const responseData = await response.json();
+      console.log(responseData);
+      // Handle successful upload response here
     } catch (error) {
-      console.log("Error while posting data: ", error);
+      console.error(error);
+      // Handle upload error here
     }
   };
 
@@ -210,7 +218,7 @@ export default function Navigator() {
                 }}
               />
             </View>
-            {/* {selectedImage && (
+            {selectedImage && (
               <Image
                 source={{ uri: selectedImage }}
                 style={{
@@ -221,7 +229,7 @@ export default function Navigator() {
                   borderRadius: width * 0.02,
                 }}
               />
-            )} */}
+            )}
 
             <View
               style={{

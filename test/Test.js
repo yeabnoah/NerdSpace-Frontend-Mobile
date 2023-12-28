@@ -1,95 +1,67 @@
 import React, { useState } from "react";
-import { StyleSheet, Button, View, Image, TextInput } from "react-native";
-import * as DocumentPicker from "expo-document-picker";
+import { View, Text, TextInput, Button, Image } from "react-native";
 import axios from "axios";
-
-const apiUrl = `http://10.0.2.2:8000/upload`;
+import * as ImagePicker from "expo-image-picker";
 
 export default function Test() {
-  const [text, setText] = useState("");
-  const [selectedImage, setSelectedImage] = useState(null);
+  const [content, setContent] = useState("");
+  const [image, setImage] = useState(null);
 
-  const pickImage = async () => {
+  const handlePost = async () => {
+    const formData = new FormData();
+    formData.append("content", content);
+    formData.append("image", {
+      uri: image.assets[0].uri,
+      type: image.assets[0].type,
+      name: image.assets[0].fileName,
+    });
+
     try {
-      const docRes = await DocumentPicker.getDocumentAsync({
-        type: "image/*",
-      });
+      const response = await axios.post(
+        "http://localhost:3000/api/posts",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
 
-      const assets = docRes.assets;
-      if (!assets) return;
-
-      const imageFile = assets[0];
-      setSelectedImage(imageFile);
-    } catch (error) {
-      console.log("Error while selecting file: ", error);
+      console.log(response.data);
+    } catch (err) {
+      console.error(err);
     }
   };
 
-  const poster = async () => {
-    try {
-      const formData = new FormData();
+  const handleImagePicker = async () => {
+    const result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
 
-      // Add text data to the formData
-      formData.append("text", text);
-
-      // Add image data to the formData if an image is selected
-      if (selectedImage) {
-        formData.append("imageFile", {
-          name: selectedImage.name,
-          uri: selectedImage.uri,
-          type: "image/jpeg",
-        });
-      }
-
-      // Send POST request to the backend
-      const { data } = await axios.post(apiUrl, formData, {
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "multipart/form-data",
-        },
-      });
-
-      console.log(data);
-    } catch (error) {
-      console.log("Error while posting data: ", error);
+    if (!result.canceled) {
+      setImage(result);
     }
   };
 
   return (
-    <View style={styles.container}>
-      <TextInput
-        style={styles.input}
-        value={text}
-        onChangeText={(newText) => setText(newText)}
-      />
-      <Button title="Pick Image" onPress={pickImage} />
-      {selectedImage && (
-        <Image source={{ uri: selectedImage.uri }} style={styles.image} />
+    <View style={{ paddingTop: 300 }}>
+      <Text>Content:</Text>
+      <TextInput value={content} onChangeText={setContent} />
+
+      <Text>Image:</Text>
+      <Button title="Pick Image" onPress={handleImagePicker} />
+
+      {image && (
+        <Image
+          source={{ uri: image.assets[0].uri }}
+          style={{ width: 200, height: 200 }}
+        />
       )}
-      <Button title="Done" onPress={poster} />
+
+      <Button title="Post" onPress={handlePost} />
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  input: {
-    height: 40,
-    borderColor: "gray",
-    borderWidth: 1,
-    marginBottom: 10,
-    padding: 10,
-    width: "80%",
-  },
-  image: {
-    width: 200,
-    height: 200,
-    resizeMode: "contain",
-    marginBottom: 10,
-  },
-});
