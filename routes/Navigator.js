@@ -6,6 +6,7 @@ import {
   Modal,
   Button,
   TextInput,
+  Image,
 } from "react-native";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faMessage } from "@fortawesome/free-solid-svg-icons";
@@ -13,13 +14,16 @@ import { AntDesign, Entypo, Feather, FontAwesome } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { EvilIcons } from "@expo/vector-icons";
 import { FontAwesome5 } from "@expo/vector-icons";
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { Ionicons } from "@expo/vector-icons";
 import { useFonts } from "expo-font";
 import { useNavigation } from "@react-navigation/native";
 import Ip from "../utils/IpAdress";
 import axios from "axios";
 import { UidContext } from "../context/UID";
+import * as ImagePicker from "expo-image-picker";
+import * as FileSystem from "expo-file-system";
+import * as DocumentPicker from "expo-document-picker";
 
 const { width, height } = Dimensions.get("window");
 
@@ -30,7 +34,7 @@ export default function Navigator() {
     BoldBoldpoppins: require("../assets/fonts/Poppins-Bold.ttf"),
     Bolder: require("../assets/fonts/Poppins-Italic.ttf"),
   });
-
+  const [selectedImage, setSelectedImage] = useState(null);
   const navigation = useNavigation();
   const value = useContext(UidContext);
   const [modalVisible, setModalVisible] = useState(false);
@@ -39,30 +43,72 @@ export default function Navigator() {
   const [imageVisible, setImageVisible] = useState(false);
   const [content, setContent] = useState("");
   const [imageUrl, setImageUrl] = useState("");
+  const [image, setImage] = useState(null);
 
-  const createPost = () => {
-    axios
-      .post(
-        `http://${Ip}:5000/users/auth/create`,
-        {
-          postText: content,
-          ImageUrl: imageUrl,
-        },
-        {
-          headers: {
-            authorization: value,
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-        }
-      )
-      .then(function (response) {
-        console.log("posted successfully");
-      })
-      .catch(function (error) {
-        console.log(error);
+  const [pickedImage, setPickedImage] = useState("");
+  const apiUrl = `http://${Ip}:5000/users/auth/create`;
+
+  useEffect(() => {
+    (async () => {
+      const { status } =
+        await ImagePicker.requestMediaLibraryPermissionsAsync();
+      if (status !== "granted") {
+        alert("Permission to access media library is required!");
+      }
+    })();
+  }, []);
+
+  // console.log("image should be picked from the Gallery");
+
+  const pickImage = async () => {
+    try {
+      const docRes = await DocumentPicker.getDocumentAsync({
+        type: "image/*",
       });
-    setModalVisible(false);
+
+      const assets = docRes.assets;
+      if (!assets) return;
+
+      const imageFile = assets[0];
+      setSelectedImage(imageFile);
+    } catch (error) {
+      console.log("Error while selecting file: ", error);
+    }
+  };
+
+  const createPost = async () => {
+    try {
+      const formData = new FormData();
+
+      // Add text data to the formData
+      formData.append("content", content);
+
+      // Add image data to the formData if an image is selected
+      if (selectedImage) {
+        formData.append("imageFile", {
+          name: selectedImage.name,
+          uri: selectedImage.uri,
+          type: "image/jpeg",
+        });
+      }
+
+      // Send POST request to the backend
+      const { data } = await axios.post(apiUrl, formData, {
+        headers: {
+          authorization: value,
+          Accept: "application/json",
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
+      console.log(data);
+
+      setContent("");
+      setPickedImage("");
+      setModalVisible(false);
+    } catch (error) {
+      console.log("Error while posting data: ", error);
+    }
   };
 
   return (
@@ -96,6 +142,7 @@ export default function Navigator() {
         animationType="fade"
         transparent={true}
         onRequestClose={() => setModalVisible(false)}
+        pickedImage={pickedImage}
       >
         <TouchableOpacity
           onPress={() => setModalVisible(false)}
@@ -163,48 +210,18 @@ export default function Navigator() {
                 }}
               />
             </View>
-            {linkVisible && (
-              <View>
-                <TextInput
-                  placeholder="Enter the raw link here ......"
-                  placeholderTextColor={"gray"}
-                  style={{
-                    // borderColor: "white",
-                    backgroundColor: "#181428",
-                    color: "white",
-                    borderWidth: 1,
-                    paddingHorizontal: width * 0.06,
-                    paddingVertical: width * 0.03,
-                    marginTop: width * 0.04,
-                    borderRadius: width * 0.02,
-                    fontFamily: "poppins",
-                  }}
-                />
-              </View>
-            )}
-
-            {imageVisible && (
-              <View>
-                <TextInput
-                  onChangeText={(event) => {
-                    setImageUrl(event);
-                  }}
-                  placeholder="Enter image Link here ......"
-                  placeholderTextColor={"gray"}
-                  style={{
-                    // borderColor: "white",
-                    backgroundColor: "#181428",
-                    color: "white",
-                    borderWidth: 1,
-                    paddingHorizontal: width * 0.06,
-                    paddingVertical: width * 0.03,
-                    marginTop: width * 0.04,
-                    borderRadius: width * 0.02,
-                    fontFamily: "poppins",
-                  }}
-                />
-              </View>
-            )}
+            {/* {selectedImage && (
+              <Image
+                source={{ uri: selectedImage }}
+                style={{
+                  height: height * 0.1,
+                  width: height * 0.1,
+                  marginVertical: height * 0.01,
+                  marginHorizontal: height * 0.01,
+                  borderRadius: width * 0.02,
+                }}
+              />
+            )} */}
 
             <View
               style={{
@@ -213,6 +230,7 @@ export default function Navigator() {
                 marginTop: width * 0.01,
               }}
             >
+              {/* this is the power of coding in the middle of the city ... */}
               <TouchableOpacity onPress={() => setLinkVisible(!linkVisible)}>
                 <Ionicons
                   name="attach"
@@ -224,7 +242,7 @@ export default function Navigator() {
                   }}
                 />
               </TouchableOpacity>
-              <TouchableOpacity onPress={() => setImageVisible(!imageVisible)}>
+              <TouchableOpacity onPress={pickImage}>
                 <FontAwesome
                   name="image"
                   style={{

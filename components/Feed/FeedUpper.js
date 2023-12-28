@@ -17,12 +17,14 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { UidContext } from "../../context/UID";
 
 const { width, height } = Dimensions.get("window");
-const FEED_REFRESH_INTERVAL = 15000;
+const FEED_REFRESH_INTERVAL = 2000;
 
 const FeedUpper = () => {
   const value = useContext(UidContext);
+  // const userId = useContext(idToken);
   const [post, setPost] = useState([]);
   const [poster, setPoster] = useState({});
+  const [liked, setLiked] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -200,18 +202,22 @@ const FeedUpper = () => {
 
             const likeCount = likes.length;
             const commentCount = comments.length;
+            const imageUpdate = `${imageUrl}.jpg`;
 
             return (
               <PostBox
                 key={posted._id}
                 postId={posted._id}
                 content={content}
-                img={imageUrl}
+                img={imageUpdate}
                 like={likeCount}
                 comment={commentCount}
                 userId={user_id}
                 timeStamp={relativeTime}
                 poster={posted.user}
+                likes={likes}
+                liked={liked}
+                setLiked={setLiked}
               />
             );
           })}

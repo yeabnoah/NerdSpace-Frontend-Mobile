@@ -36,17 +36,67 @@ export default function PostBox({
   timeStamp,
   poster,
   postId,
+  likes,
 }) {
   const userData = useContext(PostContext);
   const value = useContext(UidContext);
+
+  const UId = userData.userId;
   // const userPic = userData.avatarImage;
   // console.log(userData);
   // console.log(userPic);
   const [aboutPost, setAboutPost] = useState(false);
-  const [liked, setLiked] = useState(false);
+  const [liked, setLiked] = useState(
+    likes.some((postUserId) => postUserId._id === userId)
+  );
+
   const [followed, setFollowed] = useState(false);
   const [counter, setCounter] = useState(0);
   const [commenter, setCommenter] = useState("");
+
+  const likePost = () => {
+    axios
+      .post(
+        `http://${Ip}:5000/users/auth/post/like/${postId}`, // Corrected URL for liking
+        {},
+        {
+          headers: {
+            authorization: value,
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+        }
+      )
+      .then((response) => {
+        console.log("successfully liked");
+        setLiked(true);
+      })
+      .catch((error) => {
+        console.error("Error liking the post:", error);
+      });
+  };
+
+  const unlikePost = () => {
+    axios
+      .post(
+        `http://${Ip}:5000/users/auth/post/like/${postId}`, // Corrected URL for liking
+        {},
+        {
+          headers: {
+            authorization: value,
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+        }
+      )
+      .then((response) => {
+        setLiked(false);
+        console.log("un liked successfully");
+      })
+      .catch((error) => {
+        console.error("Error liking the post:", error);
+      });
+  };
 
   const postComment = () => {
     axios
@@ -255,7 +305,11 @@ export default function PostBox({
                 }}
               >
                 {liked ? (
-                  <TouchableOpacity onPress={() => setLiked(!liked)}>
+                  <TouchableOpacity
+                    onPress={() => {
+                      unlikePost();
+                    }}
+                  >
                     <AntDesign
                       name="heart"
                       style={{
@@ -267,7 +321,11 @@ export default function PostBox({
                     />
                   </TouchableOpacity>
                 ) : (
-                  <TouchableOpacity onPress={() => setLiked(!liked)}>
+                  <TouchableOpacity
+                    onPress={() => {
+                      likePost();
+                    }}
+                  >
                     <AntDesign
                       name="hearto"
                       style={{

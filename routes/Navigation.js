@@ -15,6 +15,7 @@ import Login from "../screens/Login";
 import Register from "../screens/Register";
 import { PostContext, UidContext } from "../context/UID";
 import Ip from "../utils/IpAdress";
+import Test from "../test/Test";
 
 const Stack = createNativeStackNavigator();
 
@@ -60,6 +61,8 @@ export default function AppNavigation() {
           <Stack.Navigator
             screenOptions={{ headerShown: false }}
             initialRouteName={isLoggedIn ? "Feed" : "Register"}
+            // initialRouteName="Feed"
+            // initialRouteName="Test"
           >
             <Stack.Screen name="Home" component={HomeScreen} />
             <Stack.Screen name="Profile" component={Profile} />
@@ -69,6 +72,7 @@ export default function AppNavigation() {
             <Stack.Screen name="Chat" component={Chat} />
             <Stack.Screen name="Login" component={Login} />
             <Stack.Screen name="Register" component={Register} />
+            <Stack.Screen name="Test" component={Test} />
           </Stack.Navigator>
         </NavigationContainer>
       </PostContext.Provider>
