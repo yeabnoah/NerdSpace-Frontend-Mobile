@@ -44,18 +44,23 @@ const FeedUpper = () => {
       }
     };
 
-    fetchData(); // Initial fetch
+    // Perform the initial fetch only if 'value' is available
+    if (value) {
+      fetchData();
+    }
 
+    // Setup interval to periodically fetch data
     const interval = setInterval(fetchData, FEED_REFRESH_INTERVAL);
 
+    // Cleanup the interval on component unmount
     return () => {
       clearInterval(interval);
     };
-  }, [value]);
+  }, [value, Ip, FEED_REFRESH_INTERVAL]); // Make sure to include all dependencies
 
   return (
     <View style={{ flex: 1, backgroundColor: "rgba(4, 4, 24, 1)" }}>
-      <View style={{ backgroundColor: "#040418", height: height * 0.3 }}>
+      <View style={{ backgroundColor: "#040418", height: height * 0.115 }}>
         <View
           style={{
             paddingHorizontal: height * 0.017,
@@ -113,21 +118,39 @@ const FeedUpper = () => {
         <View
           style={{
             paddingHorizontal: height * 0.024,
-            paddingVertical: height * 0.01,
+            paddingTop: height * 0.01,
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "center",
           }}
         >
-          <Text
-            style={{
-              color: "#fff",
-              fontSize: height * 0.033,
-              fontFamily: "poppins",
-            }}
-          >
-            Friends
-          </Text>
+          <TouchableOpacity>
+            <Text
+              style={{
+                color: "#fff",
+                fontSize: height * 0.025,
+                fontFamily: "poppins",
+                marginRight: width * 0.04,
+              }}
+            >
+              Following
+            </Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity>
+            <Text
+              style={{
+                color: "#fff",
+                fontSize: height * 0.025,
+                fontFamily: "poppins",
+              }}
+            >
+              For You
+            </Text>
+          </TouchableOpacity>
         </View>
 
-        <ScrollView
+        {/* <ScrollView
           horizontal
           style={{ flexDirection: "row", marginHorizontal: height * 0.006 }}
         >
@@ -166,7 +189,7 @@ const FeedUpper = () => {
               </Text>
             </TouchableOpacity>
           ))}
-        </ScrollView>
+        </ScrollView> */}
       </View>
 
       <View
@@ -202,14 +225,14 @@ const FeedUpper = () => {
 
             const likeCount = likes.length;
             const commentCount = comments.length;
-            const imageUpdate = `${imageUrl}.jpg`;
+            // const imageUpdate = `${imageUrl}.jpg`;
 
             return (
               <PostBox
                 key={posted._id}
                 postId={posted._id}
                 content={content}
-                img={imageUpdate}
+                img={imageUrl}
                 like={likeCount}
                 comment={commentCount}
                 userId={user_id}

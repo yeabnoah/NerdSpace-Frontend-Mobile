@@ -24,6 +24,7 @@ import MockImages from "../../utils/mockImage";
 import Modals from "./Modal";
 import { PostContext, UidContext } from "../../context/UID";
 import axios from "axios";
+import logger from "../Chat/image-1703760243066.jpg";
 
 const { width, height } = Dimensions.get("window");
 
@@ -40,6 +41,19 @@ export default function PostBox({
 }) {
   const userData = useContext(PostContext);
   const value = useContext(UidContext);
+
+  if (img !== null) {
+    img = img.replace(/\\/g, "/");
+  } else {
+    img = null;
+  }
+
+  // console.log(img);
+
+  // const url = `http://localhost:5000/users${img}`;
+
+  const url = `http://${Ip}:5000/users/${img}`;
+  // console.log(img);
 
   const UId = userData.userId;
   // const userPic = userData.avatarImage;
@@ -99,12 +113,14 @@ export default function PostBox({
   };
 
   const postComment = () => {
+    const requestData = {
+      content: commenter,
+    };
+
     axios
       .post(
-        `http://${Ip}:5000/users/auth/post/comment/${postId})`,
-        {
-          content: commenter,
-        },
+        `http://${Ip}:5000/users/auth/post/comment/${postId}`,
+        JSON.stringify(requestData),
         {
           headers: {
             authorization: value,
@@ -120,12 +136,15 @@ export default function PostBox({
         console.log(error);
       });
   };
+
   return (
     <View
       style={{
         marginTop: width * 0.02,
         marginBottom: 10,
-        backgroundColor: "#181428",
+        // backgroundColor: "#181428",
+        borderColor: "#fff",
+        // borderWidth: 0.3,
         margin: width * 0.01,
         borderRadius: 10,
         // height: width * 0.825,
@@ -239,9 +258,10 @@ export default function PostBox({
         <Text
           style={{
             color: "#fff",
-            fontSize: height * 0.021,
+            fontSize: height * 0.023,
             paddingHorizontal: width * 0.017,
             fontFamily: "poppins",
+            marginBottom: height * 0.01,
           }}
         >
           {/* This is going to be the first post on this social media platform.
@@ -249,10 +269,12 @@ export default function PostBox({
           to thank all of you for joining the community and using this app... */}
           {content}
         </Text>
-        {img && (
+        {img !== null && (
           <View style={{ flex: 1, alignItems: "baseline", paddingVertical: 3 }}>
             <Image
-              source={{ uri: img }}
+              source={{
+                uri: url,
+              }}
               style={{
                 justifyContent: "center",
                 alignItems: "center",
@@ -407,13 +429,13 @@ export default function PostBox({
         <Image
           source={{ uri: userData.avatarImage }}
           style={{
-            height: height * 0.055,
-            width: height * 0.055,
-            borderRadius: 100,
+            height: height * 0.05,
+            width: height * 0.05,
+            borderRadius: 10,
           }}
         />
         <TextInput
-          onChange={(event) => {
+          onChangeText={(event) => {
             setCommenter(event);
           }}
           placeholder="Enter Your Comment here"

@@ -43,10 +43,10 @@ export default function Navigator() {
   const [imageVisible, setImageVisible] = useState(false);
   const [content, setContent] = useState("");
   const [imageUrl, setImageUrl] = useState("");
-  const [imager, setImager] = useState("");
+  const [image, setImage] = useState("");
 
   const [pickedImage, setPickedImage] = useState("");
-  const apiUrl = `http://${Ip}:5000/users/auth/create`;
+  // const apiUrl = `http://${Ip}:5000/users/auth/create`;
 
   useEffect(() => {
     (async () => {
@@ -61,61 +61,79 @@ export default function Navigator() {
   // console.log("image should be picked from the Gallery");
 
   const pickImage = async () => {
-    try {
-      let result = ImagePicker.launchImageLibraryAsync({
-        mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      });
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
 
-      if (!result.canceled) {
-        const imageUri = result.assets[0].uri;
-
-        // Extract the image name correctly
-        const imageName = imageUri.split("/").pop();
-
-        setSelectedImage(imageUri);
-
-        // Call createPost with imageUri and imageName
-        createPost(imageUri, imageName);
-      }
-    } catch (error) {
-      console.error(error);
-      // Handle image picking error here
+    if (!result.canceled) {
+      setImage(result.assets[0].uri);
     }
   };
 
-  const createPost = async (imageUri, imageName) => {
-    const formData = new FormData();
+  // const handleSubmit = async () => {
+  //   try {
+  //     const formData = new FormData();
+  //     formData.append("image", {
+  //       uri: image,
+  //       name: "image.jpg",
+  //       type: "image/jpeg",
+  //     });
+  //     formData.append("content", content);
 
-    formData.append("image", {
-      uri: imageUri,
-      type: "image/jpeg",
-      name: imageName,
-    });
+  //     const response = await axios.post(
+  //       `http://${Ip}:5000/users/auth/create`,
+  //       formData,
+  //       {
+  //         headers: {
+  //           authorization: value,
+  //           "Content-Type": "multipart/form-data",
+  //         },
+  //       }
+  //     );
+  //     console.log(response.data);
+  //     setImage("");
+  //     setContent("");
+  //     setModalVisible(false);
+  //   } catch (err) {
+  //     console.error(err);
+  //   }
+  // };
 
-    // Assuming 'content' is defined somewhere in your code
-    formData.append("content", content);
-
+  const handleSubmit = async () => {
     try {
-      const response = await fetch(`http://${Ip}:5000/users/auth/create`, {
-        method: "POST",
-        body: formData,
-        headers: {
-          authorization: value,
-          Accept: "multipart/form-data",
-          "Content-Type": "multipart/form-data",
-        },
-      });
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
+      const formData = new FormData();
+      if (image) {
+        formData.append("image", {
+          uri: image,
+          name: "image.jpg",
+          type: "image/jpeg",
+        });
+      }
+      if (content) {
+        formData.append("content", content);
+      } else {
+        throw new Error("Text field is required");
       }
 
-      const responseData = await response.json();
-      console.log(responseData);
-      // Handle successful upload response here
-    } catch (error) {
-      console.error(error);
-      // Handle upload error here
+      const response = await axios.post(
+        `http://${Ip}:5000/users/auth/create`,
+        formData,
+        {
+          headers: {
+            authorization: value,
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      console.log(response.data);
+      setImage("");
+      setContent("");
+      setModalVisible(false);
+    } catch (err) {
+      console.error(err);
     }
   };
 
@@ -126,9 +144,10 @@ export default function Navigator() {
         flexDirection: "row",
         justifyContent: "space-between",
         flex: 1,
-        borderTopLeftRadius: 20,
-        borderTopRightRadius: 20,
-        marginHorizontal: width * 0.056,
+        paddingHorizontal: width * 0.056,
+        paddingVertical: 5,
+        backgroundColor: "black",
+        // paddingHorizontal: 10,
       }}
     >
       <TouchableOpacity onPress={() => navigation.navigate("Feed")}>
@@ -198,9 +217,10 @@ export default function Navigator() {
               }}
             >
               <TextInput
-                onChangeText={(event) => {
-                  setContent(event);
+                onChangeText={(text) => {
+                  setContent(text);
                 }}
+                value={content}
                 multiline
                 numberOfLines={4}
                 placeholder="Enter your text post right here ......"
@@ -218,9 +238,9 @@ export default function Navigator() {
                 }}
               />
             </View>
-            {selectedImage && (
+            {image && (
               <Image
-                source={{ uri: selectedImage }}
+                source={{ uri: image }}
                 style={{
                   height: height * 0.1,
                   width: height * 0.1,
@@ -290,7 +310,7 @@ export default function Navigator() {
             >
               <TouchableOpacity
                 onPress={() => {
-                  createPost();
+                  handleSubmit();
                 }}
                 style={{
                   backgroundColor: "#7864F6",

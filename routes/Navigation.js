@@ -60,9 +60,9 @@ export default function AppNavigation() {
         <NavigationContainer>
           <Stack.Navigator
             screenOptions={{ headerShown: false }}
-            // initialRouteName={isLoggedIn ? "Feed" : "Register"}
+            initialRouteName={isLoggedIn ? "Feed" : "Register"}
             // initialRouteName="Feed"
-            initialRouteName="Test"
+            // initialRouteName="Profile"
           >
             <Stack.Screen name="Home" component={HomeScreen} />
             <Stack.Screen name="Profile" component={Profile} />

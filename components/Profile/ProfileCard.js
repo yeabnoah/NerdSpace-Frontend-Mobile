@@ -30,215 +30,117 @@ export default function ProfileCard() {
   return (
     <View
       style={{
-        height: height * 0.34,
-        marginTop: height * 0.018,
+        height: height * 0.37,
+        marginTop: height * 0.005,
         borderRadius: 10,
-        marginHorizontal: 12,
-        marginHorizontal: 5,
+        // marginHorizontal: 12,
+        // marginHorizontal: 5,
         flex: 5,
       }}
     >
       <View
         style={{
-          paddingTop: width * 0.08,
-          paddingHorizontal: width * 0.06,
+          height: height * 0.45,
+          // backgroundColor: "aqua",
           display: "flex",
-          flexDirection: "row",
+          flexDirection: "column",
         }}
       >
-        <View>
-          <TouchableOpacity onMagicTap={() => console.log("hello")}>
+        <Image
+          source={{
+            uri: "https://static.invenglobal.com/upload/image/2020/08/13/o1597361719998783.jpeg",
+          }}
+          style={{ flex: 1 }}
+        />
+        <View
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-between",
+            marginRight: width * 0.04,
+          }}
+        >
+          <TouchableOpacity
+            style={{
+              height: height * 0.12,
+              width: height * 0.12,
+              backgroundColor: "black",
+              borderRadius: 100,
+              marginTop: height * -0.053,
+              marginLeft: width * 0.035,
+              borderWidth: 4,
+              borderColor: "#040418",
+            }}
+          >
             <Image
               source={{ uri: userData.avatarImage }}
-              style={{
-                height: height * 0.13,
-                width: height * 0.13,
-                borderRadius: 100,
-                borderColor: "#fff",
-                borderWidth: 0,
-              }}
+              style={{ flex: 1, borderRadius: 100 }}
             />
           </TouchableOpacity>
-        </View>
-        <View>
-          <View
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: "space-between",
-              marginHorizontal: width * 0.03,
-              width: width * 0.6,
-              marginTop: width * 0.01,
-            }}
+
+          <TouchableOpacity
+            style={{ marginTop: height * 0.02 }}
+            onPress={logout}
           >
-            <View style={{ marginLeft: width * 0.02 }}>
-              <Text
-                style={{
-                  color: "white",
-                  fontSize: width * 0.06,
-                  fontFamily: "poppins",
-                  // paddingTop: width * 0.08,
-                }}
-              >
-                {userData.username}
-              </Text>
-              <Text
-                style={{ color: "gray", fontSize: 14, fontFamily: "poppins" }}
-              >
-                {/* Programmer */}
-              </Text>
-            </View>
-            <View>
-              <TouchableOpacity
-                onPress={() => logout()}
-                style={{ marginRight: width * 0.063 }}
-              >
-                <MaterialCommunityIcons
-                  name="pencil-outline"
-                  style={{
-                    color: "#fff",
-                    fontSize: width * 0.05,
-                    paddingTop: width * 0.015,
-                  }}
-                />
-              </TouchableOpacity>
-            </View>
-          </View>
-          <View
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: "flex-start",
-              // paddingTop: width * 0.02,
-              marginLeft: width * 0.03,
-            }}
-          >
-            <TouchableOpacity
+            <Text
               style={{
-                paddingRight: width * 0.03,
-                paddingLeft: width * 0.01,
-                paddingRight: width * 0.02,
+                color: "white",
+                paddingHorizontal: width * 0.035,
+                paddingTop: width * 0.017,
+                paddingBottom: width * 0.01,
+                borderWidth: 1,
+                borderColor: "white",
+                borderRadius: 20,
+                fontFamily: "poppins",
               }}
             >
-              <View>
-                <Text
-                  style={{
-                    color: "#A5A3F8",
-                    fontSize: width * 0.05,
-                    textAlign: "center",
-                    fontWeight: "600",
-                  }}
-                >
-                  7
-                </Text>
-              </View>
-              <View>
-                <Text
-                  style={{
-                    color: "#A5A3F8",
-                    fontSize: width * 0.04,
-                    textAlign: "center",
-                    fontWeight: "600",
-                  }}
-                >
-                  Posts
-                </Text>
-              </View>
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              style={{ paddingRight: width * 0.05, paddingLeft: width * 0.07 }}
+              Edit Profile
+            </Text>
+          </TouchableOpacity>
+        </View>
+        <View style={{ marginLeft: width * 0.045 }}>
+          <Text
+            style={{
+              color: "white",
+              fontFamily: "poppins",
+              fontSize: width * 0.065,
+            }}
+          >
+            {userData.username}
+          </Text>
+          <Text
+            style={{
+              color: "white",
+              fontSize: 15,
+              fontFamily: "poppins",
+            }}
+          >
+            {userData.bio}
+          </Text>
+          <View
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              marginTop: height * 0.005,
+            }}
+          >
+            <Text
+              style={{
+                color: "white",
+                marginRight: width * 0.035,
+                fontFamily: "poppins",
+              }}
             >
-              <View>
-                <Text
-                  style={{
-                    color: "#A5A3F8",
-                    fontSize: width * 0.05,
-                    textAlign: "center",
-                    fontWeight: "600",
-                  }}
-                >
-                  {userData.followers}
-                </Text>
-              </View>
-              <View>
-                <Text
-                  style={{
-                    color: "#A5A3F8",
-                    fontSize: width * 0.04,
-                    textAlign: "center",
-                    fontWeight: "600",
-                  }}
-                >
-                  Followers
-                </Text>
-              </View>
-            </TouchableOpacity>
+              {userData.following} Following
+            </Text>
 
-            <TouchableOpacity style={{ paddingHorizontal: width * 0.02 }}>
-              <View>
-                <Text
-                  style={{
-                    color: "#A5A3F8",
-                    fontSize: width * 0.05,
-                    textAlign: "center",
-                    fontWeight: "600",
-                  }}
-                >
-                  {userData.following}
-                </Text>
-              </View>
-              <View>
-                <Text
-                  style={{
-                    color: "#A5A3F8",
-                    fontSize: width * 0.04,
-                    textAlign: "center",
-                    fontWeight: "600",
-                  }}
-                >
-                  Following
-                </Text>
-              </View>
-            </TouchableOpacity>
+            <Text style={{ color: "white", fontFamily: "poppins" }}>
+              {userData.following} Following
+            </Text>
           </View>
         </View>
       </View>
-      <View
-        style={{
-          paddingHorizontal: width * 0.08,
-          paddingTop: width * 0.04,
-        }}
-      >
-        <Text
-          style={{
-            color: "white",
-            fontSize: 15,
-            fontFamily: "poppins",
-          }}
-        >
-          {userData.username}
-        </Text>
-        <Text
-          style={{
-            color: "white",
-            fontSize: 15,
-            fontFamily: "poppins",
-          }}
-        >
-          {userData.bio}
-        </Text>
-        {/* <Text
-          style={{
-            color: "white",
-            fontSize: 15,
-            fontFamily: "poppins",
-          }}
-        >
-          Self Taught Developer
-        </Text> */}
-      </View>
-      <View
+      {/* <View
         style={{
           display: "flex",
           flexDirection: "row",
@@ -251,9 +153,9 @@ export default function ProfileCard() {
             display: "flex",
             flexDirection: "row",
             backgroundColor: "#7864F6",
-            width: width * 0.44,
+            width: width * 0.42,
             justifyContent: "center",
-            padding: width * 0.033,
+            padding: width * 0.025,
             borderRadius: 50,
           }}
         >
@@ -279,9 +181,9 @@ export default function ProfileCard() {
             display: "flex",
             flexDirection: "row",
             backgroundColor: "#7864F6",
-            width: width * 0.44,
+            width: width * 0.42,
             justifyContent: "center",
-            padding: width * 0.03,
+            padding: width * 0.025,
             borderRadius: 50,
           }}
         >
@@ -300,7 +202,18 @@ export default function ProfileCard() {
             Message
           </Text>
         </TouchableOpacity>
-      </View>
+      </View> */}
+      <View
+        style={{
+          color: "white",
+          borderWidth: 1,
+          height: height * 0.004,
+          width: width * 0.9,
+          marginHorizontal: width * 0.05,
+          marginTop: height * 0.015,
+          backgroundColor: "#7864F6",
+        }}
+      ></View>
     </View>
   );
 }
