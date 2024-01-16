@@ -13,19 +13,19 @@ const { height, width } = Dimensions.get("window");
 
 export default function SearchUpper() {
   return (
-    <View style={{ height: height, backgroundColor: "#040418" }}>
+    <View style={{ height: height, backgroundColor: "#000000" }}>
       <View style={{ display: "flex", flexDirection: "row" }}>
         <TextInput
           placeholder="who do you wanna find ?"
           placeholderTextColor={"gray"}
           style={{
-            backgroundColor: "#1C1C37",
+            backgroundColor: "#000000",
             width: width * 0.7,
-            padding: width * 0.03,
+            paddingLeft: width * 0.05,
             margin: width * 0.06,
             borderRadius: 15,
-            borderColor: "#1C1C37",
-            borderWidth: 1.5,
+            borderColor: "gray",
+            borderWidth: 0.3,
             color: "#fff",
             fontSize: width * 0.043,
             fontFamily: "poppins",
@@ -41,7 +41,7 @@ export default function SearchUpper() {
           <AntDesign
             name="search1"
             style={{
-              color: "#7864F6",
+              color: "gray",
               fontSize: width * 0.09,
             }}
           />

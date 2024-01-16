@@ -7,18 +7,16 @@ import {
   ScrollView,
 } from "react-native";
 import React from "react";
-import { useFonts } from "expo-font";
 import Navigator from "../routes/Navigator";
 import ProfileUpper from "../components/Profile/ProfileUpper";
 import { SafeAreaView } from "react-native-safe-area-context";
-import SearchUpper from "../components/search/SearchUpper";
 
-export default function Search() {
+export default function Poster() {
   return (
     <SafeAreaView style={{ backgroundColor: "gray", color: "#fff" }}>
       <View>
         <ScrollView style={{}}>
-          <SearchUpper />
+          {/* <ProfileUpper /> */}
           <View style={{ flex: 1, backgroundColor: "#040418" }}>
             {/* Content of your feed */}
           </View>

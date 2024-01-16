@@ -13,7 +13,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function Feed() {
   return (
-    <SafeAreaView style={{ backgroundColor: "#7D7DD3", color: "#fff" }}>
+    <SafeAreaView style={{ backgroundColor: "gray", color: "#fff" }}>
       <View>
         <ScrollView style={{}}>
           <ProfileUpper />

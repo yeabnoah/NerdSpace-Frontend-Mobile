@@ -75,7 +75,7 @@ const FeedUpper = () => {
                 name="bars"
                 style={{
                   marginTop: height * 0.007,
-                  color: "#7864F6",
+                  color: "gray",
                   fontSize: height * 0.04,
                   width: height * 0.047,
                   height: height * 0.047,
@@ -85,7 +85,7 @@ const FeedUpper = () => {
               />
             </TouchableOpacity>
 
-            <View style={{ borderRadius: 100 }}>
+            <View>
               <Image
                 source={logo}
                 style={{ height: width * 0.12, width: width * 0.15 }}
@@ -100,7 +100,7 @@ const FeedUpper = () => {
                   name="plus"
                   style={{
                     marginTop: height * 0.007,
-                    color: "#7864F6",
+                    color: "gray",
                     fontSize: height * 0.039,
                     width: height * 0.05,
                     height: height * 0.05,
@@ -194,7 +194,7 @@ const FeedUpper = () => {
 
       <View
         style={{
-          marginBottom: height * 0.52,
+          marginBottom: height * 0.2,
           height: post.length > 0 ? "max-height" : height,
         }}
       >

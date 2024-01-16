@@ -164,21 +164,29 @@ export default function Navigator() {
         flex: 1,
         paddingHorizontal: width * 0.056,
         paddingVertical: 5,
-        backgroundColor: "black",
+        backgroundColor: "#000000",
         // paddingHorizontal: 10,
       }}
     >
       <TouchableOpacity onPress={() => navigation.navigate("Feed")}>
         <Feather
           name="home"
-          style={{ color: "#7864F6", fontSize: 23, paddingTop: width * 0.04 }}
+          style={{
+            color: "#858cac",
+            fontSize: width * 0.06,
+            paddingTop: width * 0.02,
+          }}
         />
       </TouchableOpacity>
 
       <TouchableOpacity onPress={() => navigation.navigate("Search")}>
         <AntDesign
           name="search1"
-          style={{ color: "#7864F6", fontSize: 23, paddingTop: width * 0.04 }}
+          style={{
+            color: "#858cac",
+            fontSize: width * 0.06,
+            paddingTop: width * 0.02,
+          }}
         />
       </TouchableOpacity>
 
@@ -262,7 +270,7 @@ export default function Navigator() {
             style={{
               height: "max-height",
               borderColor: "#7864",
-              borderBottomColor: "gray",
+              borderBottomColor: "#858cac",
               borderBottomWidth: 0.6,
               marginHorizontal: 5,
               paddingBottom: height * 0.01,
@@ -286,7 +294,7 @@ export default function Navigator() {
               multiline
               numberOfLines={7}
               placeholder="Enter your text post right here ......"
-              placeholderTextColor={"gray"}
+              placeholderTextColor={"#858cac"}
               style={{
                 height: "max-height",
                 width: width * 0.85,
@@ -307,7 +315,7 @@ export default function Navigator() {
                 <FontAwesome
                   name="image"
                   style={{
-                    color: "gray",
+                    color: "#858cac",
                     fontSize: height * 0.03,
                     paddingVertical: width * 0.01,
                     paddingHorizontal: width * 0.03,
@@ -318,7 +326,7 @@ export default function Navigator() {
                 <Entypo
                   name="video"
                   style={{
-                    color: "gray",
+                    color: "#858cac",
                     fontSize: height * 0.03,
                     paddingVertical: width * 0.01,
                     paddingHorizontal: width * 0.03,
@@ -329,7 +337,7 @@ export default function Navigator() {
                 <FontAwesome
                   name="file-pdf-o"
                   style={{
-                    color: "gray",
+                    color: "#858cac",
                     fontSize: height * 0.028,
                     paddingVertical: width * 0.01,
                     paddingHorizontal: width * 0.03,
@@ -358,7 +366,7 @@ export default function Navigator() {
               // marginTop: height * 0.08,
               // marginHorizontal: width * 0.01,
               backgroundColor: "#181a1e",
-              borderColor: "gray",
+              borderColor: "#858cac",
               borderWidth: 0.4,
               borderStyle: "dashed",
               height: "max-height",
@@ -375,23 +383,42 @@ export default function Navigator() {
       </Modal>
 
       <TouchableOpacity onPress={() => setModalVisible(true)}>
-        <Ionicons
-          name="add-circle-sharp"
-          style={{ color: "#7864F6", fontSize: 40, paddingTop: 0 }}
-        />
+        <View
+          style={{
+            paddingLeft: 2,
+            borderWidth: 2,
+            borderColor: "#858cac",
+            borderRadius: 100,
+            backgroundColor: "#000000",
+            marginTop: -17,
+          }}
+        >
+          <Ionicons
+            name="add-circle-sharp"
+            style={{ color: "#858cac", fontSize: width * 0.1, paddingTop: 0 }}
+          />
+        </View>
       </TouchableOpacity>
 
       <TouchableOpacity onPress={() => navigation.navigate("Chat")}>
         <MaterialCommunityIcons
           name="message-badge-outline"
-          style={{ color: "#7864F6", fontSize: 23, paddingTop: width * 0.04 }}
+          style={{
+            color: "#858cac",
+            fontSize: width * 0.06,
+            paddingTop: width * 0.02,
+          }}
         />
       </TouchableOpacity>
 
       <TouchableOpacity onPress={() => navigation.navigate("Profile")}>
         <Feather
           name="user"
-          style={{ color: "#7864F6", fontSize: 23, paddingTop: width * 0.04 }}
+          style={{
+            color: "#858cac",
+            fontSize: width * 0.06,
+            paddingTop: width * 0.02,
+          }}
         />
       </TouchableOpacity>
     </View>

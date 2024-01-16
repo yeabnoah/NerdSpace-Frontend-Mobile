@@ -25,6 +25,7 @@ import Modals from "./Modal";
 import { PostContext, UidContext } from "../../context/UID";
 import axios from "axios";
 import logger from "../Chat/image-1703760243066.jpg";
+import { useNavigation } from "@react-navigation/native";
 
 const { width, height } = Dimensions.get("window");
 
@@ -51,6 +52,7 @@ export default function PostBox({
   const [userImage, setUserImage] = useState(userData.avatarImage);
   const followers = usen.followers;
 
+  const navigation = useNavigation();
   useEffect(() => {
     followers.map((id) => {
       if (userData.userId === id) {
@@ -242,7 +244,11 @@ export default function PostBox({
         }}
       >
         <View style={{ display: "flex", flexDirection: "row" }}>
-          <View>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate("Poster");
+            }}
+          >
             <Image
               source={{ uri: urlAvatar }}
               alt="hello"
@@ -253,7 +259,7 @@ export default function PostBox({
                 marginRight: height * 0.02,
               }}
             />
-          </View>
+          </TouchableOpacity>
           <View>
             <Text
               style={{

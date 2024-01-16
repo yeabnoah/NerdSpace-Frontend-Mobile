@@ -16,7 +16,7 @@ const { width, height } = Dimensions.get("window");
 
 export default function Chat() {
   return (
-    <SafeAreaView style={{ backgroundColor: "#7D7DD3", color: "#fff" }}>
+    <SafeAreaView style={{ backgroundColor: "gray", color: "#fff" }}>
       <View>
         <ScrollView style={{}}>
           <ChatUpper />

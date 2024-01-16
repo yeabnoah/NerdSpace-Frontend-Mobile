@@ -20,6 +20,16 @@ export default function ProfileCard() {
   const [refreshCount, setRefreshCount] = useState(0);
   const userData = useContext(PostContext);
 
+  if (userData.coverImage) {
+    if (userData.coverImage !== null) {
+      userData.coverImage = userData.coverImage.replace(/\\/g, "/");
+    } else {
+      userData.coverImage = null;
+    }
+  }
+
+  const urlCov = `http://${Ip}:5000/users/${userData.coverImage}`;
+
   if (userData.avatarImage) {
     if (userData.avatarImage !== null) {
       userData.avatarImage = userData.avatarImage.replace(/\\/g, "/");
@@ -47,7 +57,7 @@ export default function ProfileCard() {
     <View
       style={{
         height: height * 0.37,
-        marginTop: height * 0.005,
+        // marginTop: height * 0.005,
         borderRadius: 10,
         flex: 5,
       }}
@@ -61,7 +71,7 @@ export default function ProfileCard() {
       >
         <Image
           source={{
-            uri: "https://static.invenglobal.com/upload/image/2020/08/13/o1597361719998783.jpeg",
+            uri: urlCov,
           }}
           style={{ flex: 1 }}
         />

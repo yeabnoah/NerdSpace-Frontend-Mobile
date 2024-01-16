@@ -17,6 +17,7 @@ import { PostContext, UidContext } from "../context/UID";
 import Ip from "../utils/IpAdress";
 import Test from "../test/Test";
 import EditProfile from "../screens/EditProfile";
+import Poster from "../screens/poster";
 
 const Stack = createNativeStackNavigator();
 
@@ -85,6 +86,7 @@ export default function AppNavigation() {
             <Stack.Screen name="Register" component={Register} />
             <Stack.Screen name="Test" component={Test} />
             <Stack.Screen name="Edit" component={EditProfile} />
+            <Stack.Screen name="Poster" component={Poster} />
           </Stack.Navigator>
         </NavigationContainer>
       </PostContext.Provider>

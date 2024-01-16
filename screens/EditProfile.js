@@ -9,6 +9,7 @@ import {
   Modal,
   Button,
   StyleSheet,
+  TouchableWithoutFeedback,
 } from "react-native";
 import React, { useState, useContext, useEffect } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -30,6 +31,7 @@ import Ip from "../utils/IpAdress";
 const { height, width } = Dimensions.get("window");
 
 export default function EditProfile() {
+  const navigation = useNavigation();
   const [modalVisible, setModalVisible] = useState(false);
   const userData = useContext(PostContext);
   const value = useContext(UidContext);
@@ -94,6 +96,7 @@ export default function EditProfile() {
   };
 
   handleCoverSubmit = async () => {
+    navigation.goBack();
     try {
       const formData = new FormData();
 
@@ -120,13 +123,13 @@ export default function EditProfile() {
       console.log(response.data);
 
       // Assuming you want to navigate back after a successful update
-      navigation.goBack();
     } catch (err) {
       console.error(err);
     }
   };
 
   const handleSubmit = async () => {
+    navigation.goBack();
     try {
       const formData = new FormData();
 
@@ -181,15 +184,13 @@ export default function EditProfile() {
       console.log(response.data);
 
       // Assuming you want to navigate back after a successful update
-      navigation.goBack();
     } catch (err) {
       console.error(err);
     }
   };
 
-  const navigation = useNavigation();
   return (
-    <SafeAreaView style={{ backgroundColor: "#7864f6" }}>
+    <SafeAreaView style={{ backgroundColor: "gray" }}>
       <View style={styles.container}>
         <Modal
           animationType="slide"
@@ -197,7 +198,18 @@ export default function EditProfile() {
           visible={modalVisible}
           onRequestClose={closeModal}
         >
-          <View style={styles.modalContainer}>
+          <View style={styles.modalContainer} onPress={closeModal}>
+            <TouchableOpacity
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "flex-end",
+                marginLeft: width * 0.8,
+                marginBottom: height * 0.01,
+              }}
+            >
+              <AntDesign name="closecircleo" size={32} color="white" />
+            </TouchableOpacity>
             <TouchableOpacity onPress={pickCover} style={styles.modalContent}>
               <Image
                 style={{
@@ -246,6 +258,7 @@ export default function EditProfile() {
           width: width,
           paddingHorizontal: width * 0.03,
           paddingVertical: height * 0.02,
+          paddingBottom: height * 0.1,
         }}
       >
         <TouchableOpacity
@@ -374,7 +387,7 @@ export default function EditProfile() {
         <View
           style={{
             // backgroundColor: "aqua",
-            height: height * 0.7,
+            height: "max-height",
             marginBottom: height * 0.007,
             marginHorizontal: 10,
           }}
@@ -508,6 +521,7 @@ const styles = StyleSheet.create({
   modalContent: {
     // backgroundColor: "white",
     // padding: 20,
+    // justifyContent: "center",
     borderRadius: 10,
     alignItems: "center",
     height: height * 0.35,

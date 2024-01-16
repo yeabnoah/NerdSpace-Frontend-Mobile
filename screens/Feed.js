@@ -6,7 +6,7 @@ import FeedUpper from "../components/Feed/FeedUpper";
 
 export default function Feed() {
   return (
-    <SafeAreaView style={{ backgroundColor: "#7864F6" }}>
+    <SafeAreaView style={{ backgroundColor: "#858cac" }}>
       <View style={{ backgroundColor: "#040418" }}>
         <ScrollView style={{}}>
           <FeedUpper />
