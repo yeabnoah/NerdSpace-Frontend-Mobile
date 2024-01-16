@@ -10,7 +10,13 @@ import {
 } from "react-native";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faMessage } from "@fortawesome/free-solid-svg-icons";
-import { AntDesign, Entypo, Feather, FontAwesome } from "@expo/vector-icons";
+import {
+  AntDesign,
+  Entypo,
+  Feather,
+  FontAwesome,
+  MaterialIcons,
+} from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { EvilIcons } from "@expo/vector-icons";
 import { FontAwesome5 } from "@expo/vector-icons";
@@ -20,7 +26,7 @@ import { useFonts } from "expo-font";
 import { useNavigation } from "@react-navigation/native";
 import Ip from "../utils/IpAdress";
 import axios from "axios";
-import { UidContext } from "../context/UID";
+import { PostContext, UidContext } from "../context/UID";
 import * as ImagePicker from "expo-image-picker";
 import * as FileSystem from "expo-file-system";
 import * as DocumentPicker from "expo-document-picker";
@@ -37,6 +43,8 @@ export default function Navigator() {
   const [selectedImage, setSelectedImage] = useState(null);
   const navigation = useNavigation();
   const value = useContext(UidContext);
+  const data = useContext(PostContext);
+  const userImage = data.avatarImage;
   const [modalVisible, setModalVisible] = useState(false);
   const [linkVisible, setLinkVisible] = useState(false);
   const [videoVisible, setVideoVisible] = useState(false);
@@ -47,6 +55,16 @@ export default function Navigator() {
 
   const [pickedImage, setPickedImage] = useState("");
   // const apiUrl = `http://${Ip}:5000/users/auth/create`;
+
+  if (data.avatarImage) {
+    if (data.avatarImage !== null) {
+      data.avatarImage = data.avatarImage.replace(/\\/g, "/");
+    } else {
+      data.avatarImage = null;
+    }
+  }
+
+  const urlAv = `http://${Ip}:5000/users/${data.avatarImage}`;
 
   useEffect(() => {
     (async () => {
@@ -64,7 +82,7 @@ export default function Navigator() {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
-      aspect: [4, 3],
+      // aspect: [4, 3],
       quality: 1,
     });
 
@@ -171,142 +189,48 @@ export default function Navigator() {
         onRequestClose={() => setModalVisible(false)}
         pickedImage={pickedImage}
       >
-        <TouchableOpacity
-          onPress={() => setModalVisible(false)}
+        {/* <TouchableOpacity
+          // onPress={() => setModalVisible(false)}
           style={{
             flex: 1,
             justifyContent: "center",
             alignItems: "center",
-            backgroundColor: "rgba(0, 0, 0, 0.6)",
+            backgroundColor: "#000000",
+          }}
+        > */}
+        <View
+          style={{
+            backgroundColor: "#000000",
+            paddingHorizontal: 20,
+            // paddingVertical: 10,
+            width: width,
+            height: height * 0.4,
+            flex: 1,
+            // borderColor: "#7864f1",
+            borderWidth: 0.7,
           }}
         >
           <View
             style={{
-              backgroundColor: "rgba(4, 4, 24, 1)",
-              paddingHorizontal: 20,
-              paddingVertical: 10,
-              // height: width * 1.16,
-              width: width * 0.9,
-              borderRadius: width * 0.04,
-              borderColor: "#7864F6",
-              borderWidth: 1,
+              // flex: 1,
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "space-between",
             }}
           >
-            <View
-              style={{
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: "flex-end",
-              }}
-            >
-              <TouchableOpacity onPress={() => setModalVisible(false)}>
-                <AntDesign
-                  name="close"
-                  style={{ color: "white", fontSize: width * 0.05 }}
-                />
-              </TouchableOpacity>
-            </View>
-
-            <View
-              style={{
-                height: width * 0.4,
-                backgroundColor: "#181428",
-                marginTop: width * 0.03,
-                borderRadius: width * 0.04,
-                borderColor: "#7864F6",
-              }}
-            >
-              <TextInput
-                onChangeText={(text) => {
-                  setContent(text);
-                }}
-                value={content}
-                multiline
-                numberOfLines={4}
-                placeholder="Enter your text post right here ......"
-                placeholderTextColor={"gray"}
+            <TouchableOpacity onPress={() => setModalVisible(false)}>
+              <AntDesign
+                name="close"
                 style={{
-                  height: width * 0.4,
-                  color: "white",
-                  borderWidth: 1,
-                  paddingHorizontal: width * 0.06,
-                  borderRadius: 10,
-                  textAlignVertical: "top",
-                  paddingTop: width * 0.03,
-                  fontFamily: "poppins",
-                  fontSize: width * 0.045,
+                  color: "#7864f6",
+                  fontSize: width * 0.07,
+                  marginTop: height * 0.04,
                 }}
               />
-            </View>
-            {image && (
-              <Image
-                source={{ uri: image }}
-                style={{
-                  height: height * 0.1,
-                  width: height * 0.1,
-                  marginVertical: height * 0.01,
-                  marginHorizontal: height * 0.01,
-                  borderRadius: width * 0.02,
-                }}
-              />
-            )}
+            </TouchableOpacity>
 
             <View
-              style={{
-                display: "flex",
-                flexDirection: "row",
-                marginTop: width * 0.01,
-              }}
-            >
-              {/* this is the power of coding in the middle of the city ... */}
-              <TouchableOpacity onPress={() => setLinkVisible(!linkVisible)}>
-                <Ionicons
-                  name="attach"
-                  style={{
-                    color: "white",
-                    fontSize: height * 0.035,
-                    paddingVertical: width * 0.02,
-                    paddingHorizontal: width * 0.03,
-                  }}
-                />
-              </TouchableOpacity>
-              <TouchableOpacity onPress={pickImage}>
-                <FontAwesome
-                  name="image"
-                  style={{
-                    color: "white",
-                    fontSize: height * 0.033,
-                    paddingVertical: width * 0.02,
-                    paddingHorizontal: width * 0.03,
-                  }}
-                />
-              </TouchableOpacity>
-              <TouchableOpacity>
-                <Entypo
-                  name="video"
-                  style={{
-                    color: "white",
-                    fontSize: height * 0.035,
-                    paddingVertical: width * 0.02,
-                    paddingHorizontal: width * 0.03,
-                  }}
-                />
-              </TouchableOpacity>
-              <TouchableOpacity>
-                <Feather
-                  name="file"
-                  style={{
-                    color: "white",
-                    fontSize: height * 0.035,
-                    paddingVertical: width * 0.02,
-                    paddingHorizontal: width * 0.03,
-                  }}
-                />
-              </TouchableOpacity>
-            </View>
-
-            <View
-              style={{ marginTop: width * 0.02, marginBottom: width * 0.04 }}
+              style={{ marginTop: width * 0.08, marginBottom: width * 0.04 }}
             >
               <TouchableOpacity
                 onPress={() => {
@@ -314,16 +238,18 @@ export default function Navigator() {
                 }}
                 style={{
                   backgroundColor: "#7864F6",
-                  borderRadius: width * 0.01,
-                  width: width * 0.8,
+                  borderRadius: width * 0.08,
+                  width: width * 0.18,
                 }}
               >
                 <Text
                   style={{
                     fontFamily: "poppins",
                     textAlign: "center",
-                    padding: width * 0.02,
-                    fontSize: width * 0.06,
+                    paddingHorizontal: width * 0.001,
+                    paddingVertical: width * 0.008,
+                    fontSize: width * 0.05,
+                    color: "white",
                   }}
                 >
                   Post
@@ -331,7 +257,121 @@ export default function Navigator() {
               </TouchableOpacity>
             </View>
           </View>
-        </TouchableOpacity>
+
+          <View
+            style={{
+              height: "max-height",
+              borderColor: "#7864",
+              borderBottomColor: "gray",
+              borderBottomWidth: 0.6,
+              marginHorizontal: 5,
+              paddingBottom: height * 0.01,
+            }}
+          >
+            <Image
+              source={{ uri: urlAv }}
+              style={{
+                height: width * 0.12,
+                width: width * 0.12,
+                borderRadius: 100,
+                marginTop: height * 0.02,
+              }}
+            />
+
+            <TextInput
+              onChangeText={(text) => {
+                setContent(text);
+              }}
+              value={content}
+              multiline
+              numberOfLines={7}
+              placeholder="Enter your text post right here ......"
+              placeholderTextColor={"gray"}
+              style={{
+                height: "max-height",
+                width: width * 0.85,
+                color: "#7864f6",
+                borderWidth: 0.4,
+                borderRadius: 10,
+                textAlignVertical: "top",
+                marginTop: height * 0.03,
+                marginHorizontal: width * 0.01,
+                fontFamily: "poppins",
+                fontSize: width * 0.05,
+                // padding: 15,
+              }}
+            />
+
+            <View style={{ display: "flex", flexDirection: "row" }}>
+              <TouchableOpacity onPress={pickImage}>
+                <FontAwesome
+                  name="image"
+                  style={{
+                    color: "gray",
+                    fontSize: height * 0.03,
+                    paddingVertical: width * 0.01,
+                    paddingHorizontal: width * 0.03,
+                  }}
+                />
+              </TouchableOpacity>
+              <TouchableOpacity onPress={pickImage}>
+                <Entypo
+                  name="video"
+                  style={{
+                    color: "gray",
+                    fontSize: height * 0.03,
+                    paddingVertical: width * 0.01,
+                    paddingHorizontal: width * 0.03,
+                  }}
+                />
+              </TouchableOpacity>
+              <TouchableOpacity onPress={pickImage}>
+                <FontAwesome
+                  name="file-pdf-o"
+                  style={{
+                    color: "gray",
+                    fontSize: height * 0.028,
+                    paddingVertical: width * 0.01,
+                    paddingHorizontal: width * 0.03,
+                  }}
+                />
+              </TouchableOpacity>
+            </View>
+          </View>
+          {image && (
+            <Image
+              source={{ uri: image }}
+              style={{
+                height: height * 0.4,
+                width: height * 0.4,
+                marginTop: height * 0.02,
+                marginHorizontal: height * 0.02,
+                borderRadius: width * 0.02,
+              }}
+            />
+          )}
+
+          {/* <View
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              // marginTop: height * 0.08,
+              // marginHorizontal: width * 0.01,
+              backgroundColor: "#181a1e",
+              borderColor: "gray",
+              borderWidth: 0.4,
+              borderStyle: "dashed",
+              height: "max-height",
+              marginTop: 10,
+              borderRadius: width * 0.02,
+              width: width * 0.3,
+              justifyContent: "center",
+            }}
+          >
+            
+          </View> */}
+        </View>
+        {/* </TouchableOpacity> */}
       </Modal>
 
       <TouchableOpacity onPress={() => setModalVisible(true)}>

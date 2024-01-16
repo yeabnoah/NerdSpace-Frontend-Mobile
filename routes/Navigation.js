@@ -16,6 +16,7 @@ import Register from "../screens/Register";
 import { PostContext, UidContext } from "../context/UID";
 import Ip from "../utils/IpAdress";
 import Test from "../test/Test";
+import EditProfile from "../screens/EditProfile";
 
 const Stack = createNativeStackNavigator();
 
@@ -23,6 +24,7 @@ export default function AppNavigation() {
   const [idToken, setIdToken] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userData, setUserData] = useState({});
+  const [refreshCount, setRefreshCount] = useState(0);
   const [fontsLoaded] = useFonts({
     poppins: require("../assets/fonts/Poppins-Regular.ttf"),
   });
@@ -47,8 +49,17 @@ export default function AppNavigation() {
         setIsLoggedIn(true);
       }
     };
-    fetchData();
-  }, []);
+
+    fetchData(); // Initial fetch
+
+    const intervalId = setInterval(() => {
+      fetchData(); // Fetch data every 5 seconds
+      setRefreshCount((prevCount) => prevCount + 1);
+    }, 5000);
+
+    // Cleanup the interval on component unmount
+    return () => clearInterval(intervalId);
+  }, [refreshCount]);
 
   if (!fontsLoaded) {
     return null;
@@ -62,7 +73,7 @@ export default function AppNavigation() {
             screenOptions={{ headerShown: false }}
             initialRouteName={isLoggedIn ? "Feed" : "Register"}
             // initialRouteName="Feed"
-            // initialRouteName="Profile"
+            // initialRouteName="Edit"
           >
             <Stack.Screen name="Home" component={HomeScreen} />
             <Stack.Screen name="Profile" component={Profile} />
@@ -73,6 +84,7 @@ export default function AppNavigation() {
             <Stack.Screen name="Login" component={Login} />
             <Stack.Screen name="Register" component={Register} />
             <Stack.Screen name="Test" component={Test} />
+            <Stack.Screen name="Edit" component={EditProfile} />
           </Stack.Navigator>
         </NavigationContainer>
       </PostContext.Provider>

@@ -8,7 +8,7 @@ import {
   Modal,
   TouchableHighlight,
 } from "react-native";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Technerd from "../../assets/images/technerd.jpg";
 import {
   AntDesign,
@@ -38,9 +38,52 @@ export default function PostBox({
   poster,
   postId,
   likes,
+  usen,
 }) {
   const userData = useContext(PostContext);
   const value = useContext(UidContext);
+  const [commentOn, setCommentOn] = useState(false);
+  const [followed, setFollowed] = useState(false);
+  const [counter, setCounter] = useState(0);
+  const [commenter, setCommenter] = useState("");
+  const [allComments, setAllComments] = useState();
+  const [samePoster, setSamePoster] = useState(false);
+  const [userImage, setUserImage] = useState(userData.avatarImage);
+  const followers = usen.followers;
+
+  useEffect(() => {
+    followers.map((id) => {
+      if (userData.userId === id) {
+        setFollowed(true);
+        // console.log("u followed him before");
+      }
+    });
+
+    if (userData.userId === usen._id) {
+      // console.log("same Poster");
+      setSamePoster(true);
+    }
+  }, []);
+
+  if (userData.avatarImage) {
+    if (userData.avatarImage !== null) {
+      userData.avatarImage = userData.avatarImage.replace(/\\/g, "/");
+    } else {
+      userData.avatarImage = null;
+    }
+  }
+
+  const urlAv = `http://${Ip}:5000/users/${userData.avatarImage}`;
+
+  if (usen.avatar_image) {
+    if (usen.avatar_image !== null) {
+      usen.avatar_image = usen.avatar_image.replace(/\\/g, "/");
+    } else {
+      usen.avatar_image = null;
+    }
+  }
+
+  const urlAvatar = `http://${Ip}:5000/users/${usen.avatar_image}`;
 
   if (img !== null) {
     img = img.replace(/\\/g, "/");
@@ -48,25 +91,58 @@ export default function PostBox({
     img = null;
   }
 
-  // console.log(img);
-
-  // const url = `http://localhost:5000/users${img}`;
-
   const url = `http://${Ip}:5000/users/${img}`;
-  // console.log(img);
 
   const UId = userData.userId;
-  // const userPic = userData.avatarImage;
-  // console.log(userData);
-  // console.log(userPic);
+
   const [aboutPost, setAboutPost] = useState(false);
   const [liked, setLiked] = useState(
     likes.some((postUserId) => postUserId._id === userId)
   );
 
-  const [followed, setFollowed] = useState(false);
-  const [counter, setCounter] = useState(0);
-  const [commenter, setCommenter] = useState("");
+  const followHandler = () => {
+    setFollowed(!followed);
+    console.log(userId);
+
+    axios
+      .post(
+        `http://${Ip}:5000/users/auth/follow/${userId}`,
+        { userIdToken: userData.userId },
+        {
+          headers: {
+            authorization: value,
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+        }
+      )
+      .then((response) => {
+        // console.log(response);
+      });
+  };
+
+  const commentHandler = () => {
+    setCommentOn(!commentOn);
+
+    if (!commentOn) {
+      axios
+        .get(`http://${Ip}:5000/users/auth/post/comment/${postId}`, {
+          headers: {
+            authorization: value,
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+        })
+        .then((response) => {
+          // console.log(response.data);
+          setAllComments(response.data);
+        });
+
+      console.log("Comment clicked!!");
+    } else {
+      setAllComments([]);
+    }
+  };
 
   const likePost = () => {
     axios
@@ -117,6 +193,7 @@ export default function PostBox({
       content: commenter,
     };
 
+    setCommentOn(false);
     axios
       .post(
         `http://${Ip}:5000/users/auth/post/comment/${postId}`,
@@ -140,16 +217,19 @@ export default function PostBox({
   return (
     <View
       style={{
-        marginTop: width * 0.02,
+        marginTop: width * 0.05,
         marginBottom: 10,
-        // backgroundColor: "#181428",
-        borderColor: "#fff",
-        // borderWidth: 0.3,
+        // backgroundColor: "#040418",
+        // borderColor: "#7864F6",
+        borderWidth: 0.3,
         margin: width * 0.01,
         borderRadius: 10,
         // height: width * 0.825,
         height: "max-width",
         paddingBottom: width * 0.02,
+        borderBottomColor: "#7864",
+        borderTopColor: "#7864",
+        borderBottomWidth: 0.7,
       }}
     >
       <Modals aboutPost={aboutPost} setAboutPost={setAboutPost} />
@@ -164,12 +244,12 @@ export default function PostBox({
         <View style={{ display: "flex", flexDirection: "row" }}>
           <View>
             <Image
-              source={{ uri: poster.avatar_image }}
+              source={{ uri: urlAvatar }}
               alt="hello"
               style={{
                 height: height * 0.05,
                 width: height * 0.05,
-                borderRadius: height * 0.02,
+                borderRadius: height * 0.01,
                 marginRight: height * 0.02,
               }}
             />
@@ -177,89 +257,110 @@ export default function PostBox({
           <View>
             <Text
               style={{
-                fontSize: height * 0.023,
+                fontSize: height * 0.02,
                 color: "#fff",
                 fontFamily: "poppins",
                 paddingTop: width * 0.007,
               }}
             >
-              {poster.username}
+              @Nerd_{poster.username}
             </Text>
           </View>
         </View>
-        <View style={{ display: "flex", flexDirection: "row" }}>
-          {followed ? (
-            <TouchableOpacity
-              onPress={() => {
-                setFollowed(!followed);
-              }}
-              style={{
-                display: "flex",
-                flexDirection: "row",
-                paddingBottom: 0,
-                height: height * 0.04,
-                paddingHorizontal: width * 0.02,
-              }}
-            >
-              <Text
+        {!samePoster ? (
+          <View style={{ display: "flex", flexDirection: "row" }}>
+            {followed ? (
+              <TouchableOpacity
+                onPress={() => followHandler()}
                 style={{
-                  color: "#745FF4",
-                  marginTop: width * 0.01,
-                  paddingLeft: width * 0.01,
-                  fontFamily: "poppins",
+                  display: "flex",
+                  flexDirection: "row",
+                  paddingBottom: 0,
+                  height: height * 0.04,
+                  paddingHorizontal: width * 0.02,
                 }}
               >
-                Following
-              </Text>
-            </TouchableOpacity>
-          ) : (
-            <TouchableOpacity
-              onPress={() => {
-                setFollowed(!followed);
-              }}
-              style={{
-                display: "flex",
-                flexDirection: "row",
-                paddingBottom: 0,
-                height: height * 0.04,
-                paddingHorizontal: width * 0.02,
-              }}
-            >
-              <AntDesign
-                name="plus"
+                <Text
+                  style={{
+                    color: "#745FF4",
+                    marginTop: width * 0.01,
+                    paddingLeft: width * 0.01,
+                    fontFamily: "poppins",
+                  }}
+                >
+                  Following
+                </Text>
+              </TouchableOpacity>
+            ) : (
+              <TouchableOpacity
+                onPress={() => followHandler()}
                 style={{
-                  color: "#745FF4",
-                  fontSize: height * 0.0225,
-                  paddingTop: width * 0.01,
-                }}
-              />
-              <Text
-                style={{
-                  color: "white",
-                  marginTop: width * 0.01,
-                  paddingLeft: width * 0.01,
-                  fontFamily: "poppins",
+                  display: "flex",
+                  flexDirection: "row",
+                  paddingBottom: 0,
+                  height: height * 0.04,
+                  paddingHorizontal: width * 0.02,
                 }}
               >
-                Follow
-              </Text>
-            </TouchableOpacity>
-          )}
+                <AntDesign
+                  name="plus"
+                  style={{
+                    color: "#745FF4",
+                    fontSize: height * 0.0225,
+                    paddingTop: width * 0.01,
+                  }}
+                />
+                <Text
+                  style={{
+                    color: "white",
+                    marginTop: width * 0.01,
+                    paddingLeft: width * 0.01,
+                    fontFamily: "poppins",
+                  }}
+                >
+                  Follow
+                </Text>
+              </TouchableOpacity>
+            )}
 
-          <TouchableOpacity onPress={() => setAboutPost(true)}>
-            <Feather
-              name="more-vertical"
-              style={{ color: "#745FF4", fontSize: height * 0.036 }}
-            />
+            <TouchableOpacity onPress={() => setAboutPost(true)}>
+              <Feather
+                name="more-vertical"
+                style={{ color: "#745FF4", fontSize: height * 0.036 }}
+              />
+            </TouchableOpacity>
+          </View>
+        ) : (
+          <TouchableOpacity
+            // onPress={() => followHandler()}
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              paddingBottom: 0,
+              height: height * 0.04,
+              paddingHorizontal: width * 0.02,
+            }}
+          >
+            <Text
+              style={{
+                color: "#745FF4",
+                marginTop: width * 0.01,
+                paddingLeft: width * 0.01,
+                fontFamily: "poppins",
+                fontSize: width * 0.04,
+              }}
+            >
+              Edit
+            </Text>
           </TouchableOpacity>
-        </View>
+        )}
       </View>
       <View style={{ paddingHorizontal: height * 0.02 }}>
         <Text
           style={{
             color: "#fff",
-            fontSize: height * 0.023,
-            paddingHorizontal: width * 0.017,
+            fontSize: height * 0.018,
+            paddingHorizontal: width * 0.015,
             fontFamily: "poppins",
             marginBottom: height * 0.01,
           }}
@@ -270,7 +371,14 @@ export default function PostBox({
           {content}
         </Text>
         {img !== null && (
-          <View style={{ flex: 1, alignItems: "baseline", paddingVertical: 3 }}>
+          <View
+            style={{
+              flex: 1,
+              alignItems: "baseline",
+              paddingVertical: 3,
+              // backgroundColor: "red",
+            }}
+          >
             <Image
               source={{
                 uri: url,
@@ -370,7 +478,8 @@ export default function PostBox({
               </View>
             </View>
             <View>
-              <View
+              <TouchableOpacity
+                onPress={commentHandler}
                 style={{
                   display: "flex",
                   flexDirection: "row",
@@ -389,7 +498,7 @@ export default function PostBox({
                 <Text style={{ color: "gray", fontSize: height * 0.02 }}>
                   {comment}
                 </Text>
-              </View>
+              </TouchableOpacity>
             </View>
           </View>
           <View
@@ -414,63 +523,164 @@ export default function PostBox({
           </View>
         </View>
       </View>
-      <View
-        style={{
-          backgroundColor: "#040418",
-          width: width * 0.94,
-          marginHorizontal: width * 0.018,
-          padding: height * 0.01,
-          borderRadius: height * 0.04,
-          display: "flex",
-          flexDirection: "row",
-          // marginVertical: 10
-        }}
-      >
-        <Image
-          source={{ uri: userData.avatarImage }}
+      {commentOn && (
+        <View
           style={{
-            height: height * 0.05,
-            width: height * 0.05,
-            borderRadius: 10,
-          }}
-        />
-        <TextInput
-          onChangeText={(event) => {
-            setCommenter(event);
-          }}
-          placeholder="Enter Your Comment here"
-          placeholderTextColor="gray"
-          style={{
-            flex: 1,
-            borderRadius: height * 0.02,
-            paddingHorizontal: width * 0.03,
-            color: "#fff",
-            fontSize: height * 0.021,
-            fontFamily: "poppins",
-          }}
-        />
-
-        <TouchableOpacity
-          onPress={() => {
-            postComment();
-          }}
-          style={{
-            backgroundColor: "#7864F6",
-            height: height * 0.04,
-            width: height * 0.04,
-            justifyContent: "center",
-            display: "flex",
-            alignItems: "center",
-            borderRadius: 100,
-            marginVertical: height * 0.009,
+            borderTopColor: "#7864",
+            borderTopWidth: 0.4,
+            marginHorizontal: width * 0.04,
+            marginTop: 10,
           }}
         >
-          <FontAwesome
-            name="send-o"
-            style={{ fontSize: height * 0.02, color: "#fff" }}
-          />
-        </TouchableOpacity>
-      </View>
+          {/* <View
+            style={{
+              borderBottomColor: "#7864",
+              borderBottomWidth: 0.3,
+              marginTop: 10,
+            }}
+          ></View> */}
+          <View
+            style={{
+              // backgroundColor: "#040418",
+              // backgroundColor: "#181428",
+              width: width * 0.92,
+              marginLeft: width * 0.028,
+              paddingRight: height * 0.04,
+              borderRadius: height * 0.02,
+              display: "flex",
+              flexDirection: "row",
+              borderColor: "#7864",
+              // borderWidth: 0.4,
+              marginTop: 10,
+            }}
+          >
+            <Image
+              source={{
+                uri: urlAv,
+              }}
+              style={{
+                height: height * 0.04,
+                width: height * 0.04,
+                borderRadius: 10,
+                marginTop: height * 0.015,
+              }}
+            />
+            <TextInput
+              onChangeText={(event) => {
+                setCommenter(event);
+              }}
+              placeholder="Enter Your Comment here"
+              placeholderTextColor="gray"
+              style={{
+                flex: 1,
+                // borderRadius: height * 0.02,
+                paddingHorizontal: width * 0.03,
+                color: "#7864f6",
+                fontSize: height * 0.02,
+                fontFamily: "poppins",
+                paddingTop: 2,
+                // borderColor: "#7864",
+                borderWidth: 0.4,
+                // backgroundColor: "#181428",
+                marginLeft: 10,
+                // borderBottomColor: "#7864",
+                borderWidth: 1,
+                // borderRadius: 39,
+              }}
+            />
+
+            <TouchableOpacity
+              onPress={() => {
+                postComment();
+              }}
+              style={{
+                // backgroundColor: "#7864F6",
+                height: height * 0.05,
+                width: height * 0.05,
+                justifyContent: "center",
+                display: "flex",
+                alignItems: "center",
+                borderRadius: 100,
+                marginVertical: height * 0.009,
+              }}
+            >
+              <FontAwesome
+                name="send-o"
+                style={{ fontSize: height * 0.025, color: "#7864f6" }}
+              />
+            </TouchableOpacity>
+          </View>
+
+          <View
+            style={{
+              paddingHorizontal: width * 0.05,
+              paddingVertical: width * 0.02,
+            }}
+          >
+            {allComments &&
+              allComments.map((coma) => {
+                if (coma.userImage !== null) {
+                  coma.userImage = coma.userImage.replace(/\\/g, "/");
+                } else {
+                  coma.userImage = null;
+                }
+
+                const urlx = `http://${Ip}:5000/users/${coma.userImage}`;
+                return (
+                  <View
+                    key={coma._id}
+                    style={{
+                      height: "max-height",
+                      // borderStyle: "dashed",
+                      borderRadius: 9,
+                      // paddingHorizontal: width * 0.04,
+                      paddingVertical: width * 0.04,
+                      display: "flex",
+                      flexDirection: "row",
+                      borderBottomColor: "#7864",
+                      borderBottomWidth: 0.3,
+                    }}
+                  >
+                    <Image
+                      style={{
+                        height: height * 0.035,
+                        width: height * 0.04,
+                        borderRadius: 10,
+                        marginRight: width * 0.05,
+                      }}
+                      source={{
+                        uri: urlx,
+                      }}
+                    />
+                    <View>
+                      <Text
+                        style={{
+                          color: "#7864f6",
+                          fontFamily: "poppins",
+                          marginRight: width * 0.2,
+                          fontSize: width * 0.032,
+                          marginTop: height * -0.005,
+                        }}
+                      >
+                        @{coma.username}
+                      </Text>
+                      <Text
+                        style={{
+                          color: "gray",
+                          fontFamily: "poppins",
+                          marginRight: width * 0.2,
+                          fontSize: width * 0.038,
+                        }}
+                      >
+                        {coma.content}
+                      </Text>
+                    </View>
+                  </View>
+                );
+              })}
+          </View>
+        </View>
+      )}
     </View>
   );
 }

@@ -16,7 +16,7 @@ export default function Feed() {
             position: "absolute",
             bottom: 0,
             width: "100%",
-            backgroundColor: "#040418",
+            backgroundColor: "#000000",
           }}
         >
           <Navigator />

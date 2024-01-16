@@ -1,6 +1,5 @@
 import { View, Text, Dimensions, TouchableOpacity, Image } from "react-native";
-import React, { useContext } from "react";
-import TechNerd from "../../assets/images/technerd.jpg";
+import React, { useContext, useEffect, useState } from "react";
 import {
   MaterialCommunityIcons,
   MaterialIcons,
@@ -9,39 +8,53 @@ import {
 } from "@expo/vector-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faMessage, faUserPlus } from "@fortawesome/free-solid-svg-icons";
-import { PostContext } from "../../context/UID";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
+import { PostContext } from "../../context/UID";
+import Ip from "../../utils/IpAdress";
 const { width, height } = Dimensions.get("window");
 
 export default function ProfileCard() {
   const navigation = useNavigation();
-  const logout = async () => {
-    try {
-      await AsyncStorage.removeItem("token");
-      console.log("Data removed");
-      console.log("user successfully logged out");
-      navigation.navigate("Login");
-    } catch (exception) {
-      console.log(exception);
-    }
-  };
+  const [follower, setFollower] = useState("");
+  const [refreshCount, setRefreshCount] = useState(0);
   const userData = useContext(PostContext);
+
+  if (userData.avatarImage) {
+    if (userData.avatarImage !== null) {
+      userData.avatarImage = userData.avatarImage.replace(/\\/g, "/");
+    } else {
+      userData.avatarImage = null;
+    }
+  }
+
+  const url = `http://${Ip}:5000/users/${userData.avatarImage}`;
+
+  const Edit = () => {
+    // try {
+    //   await AsyncStorage.removeItem("token");
+    //   console.log("Data removed");
+    //   console.log("user successfully logged out");
+    //   navigation.navigate("Login");
+    // } catch (exception) {
+    //   console.log(exception);
+    // }
+
+    navigation.navigate("Edit");
+  };
+
   return (
     <View
       style={{
         height: height * 0.37,
         marginTop: height * 0.005,
         borderRadius: 10,
-        // marginHorizontal: 12,
-        // marginHorizontal: 5,
         flex: 5,
       }}
     >
       <View
         style={{
           height: height * 0.45,
-          // backgroundColor: "aqua",
           display: "flex",
           flexDirection: "column",
         }}
@@ -73,15 +86,12 @@ export default function ProfileCard() {
             }}
           >
             <Image
-              source={{ uri: userData.avatarImage }}
+              source={{ uri: url }}
               style={{ flex: 1, borderRadius: 100 }}
             />
           </TouchableOpacity>
 
-          <TouchableOpacity
-            style={{ marginTop: height * 0.02 }}
-            onPress={logout}
-          >
+          <TouchableOpacity style={{ marginTop: height * 0.02 }} onPress={Edit}>
             <Text
               style={{
                 color: "white",
@@ -103,15 +113,15 @@ export default function ProfileCard() {
             style={{
               color: "white",
               fontFamily: "poppins",
-              fontSize: width * 0.065,
+              fontSize: width * 0.05,
             }}
           >
-            {userData.username}
+            @{userData.username}
           </Text>
           <Text
             style={{
               color: "white",
-              fontSize: 15,
+              fontSize: width * 0.039,
               fontFamily: "poppins",
             }}
           >
@@ -121,7 +131,7 @@ export default function ProfileCard() {
             style={{
               display: "flex",
               flexDirection: "row",
-              marginTop: height * 0.005,
+              marginTop: height * 0.008,
             }}
           >
             <Text
@@ -131,7 +141,7 @@ export default function ProfileCard() {
                 fontFamily: "poppins",
               }}
             >
-              {userData.following} Following
+              {userData.followers} Following
             </Text>
 
             <Text style={{ color: "white", fontFamily: "poppins" }}>
@@ -140,69 +150,21 @@ export default function ProfileCard() {
           </View>
         </View>
       </View>
-      {/* <View
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "space-evenly",
-          paddingTop: height * 0.025,
+      <TouchableOpacity
+        style={{ marginHorizontal: 10 }}
+        onPress={async () => {
+          try {
+            await AsyncStorage.removeItem("token");
+            console.log("Data removed");
+            console.log("user successfully logged out");
+            navigation.navigate("Login");
+          } catch (exception) {
+            console.log(exception);
+          }
         }}
       >
-        <TouchableOpacity
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            backgroundColor: "#7864F6",
-            width: width * 0.42,
-            justifyContent: "center",
-            padding: width * 0.025,
-            borderRadius: 50,
-          }}
-        >
-          <Feather
-            name="user-plus"
-            color="white"
-            size={19}
-            style={{ paddingTop: width * 0.002 }}
-          />
-          <Text
-            style={{
-              color: "#fff",
-              marginLeft: width * 0.02,
-              fontFamily: "poppins",
-            }}
-          >
-            Follow
-          </Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            backgroundColor: "#7864F6",
-            width: width * 0.42,
-            justifyContent: "center",
-            padding: width * 0.025,
-            borderRadius: 50,
-          }}
-        >
-          <AntDesign
-            name="message1"
-            style={{ color: "#fff", fontSize: height * 0.025 }}
-          />
-          <Text
-            style={{
-              color: "#fff",
-              marginLeft: width * 0.02,
-              fontSize: height * 0.02,
-              fontFamily: "poppins",
-            }}
-          >
-            Message
-          </Text>
-        </TouchableOpacity>
-      </View> */}
+        <Text style={{ color: "white" }}>logout</Text>
+      </TouchableOpacity>
       <View
         style={{
           color: "white",
@@ -211,7 +173,7 @@ export default function ProfileCard() {
           width: width * 0.9,
           marginHorizontal: width * 0.05,
           marginTop: height * 0.015,
-          backgroundColor: "#7864F6",
+          backgroundColor: "#7864",
         }}
       ></View>
     </View>

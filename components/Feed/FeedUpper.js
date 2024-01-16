@@ -59,8 +59,8 @@ const FeedUpper = () => {
   }, [value, Ip, FEED_REFRESH_INTERVAL]); // Make sure to include all dependencies
 
   return (
-    <View style={{ flex: 1, backgroundColor: "rgba(4, 4, 24, 1)" }}>
-      <View style={{ backgroundColor: "#040418", height: height * 0.115 }}>
+    <View style={{ flex: 1, backgroundColor: "#000000" }}>
+      <View style={{ backgroundColor: "#000000", height: height * 0.115 }}>
         <View
           style={{
             paddingHorizontal: height * 0.017,
@@ -194,14 +194,21 @@ const FeedUpper = () => {
 
       <View
         style={{
-          marginBottom: width * 0.22,
-          height: post.length > 0 ? "auto" : height,
+          marginBottom: height * 0.52,
+          height: post.length > 0 ? "max-height" : height,
         }}
       >
         <ScrollView>
           {post.map((posted) => {
-            const { likes, content, imageUrl, comments, user_id, time_stamp } =
-              posted;
+            const {
+              likes,
+              content,
+              imageUrl,
+              comments,
+              user_id,
+              time_stamp,
+              user,
+            } = posted;
 
             // Calculate the relative time
             const currentTime = new Date();
@@ -226,6 +233,7 @@ const FeedUpper = () => {
             const likeCount = likes.length;
             const commentCount = comments.length;
             // const imageUpdate = `${imageUrl}.jpg`;
+            const followers = user.followers;
 
             return (
               <PostBox
@@ -241,6 +249,8 @@ const FeedUpper = () => {
                 likes={likes}
                 liked={liked}
                 setLiked={setLiked}
+                usen={user}
+                // follower={followers}
               />
             );
           })}
