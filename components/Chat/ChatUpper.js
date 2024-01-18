@@ -26,7 +26,7 @@ export default function ChatUpper() {
         />
         <Text
           style={{
-            color: "#7864F6",
+            color: "#968fe9",
             fontSize: width * 0.09,
             marginTop: height * 0.02,
             // fontWeight: "800",

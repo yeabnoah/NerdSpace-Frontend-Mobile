@@ -403,7 +403,7 @@ export default function EditProfile() {
               value={name}
               placeholderTextColor="gray"
               style={{
-                color: "#7864f6",
+                color: "#968fe9",
                 borderBottomColor: "#7864",
                 borderWidth: 0.6,
               }}
@@ -420,7 +420,7 @@ export default function EditProfile() {
               value={username}
               placeholderTextColor="gray"
               style={{
-                color: "#7864f6",
+                color: "#968fe9",
                 borderBottomColor: "#7864",
                 borderWidth: 0.6,
               }}
@@ -437,7 +437,7 @@ export default function EditProfile() {
               value={phoneNumber}
               placeholderTextColor="gray"
               style={{
-                color: "#7864f6",
+                color: "#968fe9",
                 borderBottomColor: "#7864",
                 borderWidth: 0.6,
               }}
@@ -452,7 +452,7 @@ export default function EditProfile() {
               value={email}
               placeholderTextColor="gray"
               style={{
-                color: "#7864f6",
+                color: "#968fe9",
                 borderBottomColor: "#7864",
                 borderWidth: 0.6,
               }}
@@ -468,7 +468,7 @@ export default function EditProfile() {
               value={bio}
               placeholderTextColor="gray"
               style={{
-                color: "#7864f6",
+                color: "#968fe9",
                 borderBottomColor: "#7864",
                 borderWidth: 0.6,
               }}

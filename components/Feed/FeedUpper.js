@@ -59,8 +59,8 @@ const FeedUpper = () => {
   }, [value, Ip, FEED_REFRESH_INTERVAL]); // Make sure to include all dependencies
 
   return (
-    <View style={{ flex: 1, backgroundColor: "#000000" }}>
-      <View style={{ backgroundColor: "#000000", height: height * 0.115 }}>
+    <View style={{ flex: 1, backgroundColor: "#030308" }}>
+      <View style={{ backgroundColor: "#030308", height: height * 0.115 }}>
         <View
           style={{
             paddingHorizontal: height * 0.017,
@@ -75,7 +75,7 @@ const FeedUpper = () => {
                 name="bars"
                 style={{
                   marginTop: height * 0.007,
-                  color: "gray",
+                  color: "#968fe9",
                   fontSize: height * 0.04,
                   width: height * 0.047,
                   height: height * 0.047,
@@ -100,7 +100,7 @@ const FeedUpper = () => {
                   name="plus"
                   style={{
                     marginTop: height * 0.007,
-                    color: "gray",
+                    color: "#968fe9",
                     fontSize: height * 0.039,
                     width: height * 0.05,
                     height: height * 0.05,
@@ -194,7 +194,7 @@ const FeedUpper = () => {
 
       <View
         style={{
-          marginBottom: height * 0.2,
+          marginBottom: height * 0.4,
           height: post.length > 0 ? "max-height" : height,
         }}
       >

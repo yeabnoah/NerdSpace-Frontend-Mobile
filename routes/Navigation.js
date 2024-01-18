@@ -13,7 +13,7 @@ import Search from "../screens/Search";
 import Chat from "../screens/Chat";
 import Login from "../screens/Login";
 import Register from "../screens/Register";
-import { PostContext, UidContext } from "../context/UID";
+import { PostContext, UidContext, posterContext } from "../context/UID";
 import Ip from "../utils/IpAdress";
 import Test from "../test/Test";
 import EditProfile from "../screens/EditProfile";
@@ -25,6 +25,7 @@ export default function AppNavigation() {
   const [idToken, setIdToken] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userData, setUserData] = useState({});
+  const [posterData, setPosterData] = useState({});
   const [refreshCount, setRefreshCount] = useState(0);
   const [fontsLoaded] = useFonts({
     poppins: require("../assets/fonts/Poppins-Regular.ttf"),
@@ -53,14 +54,18 @@ export default function AppNavigation() {
 
     fetchData(); // Initial fetch
 
-    const intervalId = setInterval(() => {
-      fetchData(); // Fetch data every 5 seconds
-      setRefreshCount((prevCount) => prevCount + 1);
-    }, 5000);
+    const intervalId = setInterval(
+      () => {
+        fetchData(); // Fetch data every 5 seconds
+        setRefreshCount((prevCount) => prevCount + 1);
+      },
+      5000,
+      [posterData]
+    );
 
     // Cleanup the interval on component unmount
     return () => clearInterval(intervalId);
-  }, [refreshCount]);
+  }, [refreshCount, posterData]);
 
   if (!fontsLoaded) {
     return null;
@@ -69,26 +74,28 @@ export default function AppNavigation() {
   return (
     <UidContext.Provider value={idToken}>
       <PostContext.Provider value={userData}>
-        <NavigationContainer>
-          <Stack.Navigator
-            screenOptions={{ headerShown: false }}
-            initialRouteName={isLoggedIn ? "Feed" : "Register"}
-            // initialRouteName="Feed"
-            // initialRouteName="Edit"
-          >
-            <Stack.Screen name="Home" component={HomeScreen} />
-            <Stack.Screen name="Profile" component={Profile} />
-            <Stack.Screen name="Feed" component={Feed} />
-            <Stack.Screen name="Loved" component={LovedPosts} />
-            <Stack.Screen name="Search" component={Search} />
-            <Stack.Screen name="Chat" component={Chat} />
-            <Stack.Screen name="Login" component={Login} />
-            <Stack.Screen name="Register" component={Register} />
-            <Stack.Screen name="Test" component={Test} />
-            <Stack.Screen name="Edit" component={EditProfile} />
-            <Stack.Screen name="Poster" component={Poster} />
-          </Stack.Navigator>
-        </NavigationContainer>
+        <posterContext.Provider value={{ posterData, setPosterData }}>
+          <NavigationContainer>
+            <Stack.Navigator
+              screenOptions={{ headerShown: false }}
+              // initialRouteName={isLoggedIn ? "Feed" : "Register"}
+              // initialRouteName="Feed"
+              initialRouteName="Login"
+            >
+              <Stack.Screen name="Home" component={HomeScreen} />
+              <Stack.Screen name="Profile" component={Profile} />
+              <Stack.Screen name="Feed" component={Feed} />
+              <Stack.Screen name="Loved" component={LovedPosts} />
+              <Stack.Screen name="Search" component={Search} />
+              <Stack.Screen name="Chat" component={Chat} />
+              <Stack.Screen name="Login" component={Login} />
+              <Stack.Screen name="Register" component={Register} />
+              <Stack.Screen name="Test" component={Test} />
+              <Stack.Screen name="Edit" component={EditProfile} />
+              <Stack.Screen name="Poster" component={Poster} />
+            </Stack.Navigator>
+          </NavigationContainer>
+        </posterContext.Provider>
       </PostContext.Provider>
     </UidContext.Provider>
   );

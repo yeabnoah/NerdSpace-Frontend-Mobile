@@ -10,7 +10,7 @@ const { height, width } = Dimensions.get("window");
 
 export default function LovedScreen() {
   return (
-    <SafeAreaView style={{ backgroundColor: "#7864F6" }}>
+    <SafeAreaView style={{ backgroundColor: "#968fe9" }}>
       <View style={{ flex: 1, backgroundColor: "#040418" }}>
         <ScrollView
           style={{ marginTop: width * 0.06, paddingBottom: width * 0.1 }}
@@ -89,13 +89,13 @@ export default function LovedScreen() {
                       <SimpleLineIcons
                         name="eyeglass"
                         style={{
-                          color: "#7864F6",
+                          color: "#968fe9",
                           fontSize: width * 0.06,
                           marginRight: width * 0.02,
                         }}
                       />
                       <Text
-                        style={{ color: "#7864F6", marginTop: width * 0.01 }}
+                        style={{ color: "#968fe9", marginTop: width * 0.01 }}
                       >
                         {post.view}
                       </Text>
@@ -108,7 +108,7 @@ export default function LovedScreen() {
                       }}
                     >
                       <Text
-                        style={{ color: "#7864F6", marginTop: width * 0.01 }}
+                        style={{ color: "#968fe9", marginTop: width * 0.01 }}
                       >
                         {post.Author}
                       </Text>
@@ -122,7 +122,7 @@ export default function LovedScreen() {
                     >
                       <Text
                         style={{
-                          color: "#7864F6",
+                          color: "#968fe9",
                           marginTop: width * 0.01,
                           fontsize: 7,
                         }}

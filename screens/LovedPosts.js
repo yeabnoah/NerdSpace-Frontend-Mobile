@@ -5,7 +5,7 @@ import LovedScreen from "../components/Loved/LovedScreen";
 
 export default function LovedPosts() {
   return (
-    <SafeAreaView style={{ backgroundColor: "#7864F6" }}>
+    <SafeAreaView style={{ backgroundColor: "#968fe9" }}>
       <View style={{ backgroundColor: "#040418" }}>
         <ScrollView>
           <LovedScreen />

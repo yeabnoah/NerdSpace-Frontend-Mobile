@@ -164,7 +164,7 @@ export default function Navigator() {
         flex: 1,
         paddingHorizontal: width * 0.056,
         paddingVertical: 5,
-        backgroundColor: "#000000",
+        backgroundColor: "#030308",
         // paddingHorizontal: 10,
       }}
     >
@@ -172,7 +172,7 @@ export default function Navigator() {
         <Feather
           name="home"
           style={{
-            color: "#858cac",
+            color: "#968fe9",
             fontSize: width * 0.06,
             paddingTop: width * 0.02,
           }}
@@ -183,7 +183,7 @@ export default function Navigator() {
         <AntDesign
           name="search1"
           style={{
-            color: "#858cac",
+            color: "#968fe9",
             fontSize: width * 0.06,
             paddingTop: width * 0.02,
           }}
@@ -230,7 +230,7 @@ export default function Navigator() {
               <AntDesign
                 name="close"
                 style={{
-                  color: "#7864f6",
+                  color: "#968fe9",
                   fontSize: width * 0.07,
                   marginTop: height * 0.04,
                 }}
@@ -245,7 +245,7 @@ export default function Navigator() {
                   handleSubmit();
                 }}
                 style={{
-                  backgroundColor: "#7864F6",
+                  backgroundColor: "#968fe9",
                   borderRadius: width * 0.08,
                   width: width * 0.18,
                 }}
@@ -270,7 +270,7 @@ export default function Navigator() {
             style={{
               height: "max-height",
               borderColor: "#7864",
-              borderBottomColor: "#858cac",
+              borderBottomColor: "#968fe9",
               borderBottomWidth: 0.6,
               marginHorizontal: 5,
               paddingBottom: height * 0.01,
@@ -294,11 +294,11 @@ export default function Navigator() {
               multiline
               numberOfLines={7}
               placeholder="Enter your text post right here ......"
-              placeholderTextColor={"#858cac"}
+              placeholderTextColor={"#968fe9"}
               style={{
                 height: "max-height",
                 width: width * 0.85,
-                color: "#7864f6",
+                color: "#968fe9",
                 borderWidth: 0.4,
                 borderRadius: 10,
                 textAlignVertical: "top",
@@ -315,7 +315,7 @@ export default function Navigator() {
                 <FontAwesome
                   name="image"
                   style={{
-                    color: "#858cac",
+                    color: "#968fe9",
                     fontSize: height * 0.03,
                     paddingVertical: width * 0.01,
                     paddingHorizontal: width * 0.03,
@@ -326,7 +326,7 @@ export default function Navigator() {
                 <Entypo
                   name="video"
                   style={{
-                    color: "#858cac",
+                    color: "#968fe9",
                     fontSize: height * 0.03,
                     paddingVertical: width * 0.01,
                     paddingHorizontal: width * 0.03,
@@ -337,7 +337,7 @@ export default function Navigator() {
                 <FontAwesome
                   name="file-pdf-o"
                   style={{
-                    color: "#858cac",
+                    color: "#968fe9",
                     fontSize: height * 0.028,
                     paddingVertical: width * 0.01,
                     paddingHorizontal: width * 0.03,
@@ -366,7 +366,7 @@ export default function Navigator() {
               // marginTop: height * 0.08,
               // marginHorizontal: width * 0.01,
               backgroundColor: "#181a1e",
-              borderColor: "#858cac",
+              borderColor: "#968fe9",
               borderWidth: 0.4,
               borderStyle: "dashed",
               height: "max-height",
@@ -387,7 +387,7 @@ export default function Navigator() {
           style={{
             paddingLeft: 2,
             borderWidth: 2,
-            borderColor: "#858cac",
+            borderColor: "#968fe9",
             borderRadius: 100,
             backgroundColor: "#000000",
             marginTop: -17,
@@ -395,7 +395,7 @@ export default function Navigator() {
         >
           <Ionicons
             name="add-circle-sharp"
-            style={{ color: "#858cac", fontSize: width * 0.1, paddingTop: 0 }}
+            style={{ color: "#968fe9", fontSize: width * 0.1, paddingTop: 0 }}
           />
         </View>
       </TouchableOpacity>
@@ -404,7 +404,7 @@ export default function Navigator() {
         <MaterialCommunityIcons
           name="message-badge-outline"
           style={{
-            color: "#858cac",
+            color: "#968fe9",
             fontSize: width * 0.06,
             paddingTop: width * 0.02,
           }}
@@ -415,7 +415,7 @@ export default function Navigator() {
         <Feather
           name="user"
           style={{
-            color: "#858cac",
+            color: "#968fe9",
             fontSize: width * 0.06,
             paddingTop: width * 0.02,
           }}

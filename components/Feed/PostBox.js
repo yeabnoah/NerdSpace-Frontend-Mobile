@@ -22,7 +22,7 @@ import {
 import Ip from "../../utils/IpAdress";
 import MockImages from "../../utils/mockImage";
 import Modals from "./Modal";
-import { PostContext, UidContext } from "../../context/UID";
+import { PostContext, UidContext, posterContext } from "../../context/UID";
 import axios from "axios";
 import logger from "../Chat/image-1703760243066.jpg";
 import { useNavigation } from "@react-navigation/native";
@@ -51,8 +51,9 @@ export default function PostBox({
   const [samePoster, setSamePoster] = useState(false);
   const [userImage, setUserImage] = useState(userData.avatarImage);
   const followers = usen.followers;
-
   const navigation = useNavigation();
+  const { posterData, setPosterData } = useContext(posterContext);
+
   useEffect(() => {
     followers.map((id) => {
       if (userData.userId === id) {
@@ -216,13 +217,34 @@ export default function PostBox({
       });
   };
 
+  const fetchUser = () => {
+    console.log("u");
+
+    axios
+      .get(`http://${Ip}:5000/users/auth/profile/user/${userId}`, {
+        headers: {
+          authorization: value,
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      })
+      .then(function (response) {
+        navigation.navigate("Poster");
+        setPosterData(response.data);
+        console.log("###########################: ", response.data);
+      })
+      .catch(function (error) {
+        console.log("$$$$$$$$$$$$$$$$$$$$$$$$$$$$", error);
+      });
+  };
+
   return (
     <View
       style={{
         marginTop: width * 0.05,
         marginBottom: 10,
-        // backgroundColor: "#040418",
-        // borderColor: "#7864F6",
+        // backgroundColor: "#",
+        // borderColor: "#968fe9",
         borderWidth: 0.3,
         margin: width * 0.01,
         borderRadius: 10,
@@ -245,8 +267,12 @@ export default function PostBox({
       >
         <View style={{ display: "flex", flexDirection: "row" }}>
           <TouchableOpacity
-            onPress={() => {
-              navigation.navigate("Poster");
+            onPress={async () => {
+              if (samePoster) {
+                navigation.navigate("Profile");
+              } else {
+                await fetchUser();
+              }
             }}
           >
             <Image
@@ -288,7 +314,7 @@ export default function PostBox({
               >
                 <Text
                   style={{
-                    color: "#745FF4",
+                    color: "#968fe9",
                     marginTop: width * 0.01,
                     paddingLeft: width * 0.01,
                     fontFamily: "poppins",
@@ -311,7 +337,7 @@ export default function PostBox({
                 <AntDesign
                   name="plus"
                   style={{
-                    color: "#745FF4",
+                    color: "#968fe9",
                     fontSize: height * 0.0225,
                     paddingTop: width * 0.01,
                   }}
@@ -332,7 +358,7 @@ export default function PostBox({
             <TouchableOpacity onPress={() => setAboutPost(true)}>
               <Feather
                 name="more-vertical"
-                style={{ color: "#745FF4", fontSize: height * 0.036 }}
+                style={{ color: "#968fe9", fontSize: height * 0.036 }}
               />
             </TouchableOpacity>
           </View>
@@ -349,7 +375,7 @@ export default function PostBox({
           >
             <Text
               style={{
-                color: "#745FF4",
+                color: "#968fe9",
                 marginTop: width * 0.01,
                 paddingLeft: width * 0.01,
                 fontFamily: "poppins",
@@ -449,7 +475,7 @@ export default function PostBox({
                     <AntDesign
                       name="heart"
                       style={{
-                        color: "#745FF4",
+                        color: "#968fe9",
                         fontSize: height * 0.024,
                         marginRight: height * 0.006,
                         marginTop: height * 0.0022,
@@ -581,7 +607,7 @@ export default function PostBox({
                 flex: 1,
                 // borderRadius: height * 0.02,
                 paddingHorizontal: width * 0.03,
-                color: "#7864f6",
+                color: "#968fe9",
                 fontSize: height * 0.02,
                 fontFamily: "poppins",
                 paddingTop: 2,
@@ -600,7 +626,7 @@ export default function PostBox({
                 postComment();
               }}
               style={{
-                // backgroundColor: "#7864F6",
+                // backgroundColor: "#968fe9",
                 height: height * 0.05,
                 width: height * 0.05,
                 justifyContent: "center",
@@ -612,7 +638,7 @@ export default function PostBox({
             >
               <FontAwesome
                 name="send-o"
-                style={{ fontSize: height * 0.025, color: "#7864f6" }}
+                style={{ fontSize: height * 0.025, color: "#968fe9" }}
               />
             </TouchableOpacity>
           </View>
@@ -661,7 +687,7 @@ export default function PostBox({
                     <View>
                       <Text
                         style={{
-                          color: "#7864f6",
+                          color: "#968fe9",
                           fontFamily: "poppins",
                           marginRight: width * 0.2,
                           fontSize: width * 0.032,
