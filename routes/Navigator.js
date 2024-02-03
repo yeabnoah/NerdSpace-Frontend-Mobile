@@ -7,6 +7,7 @@ import {
   Button,
   TextInput,
   Image,
+  ScrollView,
 } from "react-native";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faMessage } from "@fortawesome/free-solid-svg-icons";
@@ -161,33 +162,67 @@ export default function Navigator() {
         display: "flex",
         flexDirection: "row",
         justifyContent: "space-between",
-        flex: 1,
         paddingHorizontal: width * 0.056,
-        paddingVertical: 5,
-        backgroundColor: "#030308",
-        // paddingHorizontal: 10,
+        paddingVertical: 4,
+        // marginHorizontal: 20,
+        flex: 1,
+        backgroundColor: "rgba(4, 10, 18, 1)", // Setting alpha value to make it transparent
+        zIndex: -1,
+        borderRadius: 10,
+        borderTopRightRadius: 30,
+        borderTopLeftRadius: 30,
       }}
     >
-      <TouchableOpacity onPress={() => navigation.navigate("Feed")}>
+      <TouchableOpacity
+        style={{ alignItems: "center" }}
+        onPress={() => navigation.navigate("Feed")}
+      >
         <Feather
           name="home"
           style={{
-            color: "#968fe9",
+            color: "#7864f6",
             fontSize: width * 0.06,
             paddingTop: width * 0.02,
+            // backgroundColor: "#968fe9",
+            // padding: 5,
+            borderRadius: 10,
           }}
         />
+        <Text
+          style={{
+            color: "#7864f6",
+            fontFamily: "poppins",
+            textAlign: "center",
+          }}
+        >
+          Profile
+        </Text>
       </TouchableOpacity>
 
-      <TouchableOpacity onPress={() => navigation.navigate("Search")}>
+      <TouchableOpacity
+        style={{ alignItems: "center" }}
+        onPress={() => navigation.navigate("Search")}
+      >
         <AntDesign
           name="search1"
           style={{
-            color: "#968fe9",
+            color: "#7864f6",
             fontSize: width * 0.06,
             paddingTop: width * 0.02,
+            // backgroundColor: "#968fe9",
+            // padding: 5,
+            borderRadius: 10,
           }}
         />
+        <Text
+          style={{
+            color: "#7864f6",
+            fontFamily: "poppins",
+            textAlign: "center",
+          }}
+        >
+          Search
+        </Text>
       </TouchableOpacity>
 
       <Modal
@@ -206,7 +241,7 @@ export default function Navigator() {
             backgroundColor: "#000000",
           }}
         > */}
-        <View
+        <ScrollView
           style={{
             backgroundColor: "#000000",
             paddingHorizontal: 20,
@@ -378,19 +413,14 @@ export default function Navigator() {
           >
             
           </View> */}
-        </View>
+        </ScrollView>
         {/* </TouchableOpacity> */}
       </Modal>
 
       <TouchableOpacity onPress={() => setModalVisible(true)}>
         <View
           style={{
-            paddingLeft: 2,
-            borderWidth: 2,
-            borderColor: "#968fe9",
             borderRadius: 100,
-            backgroundColor: "#000000",
-            marginTop: -17,
           }}
         >
           <Ionicons
@@ -400,26 +430,57 @@ export default function Navigator() {
         </View>
       </TouchableOpacity>
 
-      <TouchableOpacity onPress={() => navigation.navigate("Chat")}>
+      <TouchableOpacity
+        style={{ alignItems: "center" }}
+        onPress={() => navigation.navigate("Chat")}
+      >
         <MaterialCommunityIcons
           name="message-badge-outline"
           style={{
-            color: "#968fe9",
+            color: "#7864f6",
             fontSize: width * 0.06,
             paddingTop: width * 0.02,
+            // backgroundColor: "#968fe9",
+            // padding: 5,
+            borderRadius: 10,
           }}
         />
+
+        <Text
+          style={{
+            color: "#7864f6",
+            fontFamily: "poppins",
+            textAlign: "center",
+          }}
+        >
+          Chat
+        </Text>
       </TouchableOpacity>
 
-      <TouchableOpacity onPress={() => navigation.navigate("Profile")}>
+      <TouchableOpacity
+        style={{ alignItems: "center" }}
+        onPress={() => navigation.navigate("Profile")}
+      >
         <Feather
           name="user"
           style={{
-            color: "#968fe9",
+            color: "#7864f6",
             fontSize: width * 0.06,
             paddingTop: width * 0.02,
+            // backgroundColor: "#968fe9",
+            // padding: 5,
+            borderRadius: 10,
           }}
         />
+        <Text
+          style={{
+            color: "#7864f6",
+            fontFamily: "poppins",
+            textAlign: "center",
+          }}
+        >
+          Profile
+        </Text>
       </TouchableOpacity>
     </View>
   );

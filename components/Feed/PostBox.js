@@ -15,6 +15,7 @@ import {
   Entypo,
   Feather,
   FontAwesome,
+  FontAwesome5,
   Ionicons,
   MaterialCommunityIcons,
   MaterialIcons,
@@ -53,6 +54,9 @@ export default function PostBox({
   const followers = usen.followers;
   const navigation = useNavigation();
   const { posterData, setPosterData } = useContext(posterContext);
+
+  const [showFullContent, setShowFullContent] = useState(false);
+  const truncatedContent = content.split(" ").slice(0, 20).join(" ");
 
   useEffect(() => {
     followers.map((id) => {
@@ -241,19 +245,16 @@ export default function PostBox({
   return (
     <View
       style={{
-        marginTop: width * 0.05,
+        marginTop: width * 0.014,
         marginBottom: 10,
         // backgroundColor: "#",
         // borderColor: "#968fe9",
-        borderWidth: 0.3,
+        // borderWidth: 0.3,
         margin: width * 0.01,
-        borderRadius: 10,
-        // height: width * 0.825,
         height: "max-width",
         paddingBottom: width * 0.02,
-        borderBottomColor: "#7864",
-        borderTopColor: "#7864",
-        borderBottomWidth: 0.7,
+        borderBottomColor: "#524e80",
+        borderBottomWidth: 0.25,
       }}
     >
       <Modals aboutPost={aboutPost} setAboutPost={setAboutPost} />
@@ -279,27 +280,37 @@ export default function PostBox({
               source={{ uri: urlAvatar }}
               alt="hello"
               style={{
-                height: height * 0.05,
-                width: height * 0.05,
+                height: height * 0.056,
+                width: height * 0.056,
                 borderRadius: height * 0.01,
-                marginRight: height * 0.02,
+                marginLeft: height * 0.01,
+                marginRight: height * 0.01,
               }}
             />
           </TouchableOpacity>
           <View>
             <Text
               style={{
-                fontSize: height * 0.02,
-                color: "#fff",
+                fontSize: height * 0.025,
+                color: "#8c52ff",
                 fontFamily: "poppins",
-                paddingTop: width * 0.007,
               }}
             >
-              @Nerd_{poster.username}
+              {poster.username}
+            </Text>
+            <Text
+              style={{
+                fontSize: height * 0.018,
+                color: "#6b6868",
+                fontFamily: "poppins",
+                marginTop: width * -0.015,
+              }}
+            >
+              Nerd@Hardware
             </Text>
           </View>
         </View>
-        {!samePoster ? (
+        {/* {!samePoster ? (
           <View style={{ display: "flex", flexDirection: "row" }}>
             {followed ? (
               <TouchableOpacity
@@ -385,48 +396,150 @@ export default function PostBox({
               Edit
             </Text>
           </TouchableOpacity>
-        )}
+        )} */}
       </View>
       <View style={{ paddingHorizontal: height * 0.02 }}>
-        <Text
-          style={{
-            color: "#fff",
-            fontSize: height * 0.018,
-            paddingHorizontal: width * 0.015,
-            fontFamily: "poppins",
-            marginBottom: height * 0.01,
-          }}
-        >
-          {/* This is going to be the first post on this social media platform.
-          Welcome to Nerd Space! I am the developer of Nerd Space and I wanted
-          to thank all of you for joining the community and using this app... */}
-          {content}
-        </Text>
-        {img !== null && (
-          <View
-            style={{
-              flex: 1,
-              alignItems: "baseline",
-              paddingVertical: 3,
-              // backgroundColor: "red",
-            }}
-          >
-            <Image
-              source={{
-                uri: url,
+        <View style={{ display: "flex", flexDirection: "row" }}>
+          <View>
+            {img !== null && (
+              <View
+                style={{
+                  flex: 1,
+                  alignItems: "baseline",
+                  paddingVertical: 3,
+                }}
+              >
+                <Image
+                  source={{
+                    uri: url,
+                  }}
+                  style={{
+                    justifyContent: "center",
+                    alignItems: "center",
+                    height: width * 0.78,
+                    width: width * 0.78,
+                    borderRadius: width * 0.045,
+                  }}
+                />
+              </View>
+            )}
+          </View>
+          <View style={{ marginHorizontal: 13, paddingTop: 10 }}>
+            <TouchableOpacity
+              onPress={() => {
+                if (liked) {
+                  unlikePost();
+                } else {
+                  likePost();
+                }
               }}
               style={{
-                justifyContent: "center",
-                alignItems: "center",
-                height: width * 0.7,
-                width: width * 0.75,
-                borderRadius: width * 0.025,
+                backgroundColor: "#8c52ff",
+                padding: 10,
+                borderRadius: 100,
               }}
-            />
+            >
+              <AntDesign
+                name="heart"
+                size={16}
+                style={{ color: liked ? "white" : "black" }}
+              />
+            </TouchableOpacity>
+            <Text
+              style={{
+                color: "#8c52ff",
+                fontSize: 12,
+                textAlign: "center",
+                marginBottom: 3,
+                marginTop: 3,
+                fontFamily: "poppins",
+              }}
+            >
+              {/* {like} */}
+              1K
+            </Text>
+
+            <TouchableOpacity
+              onPress={commentHandler}
+              style={{
+                backgroundColor: "#8c52ff",
+                padding: 10,
+                borderRadius: 100,
+              }}
+            >
+              <FontAwesome name="comment" size={15} color="black" />
+            </TouchableOpacity>
+            <Text
+              style={{
+                color: "#8c52ff",
+                fontSize: 12,
+                textAlign: "center",
+                marginBottom: 3,
+                marginTop: 3,
+                fontFamily: "poppins",
+              }}
+            >
+              {/* {comment} */}
+              345
+            </Text>
+
+            <TouchableOpacity
+              onPress={() => {
+                if (liked) {
+                  unlikePost();
+                } else {
+                  likePost();
+                }
+              }}
+              style={{
+                backgroundColor: "#8c52ff",
+                padding: 10,
+                borderRadius: 100,
+              }}
+            >
+              <FontAwesome5 name="share" size={16} color="black" />
+            </TouchableOpacity>
+            <Text
+              style={{
+                color: "#8c52ff",
+                fontSize: 12,
+                textAlign: "center",
+                marginBottom: 3,
+                marginTop: 3,
+                fontFamily: "poppins",
+              }}
+            >
+              {/* {comment} */}
+              65
+            </Text>
           </View>
-        )}
+        </View>
+
+        <Text
+          style={{
+            color: "#b6b6b6",
+            fontSize: height * 0.02,
+            paddingHorizontal: width * 0.015,
+            fontFamily: "poppins",
+            width: width * 0.9,
+            marginTop: 10,
+            textAlign: "justify",
+          }}
+        >
+          {showFullContent ? `${content}.` : `${truncatedContent} ...`}
+          {content.split(" ").length > 10 && (
+            <Text
+              style={{
+                color: "#8c52ff",
+                fontFamily: "poppins",
+              }}
+              onPress={() => setShowFullContent(!showFullContent)}
+            >
+              {showFullContent ? " Read Less" : " Read More"}
+            </Text>
+          )}
+        </Text>
       </View>
-      {/* post Content */}
       <View style={{ paddingHorizontal: height * 0.02 }}>
         <View
           style={{
@@ -450,7 +563,7 @@ export default function PostBox({
             marginVertical: height * 0.008,
           }}
         >
-          <View
+          {/* <View
             style={{
               display: "flex",
               flexDirection: "row",
@@ -501,10 +614,6 @@ export default function PostBox({
                 )}
 
                 <Text style={{ color: "gray", fontSize: height * 0.02 }}>
-                  {/* {like.map(() => {
-                    setCounter(count + 1);
-                    console.log(counter);
-                  })} */}
                   {like}
                 </Text>
               </View>
@@ -532,8 +641,8 @@ export default function PostBox({
                 </Text>
               </TouchableOpacity>
             </View>
-          </View>
-          <View
+          </View> */}
+          {/* <View
             style={{
               display: "flex",
               flexDirection: "row",
@@ -552,37 +661,26 @@ export default function PostBox({
             >
               {timeStamp}
             </Text>
-          </View>
+          </View> */}
         </View>
       </View>
       {commentOn && (
         <View
           style={{
-            borderTopColor: "#7864",
             borderTopWidth: 0.4,
             marginHorizontal: width * 0.04,
             marginTop: 10,
+            backgroundColor: "red",
           }}
         >
-          {/* <View
-            style={{
-              borderBottomColor: "#7864",
-              borderBottomWidth: 0.3,
-              marginTop: 10,
-            }}
-          ></View> */}
           <View
             style={{
-              // backgroundColor: "#040418",
-              // backgroundColor: "#181428",
               width: width * 0.92,
               marginLeft: width * 0.028,
               paddingRight: height * 0.04,
               borderRadius: height * 0.02,
               display: "flex",
               flexDirection: "row",
-              borderColor: "#7864",
-              // borderWidth: 0.4,
               marginTop: 10,
             }}
           >
@@ -605,19 +703,12 @@ export default function PostBox({
               placeholderTextColor="gray"
               style={{
                 flex: 1,
-                // borderRadius: height * 0.02,
                 paddingHorizontal: width * 0.03,
                 color: "#968fe9",
                 fontSize: height * 0.02,
                 fontFamily: "poppins",
                 paddingTop: 2,
-                // borderColor: "#7864",
-                borderWidth: 0.4,
-                // backgroundColor: "#181428",
                 marginLeft: 10,
-                // borderBottomColor: "#7864",
-                borderWidth: 1,
-                // borderRadius: 39,
               }}
             />
 
@@ -636,9 +727,9 @@ export default function PostBox({
                 marginVertical: height * 0.009,
               }}
             >
-              <FontAwesome
-                name="send-o"
-                style={{ fontSize: height * 0.025, color: "#968fe9" }}
+              <MaterialCommunityIcons
+                name="send"
+                style={{ fontSize: height * 0.025, color: "#7864f6" }}
               />
             </TouchableOpacity>
           </View>
@@ -663,14 +754,10 @@ export default function PostBox({
                     key={coma._id}
                     style={{
                       height: "max-height",
-                      // borderStyle: "dashed",
                       borderRadius: 9,
-                      // paddingHorizontal: width * 0.04,
                       paddingVertical: width * 0.04,
                       display: "flex",
                       flexDirection: "row",
-                      borderBottomColor: "#7864",
-                      borderBottomWidth: 0.3,
                     }}
                   >
                     <Image
@@ -687,7 +774,7 @@ export default function PostBox({
                     <View>
                       <Text
                         style={{
-                          color: "#968fe9",
+                          color: "#7864f6",
                           fontFamily: "poppins",
                           marginRight: width * 0.2,
                           fontSize: width * 0.032,

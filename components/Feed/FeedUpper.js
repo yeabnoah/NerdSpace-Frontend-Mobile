@@ -59,8 +59,8 @@ const FeedUpper = () => {
   }, [value, Ip, FEED_REFRESH_INTERVAL]); // Make sure to include all dependencies
 
   return (
-    <View style={{ flex: 1, backgroundColor: "#030308" }}>
-      <View style={{ backgroundColor: "#030308", height: height * 0.115 }}>
+    <View style={{ flex: 1, backgroundColor: "#040a12" }}>
+      <View style={{ backgroundColor: "#040a12", height: height * 0.07 }}>
         <View
           style={{
             paddingHorizontal: height * 0.017,
@@ -114,7 +114,7 @@ const FeedUpper = () => {
             </View>
           </View>
         </View>
-
+        {/* 
         <View
           style={{
             paddingHorizontal: height * 0.024,
@@ -148,7 +148,7 @@ const FeedUpper = () => {
               For You
             </Text>
           </TouchableOpacity>
-        </View>
+        </View> */}
 
         {/* <ScrollView
           horizontal

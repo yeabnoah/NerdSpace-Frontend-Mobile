@@ -1,4 +1,4 @@
-import { View, Text, ScrollView } from "react-native";
+import { View, Text, ScrollView, StatusBar } from "react-native";
 import React from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Navigator from "../routes/Navigator";
@@ -6,9 +6,10 @@ import FeedUpper from "../components/Feed/FeedUpper";
 
 export default function Feed() {
   return (
-    <SafeAreaView style={{ backgroundColor: "#858cac" }}>
-      <View style={{ backgroundColor: "#040418" }}>
-        <ScrollView style={{}}>
+    <SafeAreaView style={{ flex: 1 }}>
+      <View style={{ flex: 1 }}>
+        <StatusBar barStyle="light-content" backgroundColor="#040a12" />
+        <ScrollView style={{ flex: 1 }}>
           <FeedUpper />
         </ScrollView>
         <View
@@ -16,7 +17,7 @@ export default function Feed() {
             position: "absolute",
             bottom: 0,
             width: "100%",
-            backgroundColor: "#000000",
+            backgroundColor: "rgba(4, 10, 18, .5)",
           }}
         >
           <Navigator />
