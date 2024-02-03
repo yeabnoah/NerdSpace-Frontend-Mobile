@@ -29,6 +29,7 @@ export default function AppNavigation() {
   const [refreshCount, setRefreshCount] = useState(0);
   const [fontsLoaded] = useFonts({
     poppins: require("../assets/fonts/Poppins-Regular.ttf"),
+    poppinsBold: require("../assets/fonts/Poppins-SemiBold.ttf"),
   });
 
   useEffect(() => {
@@ -78,9 +79,9 @@ export default function AppNavigation() {
           <NavigationContainer>
             <Stack.Navigator
               screenOptions={{ headerShown: false }}
-              // initialRouteName={isLoggedIn ? "Feed" : "Register"}
+              initialRouteName={isLoggedIn ? "Feed" : "Login"}
               // initialRouteName="Feed"
-              initialRouteName="Login"
+              // initialRouteName="Register"
             >
               <Stack.Screen name="Home" component={HomeScreen} />
               <Stack.Screen name="Profile" component={Profile} />

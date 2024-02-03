@@ -6,6 +6,7 @@ import {
   Image,
   TextInput,
   TouchableOpacity,
+  StatusBar,
 } from "react-native";
 import React from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -16,8 +17,11 @@ import LoginComp from "../components/Login/LoginComp";
 const { height, width } = Dimensions.get("window");
 export default function Login() {
   return (
-    <SafeAreaView style={{ height: height * 2, backgroundColor: "#7D7DD3" }}>
-      <LoginComp />
+    <SafeAreaView style={{ backgroundColor: "#131313", color: "white" }}>
+      <View style={{ backgroundColor: "#131313", height: height }}>
+        <StatusBar barStyle="light-content" backgroundColor="#131313" />
+        <LoginComp />
+      </View>
     </SafeAreaView>
   );
 }

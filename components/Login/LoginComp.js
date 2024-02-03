@@ -10,9 +10,11 @@ import {
 import axios from "axios";
 import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { AntDesign, Feather, FontAwesome5, Fontisto } from "@expo/vector-icons";
 
 import Logo from "../../assets/images/logo-removebg-preview.png";
 import Ip from "../../utils/IpAdress";
+import user from "../../assets/images/user.jpg";
 
 const { height, width } = Dimensions.get("window");
 
@@ -54,76 +56,157 @@ export default function LoginComp() {
     <View
       style={{
         flex: 1,
-        backgroundColor: "#040418",
-        paddingTop: height * 0.25,
+        backgroundColor: "#131313",
+        paddingTop: height * 0.1,
         alignItems: "center",
       }}
     >
-      <Image
-        source={Logo}
-        style={{
-          height: width * 0.17,
-          width: width * 0.21,
-        }}
-      />
-      <View style={{ marginTop: width * 0.05, alignItems: "center" }}>
-        <TextInput
-          onChangeText={(text) => setUsername(text)}
-          placeholder="Enter your username here"
-          placeholderTextColor="gray"
+      <View style={{ alignItems: "center" }}>
+        <View style={{ padding: 20, borderRadius: 100 }}>
+          <Image
+            source={user}
+            style={{
+              height: height * 0.15,
+              width: height * 0.15,
+              borderRadius: 100,
+              marginBottom: height * 0.01,
+            }}
+          />
+        </View>
+
+        <Text
           style={{
-            borderWidth: 1,
-            borderColor: "#7D7DD3",
-            width: width * 0.8,
             color: "white",
-            borderRadius: width * 0.05,
-            height: width * 0.15,
-            fontFamily: "poppins",
-            paddingHorizontal: width * 0.05,
-            marginVertical: width * 0.02,
+            fontFamily: "poppinsBold",
+            fontSize: width * 0.07,
           }}
-        />
-        <TextInput
-          onChangeText={(text) => setPassword(text)}
-          placeholder="Enter your password here"
-          placeholderTextColor="gray"
-          secureTextEntry={true}
+        >
+          Welcome Back!
+        </Text>
+      </View>
+      <View style={{ alignItems: "center", paddingTop: height * 0.04 }}>
+        <View
           style={{
-            borderWidth: 1,
-            borderColor: "#7D7DD3",
-            width: width * 0.8,
-            color: "white",
-            fontFamily: "poppins",
-            borderRadius: width * 0.05,
+            display: "flex",
+            flexDirection: "row",
+            backgroundColor: "#2e3233",
             height: width * 0.15,
-            paddingHorizontal: width * 0.05,
-            marginVertical: width * 0.02,
-          }}
-        />
-        <TouchableOpacity
-          onPress={handleLogin}
-          style={{
-            backgroundColor: "#7D7DD3",
-            borderRadius: width * 0.05,
-            height: width * 0.13,
             width: width * 0.8,
-            justifyContent: "center",
-            marginVertical: width * 0.02,
+            borderRadius: width * 0.1,
+            marginTop: height * 0.03,
+          }}
+        >
+          <AntDesign
+            name="user"
+            style={{
+              color: "white",
+              fontSize: width * 0.05,
+              marginTop: height * 0.023,
+              marginLeft: width * 0.05,
+            }}
+          />
+          <TextInput
+            onChangeText={(text) => setUsername(text)}
+            placeholder="Username"
+            placeholderTextColor="white"
+            style={{
+              width: width * 0.75,
+              color: "white",
+              height: width * 0.15,
+              fontFamily: "poppins",
+              paddingHorizontal: width * 0.04,
+              marginVertical: width * 0.002,
+            }}
+          />
+        </View>
+
+        <View
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            backgroundColor: "#2e3233",
+            height: width * 0.15,
+            width: width * 0.8,
+            borderRadius: width * 0.1,
+            marginVertical: height * 0.03,
+          }}
+        >
+          <AntDesign
+            name="unlock"
+            style={{
+              color: "white",
+              fontSize: width * 0.05,
+              marginTop: height * 0.023,
+              marginLeft: width * 0.05,
+            }}
+          />
+          <TextInput
+            onChangeText={(text) => setPassword(text)}
+            placeholder="Password"
+            placeholderTextColor="white"
+            secureTextEntry={true}
+            style={{
+              width: width * 0.75,
+              color: "white",
+
+              height: width * 0.15,
+              fontFamily: "poppins",
+              paddingHorizontal: width * 0.04,
+              marginVertical: width * 0.002,
+              // backgroundColor: "#2e3233",
+              // backgroundColor: "red",
+              // borderRadius: width * 0.1,
+            }}
+          />
+        </View>
+
+        <View
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "flex-end",
+            alignItems: "flex-end !important",
           }}
         >
           <Text
             style={{
-              textAlign: "center",
+              color: "white",
+              textAlign: "right",
               fontFamily: "poppins",
-              fontSize: width * 0.05,
+            }}
+          >
+            Forgot password?
+          </Text>
+        </View>
+        <TouchableOpacity
+          onPress={handleLogin}
+          style={{
+            backgroundColor: "#2e3233",
+            borderRadius: width * 0.1,
+            width: width * 0.5,
+            height: width * 0.15,
+            justifyContent: "center",
+            marginVertical: width * 0.06,
+          }}
+        >
+          <Text
+            style={{
+              color: "white",
+              textAlign: "center",
+              fontFamily: "poppinsBold",
+              fontSize: width * 0.06,
             }}
           >
             Login
           </Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate("Register")}>
+        <TouchableOpacity onPress={() => navigation.navigate(`Register`)}>
           <Text
-            style={{ color: "white", marginTop: 10, fontFamily: "poppins" }}
+            style={{
+              color: "white",
+              marginTop: height * 0.07,
+              fontFamily: "poppins",
+            }}
           >
             Don't have an account? Register Here
           </Text>

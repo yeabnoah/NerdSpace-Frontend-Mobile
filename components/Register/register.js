@@ -11,6 +11,12 @@ import axios from "axios";
 import { useNavigation } from "@react-navigation/native";
 import Ip from "../../utils/IpAdress";
 import Logo from "../../assets/images/logo-removebg-preview.png";
+import {
+  AntDesign,
+  Feather,
+  FontAwesome5,
+  MaterialIcons,
+} from "@expo/vector-icons";
 
 const { width, height } = Dimensions.get("window");
 
@@ -45,46 +51,169 @@ export default function RegisterUi() {
     <View
       style={{
         flex: 1,
-        backgroundColor: "#040418",
-        // justifyContent: "center",
-        paddingTop: height * 0.03,
-        alignItems: "center",
+        backgroundColor: "#131313",
+        marginHorizontal: width * 0.08,
       }}
     >
-      <View
-        style={{ width: width, marginTop: width * 0.2, alignItems: "center" }}
-      >
-        <Image
-          source={Logo}
-          style={{ height: width * 0.17, width: width * 0.21 }}
-        />
-        <View style={{ marginTop: width * 0.05, alignItems: "center" }}>
-          <TextInput
-            onChangeText={setName}
-            placeholder="Enter your name here"
-            placeholderTextColor="gray"
-            style={styles.input}
+      <View>
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate("Login");
+          }}
+        >
+          <MaterialIcons
+            name="keyboard-backspace"
+            style={{
+              color: "white",
+              fontSize: width * 0.1,
+              marginLeft: width * -0.03,
+              marginTop: height * 0.02,
+            }}
           />
-          <TextInput
-            onChangeText={setUsername}
-            placeholder="Enter your username here"
-            placeholderTextColor="gray"
-            style={styles.input}
-          />
-          <TextInput
-            onChangeText={setPhoneNo}
-            placeholder="Enter your phone number here"
-            placeholderTextColor="gray"
-            keyboardType="numeric"
-            style={styles.input}
-          />
-          <TextInput
-            onChangeText={setPassword}
-            placeholder="Enter your password here"
-            placeholderTextColor="gray"
-            secureTextEntry={true}
-            style={styles.input}
-          />
+        </TouchableOpacity>
+
+        <View style={{ alignItems: "center", marginTop: height * 0.05 }}>
+          <View></View>
+          <Text
+            style={{
+              color: "white",
+              fontFamily: "poppinsBold",
+              fontSize: width * 0.08,
+            }}
+          >
+            Let's Get Started!
+          </Text>
+
+          <Text
+            style={{
+              color: "white",
+              fontFamily: "poppinsBold",
+              fontSize: width * 0.025,
+            }}
+          >
+            Create an account to get all the features
+          </Text>
+        </View>
+        <View
+          style={{
+            marginTop: width * 0.05,
+            alignItems: "center",
+            // paddingHorizontal: 100,
+          }}
+        >
+          <View
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              backgroundColor: "#2e3233",
+              borderRadius: width * 0.2,
+              height: width * 0.15,
+              marginVertical: height * 0.02,
+            }}
+          >
+            <AntDesign
+              name="user"
+              style={{
+                color: "white",
+                fontSize: width * 0.05,
+                marginTop: height * 0.023,
+                marginLeft: width * 0.05,
+              }}
+            />
+
+            <TextInput
+              onChangeText={setName}
+              placeholder="Full Name"
+              placeholderTextColor="white"
+              style={styles.input}
+            />
+          </View>
+
+          <View
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              backgroundColor: "#2e3233",
+              borderRadius: width * 0.2,
+              height: width * 0.15,
+              marginVertical: height * 0.02,
+            }}
+          >
+            <AntDesign
+              name="idcard"
+              style={{
+                color: "white",
+                fontSize: width * 0.05,
+                marginTop: height * 0.023,
+                marginLeft: width * 0.05,
+              }}
+            />
+
+            <TextInput
+              onChangeText={setUsername}
+              placeholder="Username"
+              placeholderTextColor="white"
+              style={styles.input}
+            />
+          </View>
+
+          <View
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              backgroundColor: "#2e3233",
+              borderRadius: width * 0.2,
+              height: width * 0.15,
+              marginVertical: height * 0.02,
+              // marginHorizontal: 100,
+            }}
+          >
+            <Feather
+              name="phone"
+              style={{
+                color: "white",
+                fontSize: width * 0.05,
+                marginTop: height * 0.023,
+                marginLeft: width * 0.05,
+              }}
+            />
+            <TextInput
+              onChangeText={setPhoneNo}
+              placeholder="Phone Number"
+              placeholderTextColor="white"
+              keyboardType="numeric"
+              style={styles.input}
+            />
+          </View>
+
+          <View
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              backgroundColor: "#2e3233",
+              borderRadius: width * 0.2,
+              height: width * 0.15,
+              marginVertical: height * 0.02,
+            }}
+          >
+            <AntDesign
+              name="unlock"
+              style={{
+                color: "white",
+                fontSize: width * 0.05,
+                marginTop: height * 0.023,
+                marginLeft: width * 0.05,
+              }}
+            />
+            <TextInput
+              onChangeText={setPassword}
+              placeholder="Password"
+              placeholderTextColor="white"
+              secureTextEntry={true}
+              style={styles.input}
+            />
+          </View>
+
           <TouchableOpacity onPress={handleRegister} style={styles.button}>
             <Text style={styles.buttonText}>Register</Text>
           </TouchableOpacity>
@@ -94,7 +223,6 @@ export default function RegisterUi() {
             </Text>
           </TouchableOpacity>
         </View>
-        <Text style={styles.nerdSpaceText}>Nerd Space</Text>
       </View>
     </View>
   );
@@ -103,27 +231,28 @@ export default function RegisterUi() {
 const styles = {
   input: {
     borderWidth: 1,
-    borderColor: "#7D7DD3",
+    borderColor: "#2e3233",
     width: width * 0.8,
     color: "white",
     borderRadius: width * 0.05,
-    height: width * 0.15,
     fontFamily: "poppins",
     paddingHorizontal: width * 0.05,
     marginVertical: width * 0.02,
   },
   button: {
-    backgroundColor: "#7D7DD3",
-    borderRadius: width * 0.05,
-    height: width * 0.13,
-    width: width * 0.8,
+    backgroundColor: "#2e3233",
+    borderRadius: width * 0.1,
+    height: width * 0.15,
+    width: width * 0.5,
     justifyContent: "center",
-    marginVertical: width * 0.02,
+    marginTop: width * 0.06,
+    marginBottom: height * 0.1,
   },
   buttonText: {
     textAlign: "center",
-    fontFamily: "poppins",
-    fontSize: width * 0.05,
+    fontFamily: "poppinsBold",
+    fontSize: width * 0.06,
+    color: "white",
   },
   loginText: {
     color: "white",
@@ -131,8 +260,8 @@ const styles = {
     fontFamily: "poppins",
   },
   nerdSpaceText: {
-    color: "gray",
+    color: "white",
     marginTop: height * 0.02,
-    fontFamily: "poppins",
+    // fontFamily: "poppinsBold",
   },
 };
