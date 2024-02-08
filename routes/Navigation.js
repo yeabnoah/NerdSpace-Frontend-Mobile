@@ -25,7 +25,17 @@ export default function AppNavigation() {
   const [idToken, setIdToken] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userData, setUserData] = useState({});
-  const [posterData, setPosterData] = useState({});
+  const [posterData, setPosterData] = useState({
+    userId: "65a79a2f425a60c3b70a3f35",
+    name: "name",
+    username: "Username",
+    phoneNumber: "0000",
+    avatarImage: "uploads\\assets\\avatar.png",
+    joinedOn: "",
+    followers: 0,
+    following: 0,
+    coverImage: "uploads\\assets\\cover-placeholder.jpg",
+  });
   const [refreshCount, setRefreshCount] = useState(0);
   const [fontsLoaded] = useFonts({
     poppins: require("../assets/fonts/Poppins-Regular.ttf"),

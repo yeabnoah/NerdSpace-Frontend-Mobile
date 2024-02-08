@@ -27,7 +27,7 @@ export default function Modals({ aboutPost, setAboutPost }) {
         >
           <View
             style={{
-              backgroundColor: "rgba(4, 4, 24, 1)",
+              backgroundColor: "rgba(4, 4, 24, .96)",
               height: width * 0.5,
               width: width * 0.5,
               marginTop: width * 0.65,

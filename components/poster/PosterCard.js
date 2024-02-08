@@ -14,7 +14,7 @@ import { PostContext, posterContext } from "../../context/UID";
 import Ip from "../../utils/IpAdress";
 const { width, height } = Dimensions.get("window");
 
-export default function PosterCard() {
+export default function PosterCard({ userIdPoster }) {
   const navigation = useNavigation();
   const [follower, setFollower] = useState("");
   const [refreshCount, setRefreshCount] = useState(0);

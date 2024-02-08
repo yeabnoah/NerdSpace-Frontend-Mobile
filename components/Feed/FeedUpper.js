@@ -7,7 +7,7 @@ import {
   ScrollView,
   TouchableOpacity,
 } from "react-native";
-import { AntDesign } from "@expo/vector-icons";
+import { AntDesign, Ionicons } from "@expo/vector-icons";
 import axios from "axios";
 import Ip from "../../utils/IpAdress";
 import logo from "../../assets/images/logo-removebg-preview.png";
@@ -64,7 +64,7 @@ const FeedUpper = () => {
         <View
           style={{
             paddingHorizontal: height * 0.017,
-            paddingTop: height * 0.019,
+            paddingTop: height * 0.005,
           }}
         >
           <View
@@ -77,8 +77,8 @@ const FeedUpper = () => {
                   marginTop: height * 0.007,
                   color: "#968fe9",
                   fontSize: height * 0.04,
-                  width: height * 0.047,
-                  height: height * 0.047,
+                  width: height * 0.043,
+                  height: height * 0.043,
                   padding: height * 0.005,
                   borderRadius: 10,
                 }}
@@ -96,12 +96,12 @@ const FeedUpper = () => {
               style={{ flexDirection: "row", justifyContent: "space-between" }}
             >
               <TouchableOpacity>
-                <AntDesign
-                  name="plus"
+                <Ionicons
+                  name="notifications-outline"
                   style={{
                     marginTop: height * 0.007,
                     color: "#968fe9",
-                    fontSize: height * 0.039,
+                    fontSize: height * 0.034,
                     width: height * 0.05,
                     height: height * 0.05,
                     padding: height * 0.005,
@@ -219,6 +219,7 @@ const FeedUpper = () => {
 
             if (timeDifference < 60000) {
               relativeTime = "Just now";
+              // clicking the data from the user feed
             } else if (timeDifference < 3600000) {
               const minutes = Math.floor(timeDifference / 60000);
               relativeTime = `${minutes} minutes ago`;

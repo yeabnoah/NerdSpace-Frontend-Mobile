@@ -222,7 +222,7 @@ export default function PostBox({
   };
 
   const fetchUser = () => {
-    console.log("u");
+    console.log("its not you who posted the data ...");
 
     axios
       .get(`http://${Ip}:5000/users/auth/profile/user/${userId}`, {
@@ -233,12 +233,26 @@ export default function PostBox({
         },
       })
       .then(function (response) {
-        navigation.navigate("Poster");
-        setPosterData(response.data);
+        // setPosterData({});
+        const responseData = response.data.data;
+        setPosterData({
+          userId: "65a79a2f425a60c3b70a3f35",
+          name: responseData.name,
+          username: responseData.username,
+          phoneNumber: responseData.phoneNumber,
+          avatarImage: responseData.avatarImage,
+          joinedOn: "2024-01-17T09:13:19.380Z",
+          followers: responseData.followers,
+          following: responseData.following,
+          coverImage: responseData.coverImage,
+        });
         console.log("###########################: ", response.data);
+        // this.data = "userData_posted ";
+        navigation.navigate("Poster");
       })
       .catch(function (error) {
         console.log("$$$$$$$$$$$$$$$$$$$$$$$$$$$$", error);
+        console.log("user Data is not loaded...");
       });
   };
 
@@ -310,7 +324,7 @@ export default function PostBox({
             </Text>
           </View>
         </View>
-        {/* {!samePoster ? (
+        {!samePoster ? (
           <View style={{ display: "flex", flexDirection: "row" }}>
             {followed ? (
               <TouchableOpacity
@@ -325,10 +339,10 @@ export default function PostBox({
               >
                 <Text
                   style={{
-                    color: "#968fe9",
+                    color: "#7864f6",
                     marginTop: width * 0.01,
-                    paddingLeft: width * 0.01,
                     fontFamily: "poppins",
+                    marginRight: 26,
                   }}
                 >
                   Following
@@ -345,20 +359,31 @@ export default function PostBox({
                   paddingHorizontal: width * 0.02,
                 }}
               >
-                <AntDesign
+                {/* <AntDesign
                   name="plus"
                   style={{
-                    color: "#968fe9",
-                    fontSize: height * 0.0225,
+                    color: "#fff",
+                    fontSize: height * 0.022,
                     paddingTop: width * 0.01,
+                    paddingHorizontal: 4,
+                  }}
+                /> */}
+                <FontAwesome5
+                  name="user-plus"
+                  style={{
+                    color: "#7864f6",
+                    fontSize: height * 0.016,
+                    paddingTop: width * 0.014,
+                    paddingHorizontal: 4,
                   }}
                 />
+
                 <Text
                   style={{
-                    color: "white",
+                    color: "#fff",
                     marginTop: width * 0.01,
-                    paddingLeft: width * 0.01,
                     fontFamily: "poppins",
+                    marginRight: 26,
                   }}
                 >
                   Follow
@@ -369,7 +394,11 @@ export default function PostBox({
             <TouchableOpacity onPress={() => setAboutPost(true)}>
               <Feather
                 name="more-vertical"
-                style={{ color: "#968fe9", fontSize: height * 0.036 }}
+                style={{
+                  color: "#968fe9",
+                  fontSize: height * 0.025,
+                  marginTop: 2,
+                }}
               />
             </TouchableOpacity>
           </View>
@@ -382,21 +411,12 @@ export default function PostBox({
               paddingBottom: 0,
               height: height * 0.04,
               paddingHorizontal: width * 0.02,
+              width: width * 0.3,
             }}
           >
-            <Text
-              style={{
-                color: "#968fe9",
-                marginTop: width * 0.01,
-                paddingLeft: width * 0.01,
-                fontFamily: "poppins",
-                fontSize: width * 0.04,
-              }}
-            >
-              Edit
-            </Text>
+            <Text style={{}}>{/* Edit */}</Text>
           </TouchableOpacity>
-        )} */}
+        )}
       </View>
       <View style={{ paddingHorizontal: height * 0.02 }}>
         <View style={{ display: "flex", flexDirection: "row" }}>
@@ -425,26 +445,42 @@ export default function PostBox({
             )}
           </View>
           <View style={{ marginHorizontal: 13, paddingTop: 10 }}>
-            <TouchableOpacity
-              onPress={() => {
-                if (liked) {
+            {liked ? (
+              <TouchableOpacity
+                onPress={() => {
                   unlikePost();
-                } else {
+                }}
+                style={{
+                  backgroundColor: "#8c52ff",
+                  padding: 10,
+                  borderRadius: 100,
+                }}
+              >
+                <AntDesign
+                  name="heart"
+                  size={16}
+                  style={{ color: liked ? "white" : "white" }}
+                />
+              </TouchableOpacity>
+            ) : (
+              <TouchableOpacity
+                onPress={() => {
                   likePost();
-                }
-              }}
-              style={{
-                backgroundColor: "#8c52ff",
-                padding: 10,
-                borderRadius: 100,
-              }}
-            >
-              <AntDesign
-                name="heart"
-                size={16}
-                style={{ color: liked ? "white" : "black" }}
-              />
-            </TouchableOpacity>
+                }}
+                style={{
+                  backgroundColor: "#8c52ff",
+                  padding: 10,
+                  borderRadius: 100,
+                }}
+              >
+                <AntDesign
+                  name="heart"
+                  size={16}
+                  style={{ color: liked ? "white" : "black" }}
+                />
+              </TouchableOpacity>
+            )}
+
             <Text
               style={{
                 color: "#8c52ff",
@@ -455,8 +491,7 @@ export default function PostBox({
                 fontFamily: "poppins",
               }}
             >
-              {/* {like} */}
-              1K
+              {like}
             </Text>
 
             <TouchableOpacity
@@ -479,18 +514,10 @@ export default function PostBox({
                 fontFamily: "poppins",
               }}
             >
-              {/* {comment} */}
-              345
+              {comment}
             </Text>
 
             <TouchableOpacity
-              onPress={() => {
-                if (liked) {
-                  unlikePost();
-                } else {
-                  likePost();
-                }
-              }}
               style={{
                 backgroundColor: "#8c52ff",
                 padding: 10,
@@ -670,18 +697,20 @@ export default function PostBox({
             borderTopWidth: 0.4,
             marginHorizontal: width * 0.04,
             marginTop: 10,
-            backgroundColor: "red",
           }}
         >
           <View
             style={{
-              width: width * 0.92,
+              width: width * 0.87,
               marginLeft: width * 0.028,
-              paddingRight: height * 0.04,
+              marginRight: 40,
+              // paddingRight: height * 0.04,
+              paddingLeft: 10,
               borderRadius: height * 0.02,
               display: "flex",
               flexDirection: "row",
               marginTop: 10,
+              backgroundColor: "rgba(42, 37, 71,0.5)",
             }}
           >
             <Image
@@ -758,6 +787,7 @@ export default function PostBox({
                       paddingVertical: width * 0.04,
                       display: "flex",
                       flexDirection: "row",
+                      marginLeft: 20,
                     }}
                   >
                     <Image

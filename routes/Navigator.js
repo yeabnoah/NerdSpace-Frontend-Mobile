@@ -181,7 +181,7 @@ export default function Navigator() {
           name="home"
           style={{
             color: "#7864f6",
-            fontSize: width * 0.06,
+            fontSize: width * 0.05,
             paddingTop: width * 0.02,
             // backgroundColor: "#968fe9",
             // padding: 5,
@@ -207,7 +207,7 @@ export default function Navigator() {
           name="search1"
           style={{
             color: "#7864f6",
-            fontSize: width * 0.06,
+            fontSize: width * 0.05,
             paddingTop: width * 0.02,
             // backgroundColor: "#968fe9",
             // padding: 5,
@@ -438,7 +438,7 @@ export default function Navigator() {
           name="message-badge-outline"
           style={{
             color: "#7864f6",
-            fontSize: width * 0.06,
+            fontSize: width * 0.05,
             paddingTop: width * 0.02,
             // backgroundColor: "#968fe9",
             // padding: 5,
@@ -465,7 +465,7 @@ export default function Navigator() {
           name="user"
           style={{
             color: "#7864f6",
-            fontSize: width * 0.06,
+            fontSize: width * 0.05,
             paddingTop: width * 0.02,
             // backgroundColor: "#968fe9",
             // padding: 5,
