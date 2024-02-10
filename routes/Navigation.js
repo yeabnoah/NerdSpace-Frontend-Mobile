@@ -13,7 +13,12 @@ import Search from "../screens/Search";
 import Chat from "../screens/Chat";
 import Login from "../screens/Login";
 import Register from "../screens/Register";
-import { PostContext, UidContext, posterContext } from "../context/UID";
+import {
+  PostContext,
+  UidContext,
+  posterContext,
+  posterDataContext,
+} from "../context/UID";
 import Ip from "../utils/IpAdress";
 import Test from "../test/Test";
 import EditProfile from "../screens/EditProfile";
@@ -25,6 +30,7 @@ export default function AppNavigation() {
   const [idToken, setIdToken] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userData, setUserData] = useState({});
+  // const poster
   const [posterData, setPosterData] = useState({
     userId: "65a79a2f425a60c3b70a3f35",
     name: "name",
@@ -90,7 +96,7 @@ export default function AppNavigation() {
             <Stack.Navigator
               screenOptions={{ headerShown: false }}
               initialRouteName={isLoggedIn ? "Feed" : "Login"}
-              // initialRouteName="Feed"
+              // initialRouteName="Profile"
               // initialRouteName="Register"
             >
               <Stack.Screen name="Home" component={HomeScreen} />

@@ -9,7 +9,9 @@ import {
 import React, { useContext, useEffect, useState } from "react";
 import Technerd from "../../assets/images/technerd.jpg";
 import {
+  AntDesign,
   Feather,
+  FontAwesome5,
   MaterialCommunityIcons,
   MaterialIcons,
 } from "@expo/vector-icons";
@@ -18,6 +20,7 @@ import MockData from "../../utils/MockData";
 import Ip from "../../utils/IpAdress";
 import { PostContext, UidContext } from "../../context/UID";
 import axios from "axios";
+import { LinearGradient } from "expo-linear-gradient";
 
 const { width, height } = Dimensions.get("window");
 
@@ -102,7 +105,7 @@ export default function Myposts() {
       <Text
         style={{
           color: "gray",
-          fontFamily: "poppins",
+          fontFamily: "poppinsBold",
           marginHorizontal: width * 0.06,
           fontSize: width * 0.05,
         }}
@@ -110,7 +113,8 @@ export default function Myposts() {
         My Posts
       </Text>
 
-      <View
+      <ScrollView
+        horizontal={true}
         style={{
           flex: 5,
           marginTop: 10,
@@ -122,38 +126,6 @@ export default function Myposts() {
           height: posts.length > 0 ? "max-height" : height * 0.4,
         }}
       >
-        {/* <TouchableOpacity
-          onPress={() => {
-            submitNow();
-          }}
-        >
-          <Text
-            style={{
-              color: "gray",
-              textAlign: "center",
-              fontFamily: "poppins",
-              fontSize: width * 0.04,
-              padding: width * 0.35,
-            }}
-          >
-            No posts yet!
-          </Text>
-        </TouchableOpacity> */}
-        {/* {setPosts.length > 0 ? ( */}
-        {/* <View>
-          {posts.data.map((post) => {
-            console.log(post);
-
-           
-          })}
-        </View> */}
-        {/* ) : (
-          <View>
-            <Text style={{ color: "white" }}>No Posts</Text>
-          </View>
-        )} */}
-
-        {/* {console.log(posts)} */}
         {posts.map((yu) => {
           // console.log(yu);
 
@@ -169,80 +141,98 @@ export default function Myposts() {
 
           return (
             <View
+              horizontal={true}
               key={yu._id}
               style={{
-                // backgroundColor: "#040418",
-                padding: width * 0.02,
                 display: "flex",
                 borderBottomWidth: 0.7,
-                // borderColor: "#7864",
-                borderBottomColor: "#7864",
-                marginHorizontal: 15,
-                width: width * 0.9,
+                width: "max-content",
                 borderRadius: 10,
-                marginBottom: 10,
-                height: "max-height",
+                // height: "max-height",
                 paddingBottom: 20,
-                // marginBottom: 210,
-                // borderStyle: "dashed",
+                marginHorizontal: width * 0.045,
               }}
             >
-              <View
+              <LinearGradient
+                // Background Linear Gradient
+                colors={["rgba(0,0,0,0.8)", "transparent"]}
+              />
+              <LinearGradient
                 style={{
-                  display: "flex",
-                  flexDirection: "row",
+                  height: width * 0.627,
                 }}
+                colors={["transparent", "#040418"]}
+                start={{ x: 0.5, y: 0.1 }}
               >
                 <Image
                   source={{
-                    uri: urlAvatar,
+                    uri: url,
                   }}
                   style={{
-                    height: height * 0.044,
-                    width: height * 0.05,
+                    width: height * 0.29,
+                    height: height * 0.31,
                     borderRadius: 10,
+                    zIndex: -1,
                   }}
                 />
-                <Text
+                <View
                   style={{
-                    color: "white",
-                    marginLeft: 10,
-                    fontFamily: "poppins",
-                    fontSize: width * 0.045,
+                    display: "flex",
+                    flexDirection: "row",
+                    marginTop: height * -0.03,
+                    justifyContent: "space-between",
+                    marginHorizontal: 10,
+                    width: 50,
                   }}
                 >
-                  @Nerd_{userData.username}
-                </Text>
-              </View>
-              <Text
-                style={{
-                  color: "#c9c9c9",
-                  fontFamily: "poppins",
-                  fontSize: width * 0.04,
-                  marginRight: 10,
-                  marginLeft: 40,
-                  marginBottom: 10,
-                  marginTop: 5,
-                }}
-              >
-                {yu.content}
-              </Text>
+                  <AntDesign
+                    name="heart"
+                    style={{ fontSize: 16, color: "#7864f6" }}
+                  />
+                  <Text
+                    style={{
+                      color: "#7864f6",
+                      fontFamily: "poppinsBold",
+                      fontSize: 16,
+                      textAlign: "center",
+                      marginBottom: height * 0.3,
+                    }}
+                  >
+                    230
+                  </Text>
+                </View>
 
-              <Image
-                source={{
-                  uri: url,
-                }}
-                style={{
-                  width: height * 0.36,
-                  borderRadius: 10,
-                  height: 200,
-                  marginLeft: 40,
-                }}
-              />
+                <View
+                  style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    marginTop: height * -0.03,
+                    justifyContent: "space-between",
+                    marginHorizontal: 10,
+                    width: 50,
+                  }}
+                >
+                  <AntDesign
+                    name="heart"
+                    style={{ fontSize: 16, color: "#7864f6" }}
+                  />
+                  <Text
+                    style={{
+                      color: "#7864f6",
+                      fontFamily: "poppinsBold",
+                      fontSize: 16,
+                      textAlign: "center",
+                      marginBottom: height * 0.3,
+                    }}
+                  >
+                    230
+                  </Text>
+                </View>
+              </LinearGradient>
             </View>
           );
         })}
-      </View>
+      </ScrollView>
     </ScrollView>
   );
 }

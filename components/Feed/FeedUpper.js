@@ -75,7 +75,7 @@ const FeedUpper = () => {
                 name="bars"
                 style={{
                   marginTop: height * 0.007,
-                  color: "#968fe9",
+                  color: "#7864f6",
                   fontSize: height * 0.04,
                   width: height * 0.043,
                   height: height * 0.043,
@@ -97,10 +97,10 @@ const FeedUpper = () => {
             >
               <TouchableOpacity>
                 <Ionicons
-                  name="notifications-outline"
+                  name="notifications"
                   style={{
                     marginTop: height * 0.007,
-                    color: "#968fe9",
+                    color: "#7864f6",
                     fontSize: height * 0.034,
                     width: height * 0.05,
                     height: height * 0.05,

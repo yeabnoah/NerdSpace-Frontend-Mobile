@@ -48,7 +48,7 @@ export default function Posts() {
   //     // Place the code you want to execute every 2 seconds here
   //     console.log("Refreshing every 2 seconds...");
 
-  //     setX(Data.posterData.userId);
+  //     // setX(Data.posterData.userId);
 
   //     console.log(posterData);
   //   }, 2000);
@@ -62,7 +62,7 @@ export default function Posts() {
   //       },
   //     })
   //     .then((response) => {
-  //       console.log(response.data);
+  //       console.log(response);
   //     })
   //     .catch((error) => {
   //       console.error("Error fetching data:", error);
@@ -101,6 +101,19 @@ export default function Posts() {
           height: posts.length > 0 ? "max-height" : height * 0.4,
         }}
       >
+        <TouchableOpacity
+          onPress={() => {
+            console.log("am clicked");
+          }}
+          style={{
+            color: "white",
+            backgroundColor: "#7864f6",
+            padding: 10,
+            borderRadius: 10,
+          }}
+        >
+          <Text style={{ color: "white" }}>click me</Text>
+        </TouchableOpacity>
         {/* {posts.map((yu) => {
           // console.log(yu);
 
