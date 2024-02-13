@@ -195,11 +195,11 @@ const FeedUpper = () => {
       <View
         style={{
           marginBottom: height * 0.4,
-          height: post.length > 0 ? "max-height" : height,
+          height: post?.length > 0 ? "max-height" : height,
         }}
       >
         <ScrollView>
-          {post.map((posted) => {
+          {post?.map((posted) => {
             const {
               likes,
               content,
@@ -231,22 +231,22 @@ const FeedUpper = () => {
               relativeTime = `${days} days ago`;
             }
 
-            const likeCount = likes.length;
-            const commentCount = comments.length;
+            const likeCount = likes?.length;
+            const commentCount = comments?.length;
             // const imageUpdate = `${imageUrl}.jpg`;
             const followers = user?.followers;
 
             return (
               <PostBox
-                key={posted._id}
-                postId={posted._id}
+                key={posted?._id}
+                postId={posted?._id}
                 content={content}
                 img={imageUrl}
                 like={likeCount}
                 comment={commentCount}
                 userId={user_id}
                 timeStamp={relativeTime}
-                poster={posted.user}
+                poster={posted?.user}
                 likes={likes}
                 liked={liked}
                 setLiked={setLiked}

@@ -15,7 +15,7 @@ export default function LovedScreen() {
         <ScrollView
           style={{ marginTop: width * 0.06, paddingBottom: width * 0.1 }}
         >
-          {MockPosts.map((post) => {
+          {MockPosts?.map((post) => {
             return (
               <View
                 key={post.id}

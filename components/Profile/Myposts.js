@@ -132,10 +132,10 @@ export default function Myposts({ posts, setPosts, setSetting }) {
             height: posts.length > 0 ? "max-height" : height * 0.4,
           }}
         >
-          {posts.map((yu) => {
+          {posts?.map((yu) => {
             // console.log(yu);
 
-            if (yu.imageUrl) {
+            if (yu?.imageUrl) {
               if (yu.imageUrl !== null) {
                 yu.imageUrl = yu.imageUrl.replace(/\\/g, "/");
               } else {
@@ -143,12 +143,12 @@ export default function Myposts({ posts, setPosts, setSetting }) {
               }
             }
 
-            const url = `http://${Ip}:5000/users/${yu.imageUrl}`;
+            const url = `http://${Ip}:5000/users/${yu?.imageUrl}`;
 
             return (
               <View
                 horizontal={true}
-                key={yu._id}
+                key={yu?._id}
                 style={{
                   display: "flex",
                   borderBottomWidth: 0.7,

@@ -33,7 +33,7 @@ export default function ProfileCard({ posts, setting, setSetting }) {
   const userData = useContext(PostContext);
   // const [setting, setSetting] = useState(false);
 
-  if (userData.coverImage) {
+  if (userData?.coverImage) {
     if (userData.coverImage !== null) {
       userData.coverImage = userData.coverImage.replace(/\\/g, "/");
     } else {
@@ -41,9 +41,9 @@ export default function ProfileCard({ posts, setting, setSetting }) {
     }
   }
 
-  const urlCov = `http://${Ip}:5000/users/${userData.coverImage}`;
+  const urlCov = `http://${Ip}:5000/users/${userData?.coverImage}`;
 
-  if (userData.avatarImage) {
+  if (userData?.avatarImage) {
     if (userData.avatarImage !== null) {
       userData.avatarImage = userData.avatarImage.replace(/\\/g, "/");
     } else {
@@ -51,7 +51,7 @@ export default function ProfileCard({ posts, setting, setSetting }) {
     }
   }
 
-  const url = `http://${Ip}:5000/users/${userData.avatarImage}`;
+  const url = `http://${Ip}:5000/users/${userData?.avatarImage}`;
 
   const Edit = () => {
     // try {
@@ -252,7 +252,7 @@ export default function ProfileCard({ posts, setting, setSetting }) {
                   fontFamily: "poppins",
                 }}
               >
-                {userData.name}
+                {userData?.name}
               </Text>
               <Text
                 style={{
@@ -302,7 +302,7 @@ export default function ProfileCard({ posts, setting, setSetting }) {
                   textAlign: "center",
                 }}
               >
-                {userData.followers}
+                {userData?.followers}
               </Text>
               <Text
                 style={{
@@ -325,7 +325,7 @@ export default function ProfileCard({ posts, setting, setSetting }) {
                   textAlign: "center",
                 }}
               >
-                {posts.length}
+                {posts?.length}
               </Text>
               <Text
                 style={{
@@ -347,7 +347,7 @@ export default function ProfileCard({ posts, setting, setSetting }) {
                   textAlign: "center",
                 }}
               >
-                {userData.following}
+                {userData?.following}
               </Text>
               <Text
                 style={{
@@ -390,7 +390,7 @@ export default function ProfileCard({ posts, setting, setSetting }) {
                   textAlign: "left",
                 }}
               >
-                @{userData.username}
+                @{userData?.username}
               </Text>
               <Text
                 style={{
@@ -400,7 +400,7 @@ export default function ProfileCard({ posts, setting, setSetting }) {
                   textAlign: "left",
                 }}
               >
-                {userData.bio}
+                {userData?.bio}
               </Text>
             </View>
           </View>

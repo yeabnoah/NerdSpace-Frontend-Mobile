@@ -250,15 +250,15 @@ export default function SearchUpper() {
       </View>
 
       {userList.length > 0 ? (
-        userList.map((each) => {
-          if (each[0].avatar_image) {
+        userList?.map((each) => {
+          if (each[0]?.avatar_image) {
             if (each[0].avatar_image !== null) {
               each[0].avatar_image = each[0].avatar_image.replace(/\\/g, "/");
             } else {
               img = null;
             }
           }
-          const url = `http://${Ip}:5000/users/${each[0].avatar_image}`;
+          const url = `http://${Ip}:5000/users/${each[0]?.avatar_image}`;
           console.log("Image URL:", url);
           return (
             <View
