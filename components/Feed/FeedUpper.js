@@ -234,7 +234,7 @@ const FeedUpper = () => {
             const likeCount = likes.length;
             const commentCount = comments.length;
             // const imageUpdate = `${imageUrl}.jpg`;
-            const followers = user.followers;
+            const followers = user?.followers;
 
             return (
               <PostBox

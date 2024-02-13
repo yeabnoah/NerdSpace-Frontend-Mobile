@@ -51,7 +51,7 @@ export default function PostBox({
   const [allComments, setAllComments] = useState();
   const [samePoster, setSamePoster] = useState(false);
   const [userImage, setUserImage] = useState(userData.avatarImage);
-  const followers = usen.followers;
+  const followers = usen?.followers;
   const navigation = useNavigation();
   const { posterData, setPosterData } = useContext(posterContext);
 
@@ -237,14 +237,14 @@ export default function PostBox({
         const responseData = response.data.data;
         setPosterData({
           userId: "65a79a2f425a60c3b70a3f35",
-          name: responseData.name,
-          username: responseData.username,
-          phoneNumber: responseData.phoneNumber,
-          avatarImage: responseData.avatarImage,
+          name: responseData?.name,
+          username: responseData?.username,
+          phoneNumber: responseData?.phoneNumber,
+          avatarImage: responseData?.avatarImage,
           joinedOn: "2024-01-17T09:13:19.380Z",
-          followers: responseData.followers,
-          following: responseData.following,
-          coverImage: responseData.coverImage,
+          followers: responseData?.followers,
+          following: responseData?.following,
+          coverImage: responseData?.coverImage,
         });
         console.log("###########################: ", response.data);
         // this.data = "userData_posted ";
