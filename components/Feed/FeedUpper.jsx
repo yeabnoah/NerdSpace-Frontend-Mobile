@@ -60,7 +60,12 @@ const FeedUpper = () => {
 
   return (
     <View style={{ flex: 1, backgroundColor: "#040a12" }}>
-      <View style={{ backgroundColor: "#040a12", height: height * 0.07 }}>
+      <View
+        style={{
+          backgroundColor: "#040a12",
+          height: post && post.length > 0 ? height * 0.07 : height,
+        }}
+      >
         <View
           style={{
             paddingHorizontal: height * 0.017,
@@ -195,7 +200,7 @@ const FeedUpper = () => {
       <View
         style={{
           marginBottom: height * 0.4,
-          height: post?.length > 0 ? "max-height" : height,
+          height: post && post.length > 0 ? "max-height" : height,
         }}
       >
         <ScrollView>

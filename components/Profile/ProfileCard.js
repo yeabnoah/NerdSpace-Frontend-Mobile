@@ -263,7 +263,7 @@ export default function ProfileCard({ posts, setting, setSetting }) {
                   marginTop: -10,
                 }}
               >
-                nerd@programming
+                {`nerd@${userData?.nerd}`}
               </Text>
             </View>
           </View>

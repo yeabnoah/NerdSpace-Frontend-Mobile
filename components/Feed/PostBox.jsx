@@ -62,12 +62,10 @@ export default function PostBox({
     followers?.map((id) => {
       if (userData.userId === id) {
         setFollowed(true);
-        // console.log("u followed him before");
       }
     });
 
     if (userData.userId === usen?._id) {
-      // console.log("same Poster");
       setSamePoster(true);
     }
   }, []);
@@ -232,7 +230,6 @@ export default function PostBox({
           },
         })
         .then(function (response) {
-          // setPosterData({});
           const responseData = response.data.data;
           setPosterData({
             userId: "65a79a2f425a60c3b70a3f35",
@@ -245,7 +242,7 @@ export default function PostBox({
             following: responseData?.following,
             coverImage: responseData?.coverImage,
           });
-          console.log("###########################: ", response.data);
+          console.log("#####", response.data);
           // this.data = "userData_posted ";
           navigation.navigate("Poster");
         })
@@ -358,15 +355,6 @@ export default function PostBox({
                     paddingHorizontal: width * 0.02,
                   }}
                 >
-                  {/* <AntDesign
-                  name="plus"
-                  style={{
-                    color: "#fff",
-                    fontSize: height * 0.022,
-                    paddingTop: width * 0.01,
-                    paddingHorizontal: 4,
-                  }}
-                /> */}
                   <FontAwesome5
                     name="user-plus"
                     style={{
@@ -403,7 +391,6 @@ export default function PostBox({
             </View>
           ) : (
             <TouchableOpacity
-              // onPress={() => followHandler()}
               style={{
                 display: "flex",
                 flexDirection: "row",
@@ -417,155 +404,327 @@ export default function PostBox({
             </TouchableOpacity>
           )}
         </View>
-        <View style={{ paddingHorizontal: height * 0.02 }}>
-          <View style={{ display: "flex", flexDirection: "row" }}>
-            <View>
-              {img !== null && (
-                <View
-                  style={{
-                    flex: 1,
-                    alignItems: "baseline",
-                    paddingVertical: 3,
-                  }}
-                >
-                  <Image
-                    source={{
-                      uri: url,
+
+        {img ? (
+          <View style={{ paddingHorizontal: height * 0.02 }}>
+            <View style={{ display: "flex", flexDirection: "row" }}>
+              <View>
+                {img !== null && (
+                  <View
+                    style={{
+                      flex: 1,
+                      alignItems: "baseline",
+                      paddingVertical: 3,
+                    }}
+                  >
+                    <Image
+                      source={{
+                        uri: url,
+                      }}
+                      style={{
+                        justifyContent: "center",
+                        alignItems: "center",
+                        height: width * 0.78,
+                        width: width * 0.78,
+                        borderRadius: width * 0.045,
+                      }}
+                    />
+                  </View>
+                )}
+              </View>
+              <View style={{ marginHorizontal: 13, paddingTop: 10 }}>
+                {liked ? (
+                  <TouchableOpacity
+                    onPress={() => {
+                      unlikePost();
                     }}
                     style={{
-                      justifyContent: "center",
-                      alignItems: "center",
-                      height: width * 0.78,
-                      width: width * 0.78,
-                      borderRadius: width * 0.045,
+                      backgroundColor: "#8c52ff",
+                      padding: 10,
+                      borderRadius: 100,
                     }}
-                  />
-                </View>
-              )}
+                  >
+                    <AntDesign
+                      name="heart"
+                      size={16}
+                      style={{ color: liked ? "white" : "white" }}
+                    />
+                  </TouchableOpacity>
+                ) : (
+                  <TouchableOpacity
+                    onPress={() => {
+                      likePost();
+                    }}
+                    style={{
+                      backgroundColor: "#8c52ff",
+                      padding: 10,
+                      borderRadius: 100,
+                    }}
+                  >
+                    <AntDesign
+                      name="heart"
+                      size={16}
+                      style={{ color: liked ? "white" : "black" }}
+                    />
+                  </TouchableOpacity>
+                )}
+
+                <Text
+                  style={{
+                    color: "#8c52ff",
+                    fontSize: 12,
+                    textAlign: "center",
+                    marginBottom: 3,
+                    marginTop: 3,
+                    fontFamily: "poppins",
+                  }}
+                >
+                  {like}
+                </Text>
+
+                <TouchableOpacity
+                  onPress={commentHandler}
+                  style={{
+                    backgroundColor: "#8c52ff",
+                    padding: 10,
+                    borderRadius: 100,
+                  }}
+                >
+                  <FontAwesome name="comment" size={15} color="black" />
+                </TouchableOpacity>
+                <Text
+                  style={{
+                    color: "#8c52ff",
+                    fontSize: 12,
+                    textAlign: "center",
+                    marginBottom: 3,
+                    marginTop: 3,
+                    fontFamily: "poppins",
+                  }}
+                >
+                  {comment}
+                </Text>
+
+                <TouchableOpacity
+                  style={{
+                    backgroundColor: "#8c52ff",
+                    padding: 10,
+                    borderRadius: 100,
+                  }}
+                >
+                  <FontAwesome5 name="share" size={16} color="black" />
+                </TouchableOpacity>
+                <Text
+                  style={{
+                    color: "#8c52ff",
+                    fontSize: 12,
+                    textAlign: "center",
+                    marginBottom: 3,
+                    marginTop: 3,
+                    fontFamily: "poppins",
+                  }}
+                >
+                  {/* {comment} */}
+                  65
+                </Text>
+              </View>
             </View>
-            <View style={{ marginHorizontal: 13, paddingTop: 10 }}>
-              {liked ? (
-                <TouchableOpacity
-                  onPress={() => {
-                    unlikePost();
-                  }}
+
+            <Text
+              style={{
+                color: "#b6b6b6",
+                fontSize: height * 0.02,
+                paddingHorizontal: width * 0.015,
+                fontFamily: "poppins",
+                width: width * 0.9,
+                marginTop: 10,
+                textAlign: "justify",
+              }}
+            >
+              {showFullContent ? `${content}.` : `${truncatedContent} ...`}
+              {content.split(" ").length > 10 && (
+                <Text
                   style={{
-                    backgroundColor: "#8c52ff",
-                    padding: 10,
-                    borderRadius: 100,
+                    color: "#8c52ff",
+                    fontFamily: "poppins",
                   }}
+                  onPress={() => setShowFullContent(!showFullContent)}
                 >
-                  <AntDesign
-                    name="heart"
-                    size={16}
-                    style={{ color: liked ? "white" : "white" }}
-                  />
-                </TouchableOpacity>
-              ) : (
-                <TouchableOpacity
-                  onPress={() => {
-                    likePost();
-                  }}
-                  style={{
-                    backgroundColor: "#8c52ff",
-                    padding: 10,
-                    borderRadius: 100,
-                  }}
-                >
-                  <AntDesign
-                    name="heart"
-                    size={16}
-                    style={{ color: liked ? "white" : "black" }}
-                  />
-                </TouchableOpacity>
+                  {showFullContent ? " Read Less" : " Read More"}
+                </Text>
               )}
+            </Text>
+          </View>
+        ) : (
+          <View style={{ paddingHorizontal: height * 0.02 }}>
+            <Text
+              style={{
+                color: "#b6b6b6",
+                fontSize: height * 0.02,
+                paddingHorizontal: width * 0.015,
+                fontFamily: "poppins",
+                width: width * 0.9,
+                marginTop: 10,
+                textAlign: "justify",
+              }}
+            >
+              {showFullContent ? `${content}.` : `${truncatedContent} ...`}
+              {content.split(" ").length > 10 && (
+                <Text
+                  style={{
+                    color: "#8c52ff",
+                    fontFamily: "poppins",
+                  }}
+                  onPress={() => setShowFullContent(!showFullContent)}
+                >
+                  {showFullContent ? " Read Less" : " Read More"}
+                </Text>
+              )}
+            </Text>
 
-              <Text
+            <View style={{}}>
+              <View
                 style={{
-                  color: "#8c52ff",
-                  fontSize: 12,
-                  textAlign: "center",
-                  marginBottom: 3,
-                  marginTop: 3,
-                  fontFamily: "poppins",
+                  marginHorizontal: 13,
+                  paddingTop: 10,
+                  display: "flex",
+                  flexDirection: "row",
                 }}
               >
-                {like}
-              </Text>
+                <View
+                  style={{
+                    marginRight: width * 0.06,
+                    display: "flex",
+                    flexDirection: "row",
+                  }}
+                >
+                  <Text
+                    style={{
+                      color: "#8c52ff",
+                      fontSize: 18,
+                      textAlign: "center",
+                      marginBottom: 3,
+                      marginTop: 3,
+                      fontFamily: "poppins",
+                      paddingTop: height * 0.008,
+                    }}
+                  >
+                    {like}
+                  </Text>
+                  {liked ? (
+                    <TouchableOpacity
+                      onPress={() => {
+                        unlikePost();
+                      }}
+                      style={{
+                        backgroundColor: "#8c52ff",
+                        padding: 10,
+                        borderRadius: 100,
+                        marginLeft: width * 0.03,
+                      }}
+                    >
+                      <AntDesign
+                        name="heart"
+                        size={16}
+                        style={{ color: liked ? "white" : "white" }}
+                      />
+                    </TouchableOpacity>
+                  ) : (
+                    <TouchableOpacity
+                      onPress={() => {
+                        likePost();
+                      }}
+                      style={{
+                        backgroundColor: "#8c52ff",
+                        padding: 10,
+                        borderRadius: 100,
+                        marginLeft: width * 0.03,
+                      }}
+                    >
+                      <AntDesign
+                        name="heart"
+                        size={16}
+                        style={{ color: liked ? "white" : "black" }}
+                      />
+                    </TouchableOpacity>
+                  )}
+                </View>
 
-              <TouchableOpacity
-                onPress={commentHandler}
-                style={{
-                  backgroundColor: "#8c52ff",
-                  padding: 10,
-                  borderRadius: 100,
-                }}
-              >
-                <FontAwesome name="comment" size={15} color="black" />
-              </TouchableOpacity>
-              <Text
-                style={{
-                  color: "#8c52ff",
-                  fontSize: 12,
-                  textAlign: "center",
-                  marginBottom: 3,
-                  marginTop: 3,
-                  fontFamily: "poppins",
-                }}
-              >
-                {comment}
-              </Text>
+                <View
+                  style={{
+                    marginRight: width * 0.06,
+                    display: "flex",
+                    flexDirection: "row",
+                    height: "max-content",
+                    justifyContent: "center",
+                  }}
+                >
+                  <Text
+                    style={{
+                      color: "#8c52ff",
+                      fontSize: 18,
+                      textAlign: "center",
+                      marginBottom: 3,
+                      marginTop: 3,
+                      fontFamily: "poppins",
+                      paddingTop: height * 0.008,
+                    }}
+                  >
+                    {comment}
+                  </Text>
+                  <TouchableOpacity
+                    onPress={commentHandler}
+                    style={{
+                      backgroundColor: "#8c52ff",
+                      padding: 10,
+                      borderRadius: 100,
+                      height: height * 0.05,
+                      marginLeft: width * 0.03,
+                    }}
+                  >
+                    <FontAwesome name="comment" size={15} color="black" />
+                  </TouchableOpacity>
+                </View>
 
-              <TouchableOpacity
-                style={{
-                  backgroundColor: "#8c52ff",
-                  padding: 10,
-                  borderRadius: 100,
-                }}
-              >
-                <FontAwesome5 name="share" size={16} color="black" />
-              </TouchableOpacity>
-              <Text
-                style={{
-                  color: "#8c52ff",
-                  fontSize: 12,
-                  textAlign: "center",
-                  marginBottom: 3,
-                  marginTop: 3,
-                  fontFamily: "poppins",
-                }}
-              >
-                {/* {comment} */}
-                65
-              </Text>
+                <View
+                  style={{
+                    marginRight: width * 0.06,
+                    display: "flex",
+                    flexDirection: "row",
+                    height: "max-content",
+                    justifyContent: "center",
+                  }}
+                >
+                  <Text
+                    style={{
+                      color: "#8c52ff",
+                      fontSize: 18,
+                      textAlign: "center",
+                      marginBottom: 3,
+                      marginTop: 3,
+                      fontFamily: "poppins",
+                      paddingTop: height * 0.008,
+                    }}
+                  >
+                    65
+                  </Text>
+                  <TouchableOpacity
+                    style={{
+                      backgroundColor: "#8c52ff",
+                      padding: 10,
+                      borderRadius: 100,
+                      height: height * 0.05,
+                      marginLeft: 10,
+                    }}
+                  >
+                    <FontAwesome5 name="share" size={16} color="black" />
+                  </TouchableOpacity>
+                </View>
+              </View>
             </View>
           </View>
+        )}
 
-          <Text
-            style={{
-              color: "#b6b6b6",
-              fontSize: height * 0.02,
-              paddingHorizontal: width * 0.015,
-              fontFamily: "poppins",
-              width: width * 0.9,
-              marginTop: 10,
-              textAlign: "justify",
-            }}
-          >
-            {showFullContent ? `${content}.` : `${truncatedContent} ...`}
-            {content.split(" ").length > 10 && (
-              <Text
-                style={{
-                  color: "#8c52ff",
-                  fontFamily: "poppins",
-                }}
-                onPress={() => setShowFullContent(!showFullContent)}
-              >
-                {showFullContent ? " Read Less" : " Read More"}
-              </Text>
-            )}
-          </Text>
-        </View>
         <View style={{ paddingHorizontal: height * 0.02 }}>
           <View
             style={{
@@ -588,107 +747,7 @@ export default function PostBox({
               justifyContent: "space-between",
               marginVertical: height * 0.008,
             }}
-          >
-            {/* <View
-            style={{
-              display: "flex",
-              flexDirection: "row",
-            }}
-          >
-            <View
-              style={{ marginRight: height * 0.03, marginLeft: height * 0.01 }}
-            >
-              <View
-                style={{
-                  display: "flex",
-                  flexDirection: "row",
-                  marginTop: height * 0.005,
-                }}
-              >
-                {liked ? (
-                  <TouchableOpacity
-                    onPress={() => {
-                      unlikePost();
-                    }}
-                  >
-                    <AntDesign
-                      name="heart"
-                      style={{
-                        color: "#968fe9",
-                        fontSize: height * 0.024,
-                        marginRight: height * 0.006,
-                        marginTop: height * 0.0022,
-                      }}
-                    />
-                  </TouchableOpacity>
-                ) : (
-                  <TouchableOpacity
-                    onPress={() => {
-                      likePost();
-                    }}
-                  >
-                    <AntDesign
-                      name="hearto"
-                      style={{
-                        color: "gray",
-                        fontSize: height * 0.024,
-                        marginRight: height * 0.006,
-                        marginTop: height * 0.0022,
-                      }}
-                    />
-                  </TouchableOpacity>
-                )}
-
-                <Text style={{ color: "gray", fontSize: height * 0.02 }}>
-                  {like}
-                </Text>
-              </View>
-            </View>
-            <View>
-              <TouchableOpacity
-                onPress={commentHandler}
-                style={{
-                  display: "flex",
-                  flexDirection: "row",
-                  marginTop: height * 0.005,
-                }}
-              >
-                <MaterialCommunityIcons
-                  name="message-badge-outline"
-                  style={{
-                    color: "gray",
-                    fontSize: height * 0.024,
-                    marginRight: height * 0.006,
-                    marginTop: height * 0.003,
-                  }}
-                />
-                <Text style={{ color: "gray", fontSize: height * 0.02 }}>
-                  {comment}
-                </Text>
-              </TouchableOpacity>
-            </View>
-          </View> */}
-            {/* <View
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: "space-around",
-            }}
-          >
-            <Text
-              style={{
-                color: "gray",
-                // fontWeight: "900",
-                marginTop: height * 0.004,
-                fontSize: height * 0.018,
-                marginRight: 10,
-                fontFamily: "poppins",
-              }}
-            >
-              {timeStamp}
-            </Text>
-          </View> */}
-          </View>
+          ></View>
         </View>
         {commentOn && (
           <View

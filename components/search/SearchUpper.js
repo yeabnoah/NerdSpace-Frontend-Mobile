@@ -14,7 +14,7 @@ import {
 } from "@expo/vector-icons";
 import logo from "../../assets/images/technerd.jpg";
 import axios from "axios";
-import { UidContext } from "../../context/UID";
+import { PostContext, UidContext } from "../../context/UID";
 import Ip from "../../utils/IpAdress";
 
 const { height, width } = Dimensions.get("window");
@@ -24,8 +24,54 @@ export default function SearchUpper() {
   const [userInput, setUserInput] = useState("");
   const [userList, setUserList] = useState([]);
   const [isTrue, setIsTrue] = useState(false);
+  const [followed, setFollowed] = useState(false);
 
+  const userData = useContext(PostContext);
   const value = useContext(UidContext);
+
+  console.log("0000000000000000000000000000000", userData);
+
+  const followHandler = (id) => {
+    setFollowed(true);
+    console.log(id);
+
+    axios
+      .post(
+        `http://${Ip}:5000/users/auth/follow/${id}`,
+        { userIdToken: userData.userId },
+        {
+          headers: {
+            authorization: value,
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+        }
+      )
+      .then((response) => {
+        console.log("this is follower function", response);
+      });
+  };
+
+  const unFollowHandler = (id) => {
+    setFollowed(false);
+    console.log(id);
+
+    axios
+      .post(
+        `http://${Ip}:5000/users/auth/follow/${id}`,
+        { userIdToken: userData.userId },
+        {
+          headers: {
+            authorization: value,
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+        }
+      )
+      .then((response) => {
+        console.log("this is follower function", response);
+      });
+  };
 
   const handleSubmit = () => {
     setUserList([]);
@@ -35,7 +81,6 @@ export default function SearchUpper() {
       ? axios
           .post(
             `http://${Ip}:5000/users/auth/user/findByUserName`,
-            // JSON.stringify(userInput),
             { username: userInput },
             {
               headers: {
@@ -258,8 +303,12 @@ export default function SearchUpper() {
               img = null;
             }
           }
+
+          const compare = each[0].followers[0];
+
           const url = `http://${Ip}:5000/users/${each[0]?.avatar_image}`;
-          console.log("Image URL:", url);
+          console.log("Image URL &&&&&&&&&&&&&&:", compare);
+
           return (
             <View
               key={userList.indexOf(each)}
@@ -370,18 +419,50 @@ export default function SearchUpper() {
                     </Text>
                   </View>
                   <View>
-                    <TouchableOpacity
-                      style={{
-                        backgroundColor: "#7864f6",
-                        display: "flex",
-                        flexDirection: "row",
-                        paddingVertical: height * 0.005,
-                        justifyContent: "center",
-                        borderRadius: 10,
-                      }}
-                    >
-                      <Text style={{ fontFamily: "poppinsBold" }}>Follow</Text>
-                    </TouchableOpacity>
+                    {followed ? (
+                      <TouchableOpacity
+                        onPress={() => {
+                          unFollowHandler(each[0]._id);
+                        }}
+                        style={{
+                          // backgroundColor: "#7864f6",
+                          display: "flex",
+                          flexDirection: "row",
+                          paddingVertical: height * 0.005,
+                          justifyContent: "center",
+                          borderRadius: 10,
+                          borderWidth: 1,
+                          borderColor: "#7864f6",
+                        }}
+                      >
+                        <Text
+                          style={{
+                            fontFamily: "poppinsBold",
+                            color: "#7864f6",
+                          }}
+                        >
+                          Follow
+                        </Text>
+                      </TouchableOpacity>
+                    ) : (
+                      <TouchableOpacity
+                        onPress={() => {
+                          followHandler(each[0]._id);
+                        }}
+                        style={{
+                          backgroundColor: "#7864f6",
+                          display: "flex",
+                          flexDirection: "row",
+                          paddingVertical: height * 0.005,
+                          justifyContent: "center",
+                          borderRadius: 10,
+                        }}
+                      >
+                        <Text style={{ fontFamily: "poppinsBold" }}>
+                          Followed
+                        </Text>
+                      </TouchableOpacity>
+                    )}
                   </View>
                 </View>
                 <Image
