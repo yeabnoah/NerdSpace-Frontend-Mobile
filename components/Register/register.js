@@ -15,6 +15,7 @@ import {
   AntDesign,
   Feather,
   FontAwesome5,
+  MaterialCommunityIcons,
   MaterialIcons,
 } from "@expo/vector-icons";
 
@@ -26,6 +27,7 @@ export default function RegisterUi() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [phoneNo, setPhoneNo] = useState("");
+  const [nerd, setNerd] = useState("");
 
   const handleRegister = () => {
     axios
@@ -34,6 +36,7 @@ export default function RegisterUi() {
         username,
         password,
         phoneNo,
+        nerd,
       })
       .then((response) => {
         if (response.status === 201) {
@@ -51,7 +54,7 @@ export default function RegisterUi() {
     <View
       style={{
         flex: 1,
-        backgroundColor: "#131313",
+        backgroundColor: "#040a12",
         marginHorizontal: width * 0.08,
       }}
     >
@@ -105,7 +108,7 @@ export default function RegisterUi() {
             style={{
               display: "flex",
               flexDirection: "row",
-              backgroundColor: "#2e3233",
+              backgroundColor: "rgba(118, 100, 246,0.15)",
               borderRadius: width * 0.2,
               height: width * 0.15,
               marginVertical: height * 0.02,
@@ -133,7 +136,7 @@ export default function RegisterUi() {
             style={{
               display: "flex",
               flexDirection: "row",
-              backgroundColor: "#2e3233",
+              backgroundColor: "rgba(118, 100, 246,0.15)",
               borderRadius: width * 0.2,
               height: width * 0.15,
               marginVertical: height * 0.02,
@@ -161,7 +164,35 @@ export default function RegisterUi() {
             style={{
               display: "flex",
               flexDirection: "row",
-              backgroundColor: "#2e3233",
+              backgroundColor: "rgba(118, 100, 246,0.15)",
+              borderRadius: width * 0.2,
+              height: width * 0.15,
+              marginVertical: height * 0.02,
+            }}
+          >
+            <MaterialCommunityIcons
+              name="brain"
+              style={{
+                color: "white",
+                fontSize: width * 0.05,
+                marginTop: height * 0.023,
+                marginLeft: width * 0.05,
+              }}
+            />
+
+            <TextInput
+              onChangeText={setNerd}
+              placeholder="Nerd @"
+              placeholderTextColor="white"
+              style={styles.input}
+            />
+          </View>
+
+          <View
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              backgroundColor: "rgba(118, 100, 246,0.15)",
               borderRadius: width * 0.2,
               height: width * 0.15,
               marginVertical: height * 0.02,
@@ -190,7 +221,7 @@ export default function RegisterUi() {
             style={{
               display: "flex",
               flexDirection: "row",
-              backgroundColor: "#2e3233",
+              backgroundColor: "rgba(118, 100, 246,0.15)",
               borderRadius: width * 0.2,
               height: width * 0.15,
               marginVertical: height * 0.02,
@@ -230,8 +261,6 @@ export default function RegisterUi() {
 
 const styles = {
   input: {
-    borderWidth: 1,
-    borderColor: "#2e3233",
     width: width * 0.8,
     color: "white",
     borderRadius: width * 0.05,
@@ -240,7 +269,7 @@ const styles = {
     marginVertical: width * 0.02,
   },
   button: {
-    backgroundColor: "#2e3233",
+    backgroundColor: "#7864f6",
     borderRadius: width * 0.1,
     height: width * 0.15,
     width: width * 0.5,

@@ -6,8 +6,8 @@ const { height } = Dimensions.get("window");
 
 export default function Register() {
   return (
-    <SafeAreaView style={{ height: height * 2, backgroundColor: "#131313" }}>
-      <StatusBar barContent="white" backgroundColor="#131313" />
+    <SafeAreaView style={{ height: height * 2, backgroundColor: "#040a12" }}>
+      <StatusBar barContent="white" backgroundColor="#040a12" />
       <RegisterUi />
     </SafeAreaView>
   );

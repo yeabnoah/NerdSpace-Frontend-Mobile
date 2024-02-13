@@ -17,9 +17,9 @@ import LoginComp from "../components/Login/LoginComp";
 const { height, width } = Dimensions.get("window");
 export default function Login() {
   return (
-    <SafeAreaView style={{ backgroundColor: "#131313", color: "white" }}>
-      <View style={{ backgroundColor: "#131313", height: height }}>
-        <StatusBar barStyle="light-content" backgroundColor="#131313" />
+    <SafeAreaView style={{ backgroundColor: "#040a12", color: "white" }}>
+      <View style={{ backgroundColor: "#040a12", height: height }}>
+        <StatusBar barStyle="light-content" backgroundColor="#040a12" />
         <LoginComp />
       </View>
     </SafeAreaView>

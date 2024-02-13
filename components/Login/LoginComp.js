@@ -56,7 +56,7 @@ export default function LoginComp() {
     <View
       style={{
         flex: 1,
-        backgroundColor: "#131313",
+        backgroundColor: "#040a12",
         paddingTop: height * 0.1,
         alignItems: "center",
       }}
@@ -76,7 +76,7 @@ export default function LoginComp() {
 
         <Text
           style={{
-            color: "white",
+            color: "#fff",
             fontFamily: "poppinsBold",
             fontSize: width * 0.07,
           }}
@@ -89,7 +89,7 @@ export default function LoginComp() {
           style={{
             display: "flex",
             flexDirection: "row",
-            backgroundColor: "#2e3233",
+            backgroundColor: "rgba(118, 100, 246,0.15)",
             height: width * 0.15,
             width: width * 0.8,
             borderRadius: width * 0.1,
@@ -111,7 +111,7 @@ export default function LoginComp() {
             placeholderTextColor="white"
             style={{
               width: width * 0.75,
-              color: "white",
+              color: "#fff",
               height: width * 0.15,
               fontFamily: "poppins",
               paddingHorizontal: width * 0.04,
@@ -124,7 +124,7 @@ export default function LoginComp() {
           style={{
             display: "flex",
             flexDirection: "row",
-            backgroundColor: "#2e3233",
+            backgroundColor: "rgba(118, 100, 246,0.15)",
             height: width * 0.15,
             width: width * 0.8,
             borderRadius: width * 0.1,
@@ -134,7 +134,7 @@ export default function LoginComp() {
           <AntDesign
             name="unlock"
             style={{
-              color: "white",
+              color: "#fff",
               fontSize: width * 0.05,
               marginTop: height * 0.023,
               marginLeft: width * 0.05,
@@ -147,15 +147,12 @@ export default function LoginComp() {
             secureTextEntry={true}
             style={{
               width: width * 0.75,
-              color: "white",
+              color: "#fff",
 
               height: width * 0.15,
               fontFamily: "poppins",
               paddingHorizontal: width * 0.04,
               marginVertical: width * 0.002,
-              // backgroundColor: "#2e3233",
-              // backgroundColor: "red",
-              // borderRadius: width * 0.1,
             }}
           />
         </View>
@@ -170,7 +167,7 @@ export default function LoginComp() {
         >
           <Text
             style={{
-              color: "white",
+              color: "#fff",
               textAlign: "right",
               fontFamily: "poppins",
             }}
@@ -181,7 +178,7 @@ export default function LoginComp() {
         <TouchableOpacity
           onPress={handleLogin}
           style={{
-            backgroundColor: "#2e3233",
+            backgroundColor: "#7864f6",
             borderRadius: width * 0.1,
             width: width * 0.5,
             height: width * 0.15,
@@ -203,7 +200,7 @@ export default function LoginComp() {
         <TouchableOpacity onPress={() => navigation.navigate(`Register`)}>
           <Text
             style={{
-              color: "white",
+              color: "#fff",
               marginTop: height * 0.07,
               fontFamily: "poppins",
             }}
