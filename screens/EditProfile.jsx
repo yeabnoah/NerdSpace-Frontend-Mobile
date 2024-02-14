@@ -200,6 +200,9 @@ export default function EditProfile() {
         >
           <View style={styles.modalContainer} onPress={closeModal}>
             <TouchableOpacity
+              onPress={() => {
+                setModalVisible(false);
+              }}
               style={{
                 display: "flex",
                 flexDirection: "row",
@@ -214,7 +217,6 @@ export default function EditProfile() {
               <Image
                 style={{
                   flex: 1,
-                  // display: "flex",
                   height: height * 0.35,
                   width: width * 0.9,
                 }}
@@ -225,15 +227,13 @@ export default function EditProfile() {
             <TouchableOpacity
               onPress={handleCoverSubmit}
               style={{
-                borderWidth: 1,
-                borderColor: "white",
-                borderStyle: "solid",
                 borderRadius: width * 0.5,
                 height: height * 0.06,
                 width: width * 0.5,
                 justifyContent: "center",
                 marginLeft: width * 0.02,
                 marginTop: height * 0.05,
+                backgroundColor: "#7864f6",
               }}
             >
               <Text
@@ -253,7 +253,7 @@ export default function EditProfile() {
       <ScrollView
         style={{
           display: "flex",
-          backgroundColor: "#000000",
+          backgroundColor: "#040a12",
           //   height: height,
           width: width,
           paddingHorizontal: width * 0.03,
@@ -292,13 +292,13 @@ export default function EditProfile() {
           </Text>
         </TouchableOpacity>
 
-        <View
+        {/* <View
           style={{
-            borderBottomColor: "#7864",
+            borderBottomColor: "#7864f6",
             borderBottomWidth: 0.5,
             marginVertical: height * 0.01,
           }}
-        ></View>
+        ></View> */}
 
         <View
           style={{
@@ -315,14 +315,14 @@ export default function EditProfile() {
             style={{
               color: "white",
               fontFamily: "poppins",
-              fontSize: width * 0.06,
+              fontSize: width * 0.05,
             }}
           >
             Edit Profile
           </Text>
           <MaterialCommunityIcons
             name="account-edit"
-            style={{ color: "white", fontSize: width * 0.075 }}
+            style={{ color: "white", fontSize: width * 0.065 }}
           />
         </View>
 
@@ -336,7 +336,7 @@ export default function EditProfile() {
           }}
         >
           <Image
-            style={{ flex: 1 }}
+            style={{ flex: 1, borderRadius: width * 0.03 }}
             source={{
               uri: cover,
               // this is gonna be comment for the whole data to change
@@ -393,7 +393,7 @@ export default function EditProfile() {
           }}
         >
           <View style={{ marginBottom: 10 }}>
-            <Text style={{ color: "white", fontFamily: "poppins" }}>
+            <Text style={{ color: "#7864f6", fontFamily: "poppins" }}>
               Your Name
             </Text>
             <TextInput
@@ -403,14 +403,19 @@ export default function EditProfile() {
               value={name}
               placeholderTextColor="gray"
               style={{
-                color: "#968fe9",
-                borderBottomColor: "#7864",
+                color: "#fff",
+                // borderBottomColor: "#7864f6",
                 borderWidth: 0.6,
+                backgroundColor: "rgba(118, 100, 246,0.15)",
+                width: width * 0.9,
+                paddingHorizontal: width * 0.025,
+                borderRadius: width * 0.02,
+                paddingVertical: height * 0.007,
               }}
             />
           </View>
           <View style={{ marginBottom: 10 }}>
-            <Text style={{ color: "white", fontFamily: "poppins" }}>
+            <Text style={{ color: "#7864f6", fontFamily: "poppins" }}>
               username
             </Text>
             <TextInput
@@ -420,14 +425,19 @@ export default function EditProfile() {
               value={username}
               placeholderTextColor="gray"
               style={{
-                color: "#968fe9",
-                borderBottomColor: "#7864",
+                color: "#fff",
+                // borderBottomColor: "#7864f6",
                 borderWidth: 0.6,
+                backgroundColor: "rgba(118, 100, 246,0.15)",
+                width: width * 0.9,
+                paddingHorizontal: width * 0.025,
+                borderRadius: width * 0.02,
+                paddingVertical: height * 0.007,
               }}
             />
           </View>
           <View style={{ marginBottom: 10 }}>
-            <Text style={{ color: "white", fontFamily: "poppins" }}>
+            <Text style={{ color: "#7864f6", fontFamily: "poppins" }}>
               Phone Number
             </Text>
             <TextInput
@@ -437,14 +447,21 @@ export default function EditProfile() {
               value={phoneNumber}
               placeholderTextColor="gray"
               style={{
-                color: "#968fe9",
-                borderBottomColor: "#7864",
+                color: "#fff",
+                // borderBottomColor: "#7864f6",
                 borderWidth: 0.6,
+                backgroundColor: "rgba(118, 100, 246,0.15)",
+                width: width * 0.9,
+                paddingHorizontal: width * 0.025,
+                borderRadius: width * 0.02,
+                paddingVertical: height * 0.007,
               }}
             />
           </View>
           <View style={{ marginBottom: 10 }}>
-            <Text style={{ color: "white", fontFamily: "poppins" }}>Email</Text>
+            <Text style={{ color: "#7864f6", fontFamily: "poppins" }}>
+              Email
+            </Text>
             <TextInput
               onChangeText={(e) => {
                 setEmail(e);
@@ -452,15 +469,20 @@ export default function EditProfile() {
               value={email}
               placeholderTextColor="gray"
               style={{
-                color: "#968fe9",
-                borderBottomColor: "#7864",
+                color: "#fff",
+                // borderBottomColor: "#7864f6",
                 borderWidth: 0.6,
+                backgroundColor: "rgba(118, 100, 246,0.15)",
+                width: width * 0.9,
+                paddingHorizontal: width * 0.025,
+                borderRadius: width * 0.02,
+                paddingVertical: height * 0.007,
               }}
             />
           </View>
 
           <View style={{ marginBottom: 10 }}>
-            <Text style={{ color: "white", fontFamily: "poppins" }}>Bio</Text>
+            <Text style={{ color: "#7864f6", fontFamily: "poppins" }}>Bio</Text>
             <TextInput
               onChangeText={(e) => {
                 setBio(e);
@@ -468,24 +490,27 @@ export default function EditProfile() {
               value={bio}
               placeholderTextColor="gray"
               style={{
-                color: "#968fe9",
-                borderBottomColor: "#7864",
+                color: "#fff",
+                // borderBottomColor: "#7864f6",
                 borderWidth: 0.6,
+                backgroundColor: "rgba(118, 100, 246,0.15)",
+                width: width * 0.9,
+                paddingHorizontal: width * 0.025,
+                borderRadius: width * 0.02,
+                paddingVertical: height * 0.007,
               }}
             />
           </View>
           <TouchableOpacity
             onPress={handleSubmit}
             style={{
-              borderWidth: 1,
-              borderColor: "white",
-              borderStyle: "solid",
               borderRadius: width * 0.5,
               height: height * 0.06,
               width: width * 0.5,
               justifyContent: "center",
               marginLeft: width * 0.19,
               marginTop: height * 0.006,
+              backgroundColor: "#7864f6",
             }}
           >
             <Text
@@ -519,14 +544,9 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(0, 0, 0, 1)",
   },
   modalContent: {
-    // backgroundColor: "white",
-    // padding: 20,
-    // justifyContent: "center",
-    borderRadius: 10,
+    borderRadius: width * 0.04,
     alignItems: "center",
     height: height * 0.35,
     width: width * 0.9,
-    borderColor: "#7864",
-    borderWidth: 0.4,
   },
 });

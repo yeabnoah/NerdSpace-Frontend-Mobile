@@ -54,15 +54,6 @@ export default function ProfileCard({ posts, setting, setSetting }) {
   const url = `http://${Ip}:5000/users/${userData?.avatarImage}`;
 
   const Edit = () => {
-    // try {
-    //   await AsyncStorage.removeItem("token");
-    //   console.log("Data removed");
-    //   console.log("user successfully logged out");
-    //   navigation.navigate("Login");
-    // } catch (exception) {
-    //   console.log(exception);
-    // }
-
     navigation.navigate("Edit");
   };
 
@@ -148,14 +139,6 @@ export default function ProfileCard({ posts, setting, setSetting }) {
                   >
                     Edit
                   </Text>
-                  {/* <MaterialIcons
-                name="edit"
-                style={{
-                  color: "#fff",
-                  fontSize: 10,
-                  paddingTop: height * 0.005,
-                }}
-              /> */}
                 </TouchableOpacity>
 
                 <TouchableOpacity

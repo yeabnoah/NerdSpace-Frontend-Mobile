@@ -58,22 +58,41 @@ const FeedUpper = () => {
     };
   }, [value, Ip, FEED_REFRESH_INTERVAL]); // Make sure to include all dependencies
 
+  console
+    .log
+    // "this is gonna be the best think to d h  this is gonna be the bes =t "
+    ();
   return (
     <View style={{ flex: 1, backgroundColor: "#040a12" }}>
       <View
         style={{
           backgroundColor: "#040a12",
-          height: post && post.length > 0 ? height * 0.07 : height,
+          position: "fixed",
+          zIndex: 1000,
+          top: 0,
+          // width: "100%",
+          // height: post && post.length > 0 ? height * 0.07 : height,
         }}
       >
         <View
           style={{
             paddingHorizontal: height * 0.017,
             paddingTop: height * 0.005,
+            position: "fixed",
+            zIndex: 1000,
+            top: 0,
+            width: "100%",
           }}
         >
           <View
-            style={{ flexDirection: "row", justifyContent: "space-between" }}
+            style={{
+              flexDirection: "row",
+              justifyContent: "space-between",
+              position: "fixed",
+              zIndex: 1000,
+              top: 0,
+              width: "100%",
+            }}
           >
             <TouchableOpacity>
               <AntDesign
@@ -83,7 +102,7 @@ const FeedUpper = () => {
                   color: "#7864f6",
                   fontSize: height * 0.04,
                   width: height * 0.043,
-                  height: height * 0.043,
+                  height: height * 0.045,
                   padding: height * 0.005,
                   borderRadius: 10,
                 }}
@@ -93,7 +112,7 @@ const FeedUpper = () => {
             <View>
               <Image
                 source={logo}
-                style={{ height: width * 0.12, width: width * 0.15 }}
+                style={{ height: width * 0.11, width: width * 0.13 }}
               />
             </View>
 
@@ -119,88 +138,13 @@ const FeedUpper = () => {
             </View>
           </View>
         </View>
-        {/* 
-        <View
-          style={{
-            paddingHorizontal: height * 0.024,
-            paddingTop: height * 0.01,
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "center",
-          }}
-        >
-          <TouchableOpacity>
-            <Text
-              style={{
-                color: "#fff",
-                fontSize: height * 0.025,
-                fontFamily: "poppins",
-                marginRight: width * 0.04,
-              }}
-            >
-              Following
-            </Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity>
-            <Text
-              style={{
-                color: "#fff",
-                fontSize: height * 0.025,
-                fontFamily: "poppins",
-              }}
-            >
-              For You
-            </Text>
-          </TouchableOpacity>
-        </View> */}
-
-        {/* <ScrollView
-          horizontal
-          style={{ flexDirection: "row", marginHorizontal: height * 0.006 }}
-        >
-          {MockImages.map((Post) => (
-            <TouchableOpacity
-              key={Post.id}
-              style={{
-                height: 120,
-                width: 65,
-                borderRadius: 30,
-                borderColor: "#fff",
-                marginHorizontal: width * 0.025,
-              }}
-            >
-              <Image
-                source={{ uri: `${Post.imageLink}` }}
-                style={{
-                  height: 75,
-                  width: 75,
-                  borderRadius: 100,
-                  borderWidth: 1,
-                  borderColor: "#fff",
-                }}
-              />
-              <Text
-                style={{
-                  color: "#fff",
-                  textAlign: "center",
-                  padding: 5,
-                  fontSize: 14,
-                  fontFamily: "poppins",
-                  marginLeft: width * 0.03,
-                }}
-              >
-                {Post.name}
-              </Text>
-            </TouchableOpacity>
-          ))}
-        </ScrollView> */}
       </View>
 
       <View
         style={{
           marginBottom: height * 0.4,
-          height: post && post.length > 0 ? "max-height" : height,
+          // height: post && post.length > 0 ? "max-height" : height,
+          height: "100%",
         }}
       >
         <ScrollView>

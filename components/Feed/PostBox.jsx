@@ -241,6 +241,7 @@ export default function PostBox({
             followers: responseData?.followers,
             following: responseData?.following,
             coverImage: responseData?.coverImage,
+            nerd: responseData?.nerd,
           });
           console.log("#####", response.data);
           // this.data = "userData_posted ";
@@ -306,7 +307,7 @@ export default function PostBox({
                   fontFamily: "poppins",
                 }}
               >
-                {poster.username}
+                {poster?.username}
               </Text>
               <Text
                 style={{
@@ -316,7 +317,7 @@ export default function PostBox({
                   marginTop: width * -0.015,
                 }}
               >
-                Nerd@Hardware
+                {`Nerd@${poster?.nerd}`}
               </Text>
             </View>
           </View>
@@ -585,7 +586,7 @@ export default function PostBox({
             <View style={{}}>
               <View
                 style={{
-                  marginHorizontal: 13,
+                  marginLeft: 10,
                   paddingTop: 10,
                   display: "flex",
                   flexDirection: "row",
@@ -603,8 +604,8 @@ export default function PostBox({
                       color: "#8c52ff",
                       fontSize: 18,
                       textAlign: "center",
-                      marginBottom: 3,
-                      marginTop: 3,
+                      // marginBottom: 3,
+                      marginVertical: height * 0.0008,
                       fontFamily: "poppins",
                       paddingTop: height * 0.008,
                     }}
@@ -618,9 +619,14 @@ export default function PostBox({
                       }}
                       style={{
                         backgroundColor: "#8c52ff",
-                        padding: 10,
+                        padding: 5,
                         borderRadius: 100,
                         marginLeft: width * 0.03,
+                        height: height * 0.04,
+                        width: height * 0.04,
+                        justifyContent: "center",
+                        paddingLeft: width * 0.018,
+                        marginTop: height * 0.004,
                       }}
                     >
                       <AntDesign
@@ -636,9 +642,14 @@ export default function PostBox({
                       }}
                       style={{
                         backgroundColor: "#8c52ff",
-                        padding: 10,
+                        padding: 5,
                         borderRadius: 100,
-                        marginLeft: width * 0.03,
+                        marginLeft: width * 0.02,
+                        height: height * 0.04,
+                        width: height * 0.04,
+                        justifyContent: "center",
+                        paddingLeft: width * 0.018,
+                        marginTop: height * 0.004,
                       }}
                     >
                       <AntDesign
@@ -676,10 +687,14 @@ export default function PostBox({
                     onPress={commentHandler}
                     style={{
                       backgroundColor: "#8c52ff",
-                      padding: 10,
+                      padding: 5,
                       borderRadius: 100,
-                      height: height * 0.05,
-                      marginLeft: width * 0.03,
+                      marginLeft: width * 0.02,
+                      height: height * 0.04,
+                      width: height * 0.04,
+                      justifyContent: "center",
+                      paddingLeft: width * 0.019,
+                      marginTop: height * 0.004,
                     }}
                   >
                     <FontAwesome name="comment" size={15} color="black" />
@@ -711,10 +726,14 @@ export default function PostBox({
                   <TouchableOpacity
                     style={{
                       backgroundColor: "#8c52ff",
-                      padding: 10,
+                      padding: 5,
                       borderRadius: 100,
-                      height: height * 0.05,
-                      marginLeft: 10,
+                      marginLeft: width * 0.02,
+                      height: height * 0.04,
+                      width: height * 0.04,
+                      justifyContent: "center",
+                      paddingLeft: width * 0.018,
+                      marginTop: height * 0.004,
                     }}
                   >
                     <FontAwesome5 name="share" size={16} color="black" />
@@ -869,7 +888,7 @@ export default function PostBox({
                             marginTop: height * -0.005,
                           }}
                         >
-                          @{coma.username}
+                          @{coma?.username}
                         </Text>
                         <Text
                           style={{
@@ -879,7 +898,7 @@ export default function PostBox({
                             fontSize: width * 0.038,
                           }}
                         >
-                          {coma.content}
+                          {coma?.content}
                         </Text>
                       </View>
                     </View>

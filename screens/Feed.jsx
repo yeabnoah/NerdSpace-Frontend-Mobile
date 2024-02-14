@@ -9,9 +9,9 @@ export default function Feed() {
     <SafeAreaView style={{ flex: 1 }}>
       <View style={{ flex: 1 }}>
         <StatusBar barStyle="light-content" backgroundColor="#040a12" />
-        <ScrollView style={{ flex: 1 }}>
+        <View style={{ flex: 1 }}>
           <FeedUpper />
-        </ScrollView>
+        </View>
         <View
           style={{
             position: "absolute",

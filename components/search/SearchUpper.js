@@ -25,6 +25,7 @@ export default function SearchUpper() {
   const [userList, setUserList] = useState([]);
   const [isTrue, setIsTrue] = useState(false);
   const [followed, setFollowed] = useState(false);
+  const [followedTwo, setFollowedTwo] = useState(false);
 
   const userData = useContext(PostContext);
   const value = useContext(UidContext);
@@ -32,7 +33,7 @@ export default function SearchUpper() {
   console.log("0000000000000000000000000000000", userData);
 
   const followHandler = (id) => {
-    setFollowed(true);
+    setFollowedTwo(true);
     console.log(id);
 
     axios
@@ -53,7 +54,7 @@ export default function SearchUpper() {
   };
 
   const unFollowHandler = (id) => {
-    setFollowed(false);
+    setFollowedTwo(false);
     console.log(id);
 
     axios
@@ -113,7 +114,7 @@ export default function SearchUpper() {
             }
           )
           .then((response) => {
-            if (!response.data.userData == []) {
+            if (!(response.data.userData.length === 0)) {
               setUserList((prev) => [...prev, response.data.userData]);
             }
           })
@@ -304,10 +305,15 @@ export default function SearchUpper() {
             }
           }
 
-          const compare = each[0].followers[0];
+          // const compare = userData.followingN;
+          // const cc = each[0]._id;
+
+          // if (userData.followingN.includes(each[0]._id)) {
+          //   setFollowedTwo(true);
+          // }
 
           const url = `http://${Ip}:5000/users/${each[0]?.avatar_image}`;
-          console.log("Image URL &&&&&&&&&&&&&&:", compare);
+          // console.log("Image URL &&&&&&&&&&&&&&:", compare, cc);
 
           return (
             <View
@@ -351,7 +357,7 @@ export default function SearchUpper() {
                       }}
                     >
                       {" "}
-                      {each[0].name}
+                      {each[0]?.name}
                     </Text>
                   </View>
                   <View style={{ display: "flex", flexDirection: "row" }}>
@@ -372,7 +378,7 @@ export default function SearchUpper() {
                       }}
                     >
                       {" "}
-                      {each[0].username}
+                      {each[0]?.username}
                     </Text>
                   </View>
                   <View style={{ display: "flex", flexDirection: "row" }}>
@@ -415,11 +421,11 @@ export default function SearchUpper() {
                       }}
                     >
                       {" "}
-                      {each[0].bio}
+                      {each[0]?.bio}
                     </Text>
                   </View>
-                  <View>
-                    {followed ? (
+                  {/* <View>
+                    {followed || followedTwo ? (
                       <TouchableOpacity
                         onPress={() => {
                           unFollowHandler(each[0]._id);
@@ -463,7 +469,7 @@ export default function SearchUpper() {
                         </Text>
                       </TouchableOpacity>
                     )}
-                  </View>
+                  </View> */}
                 </View>
                 <Image
                   source={{ uri: url }}
