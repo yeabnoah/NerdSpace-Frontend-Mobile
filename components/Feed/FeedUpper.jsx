@@ -63,35 +63,27 @@ const FeedUpper = () => {
     // "this is gonna be the best think to d h  this is gonna be the bes =t "
     ();
   return (
-    <View style={{ flex: 1, backgroundColor: "#040a12" }}>
+    <View style={{ backgroundColor: "#040a12" }}>
       <View
         style={{
           backgroundColor: "#040a12",
           position: "fixed",
           zIndex: 1000,
           top: 0,
-          // width: "100%",
-          // height: post && post.length > 0 ? height * 0.07 : height,
+          width: "100%",
+          height: post && post.length > 0 ? height * 0.07 : height,
         }}
       >
         <View
           style={{
             paddingHorizontal: height * 0.017,
             paddingTop: height * 0.005,
-            position: "fixed",
-            zIndex: 1000,
-            top: 0,
-            width: "100%",
           }}
         >
           <View
             style={{
               flexDirection: "row",
               justifyContent: "space-between",
-              position: "fixed",
-              zIndex: 1000,
-              top: 0,
-              width: "100%",
             }}
           >
             <TouchableOpacity>
@@ -141,13 +133,14 @@ const FeedUpper = () => {
       </View>
 
       <View
-        style={{
-          marginBottom: height * 0.4,
-          // height: post && post.length > 0 ? "max-height" : height,
-          height: "100%",
-        }}
+        style={
+          {
+            // height: height * 6,
+            // height: post && post.length > 0 ? "max-content" : height,
+          }
+        }
       >
-        <ScrollView>
+        <ScrollView style={{}}>
           {post?.map((posted) => {
             const {
               likes,

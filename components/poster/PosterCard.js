@@ -27,7 +27,7 @@ import { LinearGradient } from "expo-linear-gradient";
 
 const { width, height } = Dimensions.get("window");
 
-export default function PosterCard({ userIdPoster }) {
+function PosterCard({ userIdPoster }) {
   const navigation = useNavigation();
   const [follower, setFollower] = useState("");
   const [refreshCount, setRefreshCount] = useState(0);
@@ -78,124 +78,6 @@ export default function PosterCard({ userIdPoster }) {
   };
 
   return (
-    // <View
-    //   style={{
-    //     height: height * 0.37,
-    //     borderRadius: 10,
-    //     flex: 5,
-    //   }}
-    // >
-    //   <View
-    //     style={{
-    //       height: height * 0.45,
-    //       display: "flex",
-    //       flexDirection: "column",
-    //     }}
-    //   >
-    //     <Image
-    //       source={{
-    //         uri: urlCov,
-    //       }}
-    //       style={{ flex: 1 }}
-    //     />
-    //     <View
-    //       style={{
-    //         display: "flex",
-    //         flexDirection: "row",
-    //         justifyContent: "space-between",
-    //         marginRight: width * 0.04,
-    //       }}
-    //     >
-    //       <TouchableOpacity
-    //         style={{
-    //           height: height * 0.12,
-    //           width: height * 0.12,
-    //           backgroundColor: "black",
-    //           borderRadius: 100,
-    //           marginTop: height * -0.053,
-    //           marginLeft: width * 0.035,
-    //           borderWidth: 4,
-    //           borderColor: "#040418",
-    //         }}
-    //       >
-    //         <Image
-    //           source={{
-    //             uri: url,
-    //           }}
-    //           style={{ flex: 1, borderRadius: 100 }}
-    //         />
-    //       </TouchableOpacity>
-    //     </View>
-    //     <View style={{ marginLeft: width * 0.045 }}>
-    //       <Text
-    //         style={{
-    //           color: "white",
-    //           fontFamily: "poppins",
-    //           fontSize: width * 0.05,
-    //         }}
-    //       >
-    //         @{posterData ? posterData.username : "username"}
-    //       </Text>
-    //       <Text
-    //         style={{
-    //           color: "white",
-    //           fontSize: width * 0.039,
-    //           fontFamily: "poppins",
-    //         }}
-    //       >
-    //         {posterData ? posterData.bio : "bio"}
-    //       </Text>
-    //       <View
-    //         style={{
-    //           display: "flex",
-    //           flexDirection: "row",
-    //           marginTop: height * 0.008,
-    //         }}
-    //       >
-    //         <Text
-    //           style={{
-    //             color: "white",
-    //             marginRight: width * 0.035,
-    //             fontFamily: "poppins",
-    //           }}
-    //         >
-    //           {posterData ? posterData.followers : 0} Following
-    //         </Text>
-
-    //         <Text style={{ color: "white", fontFamily: "poppins" }}>
-    //           {posterData ? posterData.following : 0} Following
-    //         </Text>
-    //       </View>
-    //     </View>
-    //   </View>
-    //   <TouchableOpacity
-    //     style={{ marginHorizontal: 10 }}
-    //     onPress={async () => {
-    //       try {
-    //         await AsyncStorage.removeItem("token");
-    //         console.log("Data removed");
-    //         console.log("user successfully logged out");
-    //         navigation.navigate("Login");
-    //       } catch (exception) {
-    //         console.log(exception);
-    //       }
-    //     }}
-    //   >
-    //     <Text style={{ color: "white" }}>logout</Text>
-    //   </TouchableOpacity>
-    //   <View
-    //     style={{
-    //       color: "white",
-    //       borderWidth: 1,
-    //       height: height * 0.004,
-    //       width: width * 0.9,
-    //       marginHorizontal: width * 0.05,
-    //       marginTop: height * 0.015,
-    //       backgroundColor: "#7864",
-    //     }}
-    //   ></View>
-    // </View>
-
     <TouchableWithoutFeedback
       onPress={() => {
         setSetting(false);
@@ -204,7 +86,6 @@ export default function PosterCard({ userIdPoster }) {
       <View
         style={{
           height: height * 0.4,
-          // marginTop: height * 0.005,
           borderRadius: 10,
           flex: 5,
         }}
@@ -218,25 +99,8 @@ export default function PosterCard({ userIdPoster }) {
               zIndex: 1,
               alignItems: "flex-end",
               alignContent: "space-around",
-              // borderWidth: 1,
             }}
           >
-            <TouchableOpacity
-              onPress={() => {
-                setSetting(!setting);
-              }}
-              style={{ zIndex: 1 }}
-            >
-              <Ionicons
-                name="settings-sharp"
-                style={{
-                  color: "white",
-                  fontSize: 20,
-                  paddingTop: height * 0.016,
-                  marginHorizontal: width * 0.03,
-                }}
-              />
-            </TouchableOpacity>
             {setting && (
               <View
                 style={{
@@ -320,6 +184,91 @@ export default function PosterCard({ userIdPoster }) {
             )}
           </View>
         </View>
+
+        {/* <View
+          style={{
+            height: height * 0.45,
+            display: "flex",
+            flexDirection: "column",
+          }}
+        >
+          <Image
+            source={{
+              uri: urlCov,
+            }}
+            style={{ flex: 1 }}
+          />
+          <View
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "space-between",
+              marginRight: width * 0.04,
+            }}
+          >
+            <TouchableOpacity
+              style={{
+                height: height * 0.12,
+                width: height * 0.12,
+                backgroundColor: "black",
+                borderRadius: 100,
+                marginTop: height * -0.053,
+                marginLeft: width * 0.035,
+                borderWidth: 4,
+                borderColor: "#040418",
+              }}
+            >
+              <Image
+                source={{
+                  uri: url,
+                }}
+                style={{ flex: 1, borderRadius: 100 }}
+              />
+            </TouchableOpacity>
+          </View>
+          <View style={{ marginLeft: width * 0.045 }}>
+            <Text
+              style={{
+                color: "white",
+                fontFamily: "poppins",
+                fontSize: width * 0.05,
+              }}
+            >
+              @{posterData ? posterData.username : "username"}
+            </Text>
+            <Text
+              style={{
+                color: "white",
+                fontSize: width * 0.039,
+                fontFamily: "poppins",
+              }}
+            >
+              {posterData ? posterData.bio : "bio"}
+            </Text>
+            <View
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                marginTop: height * 0.008,
+              }}
+            >
+              <Text
+                style={{
+                  color: "white",
+                  marginRight: width * 0.035,
+                  fontFamily: "poppins",
+                }}
+              >
+                {posterData ? posterData.followers : 0} Following
+              </Text>
+
+              <Text style={{ color: "white", fontFamily: "poppins" }}>
+                {posterData ? posterData.following : 0} Following
+              </Text>
+            </View>
+          </View>
+        </View> */}
+
         <View
           style={{
             height: height * 0.45,
@@ -373,7 +322,7 @@ export default function PosterCard({ userIdPoster }) {
                   fontFamily: "poppins",
                 }}
               >
-                {posterData?.username}
+                {posterData?.name}
               </Text>
               <Text
                 style={{
@@ -388,6 +337,23 @@ export default function PosterCard({ userIdPoster }) {
               </Text>
             </View>
           </View>
+
+          {/* <TouchableOpacity style={{ marginTop: height * 0.02 }} onPress={Edit}>
+          <Text
+            style={{
+              color: "white",
+              paddingHorizontal: width * 0.035,
+              paddingTop: width * 0.017,
+              paddingBottom: width * 0.01,
+              borderWidth: 1,
+              borderColor: "white",
+              borderRadius: 20,
+              fontFamily: "poppins",
+            }}
+          >
+            Edit Profile
+          </Text>
+        </TouchableOpacity> */}
 
           <View
             style={{
@@ -514,3 +480,5 @@ export default function PosterCard({ userIdPoster }) {
     </TouchableWithoutFeedback>
   );
 }
+
+module.exports = PosterCard;
