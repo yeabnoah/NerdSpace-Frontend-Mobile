@@ -12,6 +12,7 @@ import {
   MaterialIcons,
   AntDesign,
   Feather,
+  FontAwesome5,
 } from "@expo/vector-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import {
@@ -101,6 +102,39 @@ function PosterCard({ userIdPoster }) {
               alignContent: "space-around",
             }}
           >
+            <TouchableOpacity
+              onPress={() => {
+                setSetting(!setting);
+              }}
+              style={{ zIndex: 1 }}
+            >
+              {/* <Ionicons
+                name="settings-sharp"
+                style={{
+                  color: "white",
+                  fontSize: 20,
+                  paddingTop: height * 0.016,
+                  marginHorizontal: width * 0.03,
+                }}
+              /> */}
+              {/* <Ionicons
+                name="setting-sharp"
+                style={{ fontSize: 20, color: "black" }}
+              /> */}
+              {/* <Text
+                style={{
+                  color: "white",
+                  fontFamily: "poppinsBold",
+                  padding: 10,
+                  backgroundColor: "rgba(4, 4, 24,0.5)",
+                }}
+              >
+                Settings
+              </Text> */}
+
+              {/* console.log("this is just a daily commit ") */}
+              <Ionicons name="settings" size={24} color="black" />
+            </TouchableOpacity>
             {setting && (
               <View
                 style={{
