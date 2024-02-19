@@ -20,6 +20,7 @@ export default function ChatUpper() {
       style={{
         height: height,
         backgroundColor: "#040a12",
+        // width: "max-content",
       }}
     >
       {exists && (
@@ -103,12 +104,40 @@ export default function ChatUpper() {
               }}
             />
           </TouchableOpacity>
-          <View>
-            <Text>what is the capital city of Ethiopia</Text>
-            <Text></Text>
-          </View>
         </View>
       )}
+      <View
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          marginHorizontal: width * 0.07,
+        }}
+      >
+        <Text
+          style={{
+            color: "white",
+            fontFamily: "poppins",
+            backgroundColor: "rgba(118, 100, 246, 0.15)",
+            padding: 8,
+            width: "max-content",
+          }}
+        >
+          Me: What is the capital city of Ethiopia?
+        </Text>
+        <Text
+          style={{
+            color: "white",
+            fontFamily: "poppins",
+            backgroundColor: "rgba(118, 100, 246, 0.15)",
+            padding: 8,
+            width: "max-content",
+            marginTop: 5,
+            textAlign: "right",
+          }}
+        >
+          Me: What is the capital city of Ethiopia?
+        </Text>
+      </View>
     </View>
   );
 }
