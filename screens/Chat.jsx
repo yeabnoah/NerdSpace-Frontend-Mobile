@@ -5,6 +5,7 @@ import {
   Image,
   TouchableOpacity,
   ScrollView,
+  StatusBar,
 } from "react-native";
 import { useFonts } from "expo-font";
 import React from "react";
@@ -16,22 +17,22 @@ const { width, height } = Dimensions.get("window");
 
 export default function Chat() {
   return (
-    <SafeAreaView style={{ backgroundColor: "#858cac", color: "#fff" }}>
-      <View>
-        <ScrollView style={{}}>
-          <ChatUpper />
-          <View style={{ flex: 1, backgroundColor: "#040418" }}></View>
-        </ScrollView>
-        <View
-          style={{
-            position: "absolute",
-            bottom: 0,
-            width: "100%",
-            backgroundColor: "#040418",
-          }}
-        >
-          <Navigator />
-        </View>
+    <SafeAreaView
+      style={{ backgroundColor: "#858cac", color: "#fff", flex: 1 }}
+    >
+      <StatusBar barStyle="light-content" backgroundColor="#040a12" />
+      <View style={{ flex: 1 }}>
+        <ChatUpper />
+      </View>
+      <View
+        style={{
+          position: "absolute",
+          bottom: 0,
+          width: "100%",
+          backgroundColor: "#040418",
+        }}
+      >
+        <Navigator />
       </View>
     </SafeAreaView>
   );

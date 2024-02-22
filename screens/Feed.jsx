@@ -26,6 +26,7 @@ export default function Feed() {
           <Navigator />
         </View>
       </View>
+      {/* this is is  */}
     </SafeAreaView>
   );
 }
