@@ -70,9 +70,9 @@ function PosterCard({ userIdPoster }) {
     }
   }
 
-  const urlCov = `http://${Ip}:5000/users/${posterData.coverImage}`;
+  const urlCov = `https://nerdspace-backend.onrender.com/users/${posterData.coverImage}`;
 
-  const url = `http://${Ip}:5000/users/${posterData.avatarImage}`;
+  const url = `https://nerdspace-backend.onrender.com/users/${posterData.avatarImage}`;
 
   const Edit = () => {
     navigation.navigate("Edit");

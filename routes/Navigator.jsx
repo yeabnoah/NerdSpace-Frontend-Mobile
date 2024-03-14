@@ -55,7 +55,7 @@ export default function Navigator() {
   const [image, setImage] = useState("");
 
   const [pickedImage, setPickedImage] = useState("");
-  // const apiUrl = `http://${Ip}:5000/users/auth/create`;
+  // const apiUrl = `https://nerdspace-backend.onrender.com/auth/create`;
 
   if (data.avatarImage) {
     if (data.avatarImage !== null) {
@@ -65,7 +65,7 @@ export default function Navigator() {
     }
   }
 
-  const urlAv = `http://${Ip}:5000/users/${data.avatarImage}`;
+  const urlAv = `https://nerdspace-backend.onrender.com/${data.avatarImage}`;
 
   useEffect(() => {
     (async () => {
@@ -103,7 +103,7 @@ export default function Navigator() {
   //     formData.append("content", content);
 
   //     const response = await axios.post(
-  //       `http://${Ip}:5000/users/auth/create`,
+  //       `https://nerdspace-backend.onrender.com/auth/create`,
   //       formData,
   //       {
   //         headers: {
@@ -138,7 +138,7 @@ export default function Navigator() {
       }
 
       const response = await axios.post(
-        `http://${Ip}:5000/users/auth/create`,
+        `https://nerdspace-backend.onrender.com/auth/create`,
         formData,
         {
           headers: {

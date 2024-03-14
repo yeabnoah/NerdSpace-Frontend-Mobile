@@ -78,7 +78,7 @@ export default function PostBox({
     }
   }
 
-  const urlAv = `http://${Ip}:5000/users/${userData.avatarImage}`;
+  const urlAv = `https://nerdspace-backend.onrender.com/users/${userData.avatarImage}`;
 
   if (usen?.avatar_image) {
     if (usen.avatar_image !== null) {
@@ -87,7 +87,7 @@ export default function PostBox({
       usen.avatar_image = null;
     }
 
-    const urlAvatar = `http://${Ip}:5000/users/${usen?.avatar_image}`;
+    const urlAvatar = `https://nerdspace-backend.onrender.com/users/${usen?.avatar_image}`;
 
     if (img !== null) {
       img = img.replace(/\\/g, "/");
@@ -95,7 +95,7 @@ export default function PostBox({
       img = null;
     }
 
-    const url = `http://${Ip}:5000/users/${img}`;
+    const url = `https://nerdspace-backend.onrender.com/users/${img}`;
 
     const UId = userData.userId;
 
@@ -110,7 +110,7 @@ export default function PostBox({
 
       axios
         .post(
-          `http://${Ip}:5000/users/auth/follow/${userId}`,
+          `https://nerdspace-backend.onrender.com/users/auth/follow/${userId}`,
           { userIdToken: userData.userId },
           {
             headers: {
@@ -130,13 +130,16 @@ export default function PostBox({
 
       if (!commentOn) {
         axios
-          .get(`http://${Ip}:5000/users/auth/post/comment/${postId}`, {
-            headers: {
-              authorization: value,
-              Accept: "application/json",
-              "Content-Type": "application/json",
-            },
-          })
+          .get(
+            `https://nerdspace-backend.onrender.com/users/auth/post/comment/${postId}`,
+            {
+              headers: {
+                authorization: value,
+                Accept: "application/json",
+                "Content-Type": "application/json",
+              },
+            }
+          )
           .then((response) => {
             // console.log(response.data);
             setAllComments(response.data);
@@ -151,7 +154,7 @@ export default function PostBox({
     const likePost = () => {
       axios
         .post(
-          `http://${Ip}:5000/users/auth/post/like/${postId}`, // Corrected URL for liking
+          `https://nerdspace-backend.onrender.com/users/auth/post/like/${postId}`, // Corrected URL for liking
           {},
           {
             headers: {
@@ -173,7 +176,7 @@ export default function PostBox({
     const unlikePost = () => {
       axios
         .post(
-          `http://${Ip}:5000/users/auth/post/like/${postId}`, // Corrected URL for liking
+          `https://nerdspace-backend.onrender.com/users/auth/post/like/${postId}`, // Corrected URL for liking
           {},
           {
             headers: {
@@ -200,7 +203,7 @@ export default function PostBox({
       setCommentOn(false);
       axios
         .post(
-          `http://${Ip}:5000/users/auth/post/comment/${postId}`,
+          `https://nerdspace-backend.onrender.com/users/auth/post/comment/${postId}`,
           JSON.stringify(requestData),
           {
             headers: {
@@ -222,13 +225,16 @@ export default function PostBox({
       console.log("its not you who posted the data ...");
 
       axios
-        .get(`http://${Ip}:5000/users/auth/profile/user/${userId}`, {
-          headers: {
-            authorization: value,
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-        })
+        .get(
+          `https://nerdspace-backend.onrender.com/users/auth/profile/user/${userId}`,
+          {
+            headers: {
+              authorization: value,
+              Accept: "application/json",
+              "Content-Type": "application/json",
+            },
+          }
+        )
         .then(function (response) {
           const responseData = response.data.data;
           setPosterData({
@@ -854,7 +860,7 @@ export default function PostBox({
                     coma.userImage = null;
                   }
 
-                  const urlx = `http://${Ip}:5000/users/${coma?.userImage}`;
+                  const urlx = `https://nerdspace-backend.onrender.com/users/${coma?.userImage}`;
                   return (
                     <View
                       key={coma?._id}

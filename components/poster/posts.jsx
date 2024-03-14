@@ -39,7 +39,7 @@ export default function Posts() {
     }
   }
 
-  const urlAvatar = `http://${Ip}:5000/users/${userData.avatarImage}`;
+  const urlAvatar = `https://nerdspace-backend.onrender.com/users/${userData.avatarImage}`;
 
   console.log(userId);
 
@@ -54,7 +54,7 @@ export default function Posts() {
   //   }, 2000);
 
   //   axios
-  //     .get(`http://${Ip}:5000/users/auth/post/comment/${userId}`, {
+  //     .get(`https://nerdspace-backend.onrender.com/users/auth/post/comment/${userId}`, {
   //       headers: {
   //         authorization: value,
   //         Accept: "application/json",
@@ -125,7 +125,7 @@ export default function Posts() {
             }
           }
 
-          const url = `http://${Ip}:5000/users/${yu.imageUrl}`;
+          const url = `https://nerdspace-backend.onrender.com/users/${yu.imageUrl}`;
 
           return (
             <View

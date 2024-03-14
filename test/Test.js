@@ -1,67 +1,69 @@
-import React, { useState } from "react";
-import { View, Text, TextInput, Button, Image } from "react-native";
-import axios from "axios";
-import * as ImagePicker from "expo-image-picker";
+// import React, { useState } from "react";
+// import { View, Text, TouchableOpacity, Image } from "react-native";
+// import * as ImagePicker from "expo-image-picker";
+// import firebase from "firebase/app";
+// import "firebase/storage";
 
-export default function Test() {
-  const [content, setContent] = useState("");
-  const [image, setImage] = useState(null);
+// const firebaseConfig = {
+//   // Your Firebase project configuration goes here
+//   apiKey: "api-key",
+//   authDomain: "project-id.firebaseapp.com",
+//   databaseURL: "https://project-id.firebaseio.com",
+//   projectId: "project-id",
+//   storageBucket: "project-id.appspot.com",
+//   messagingSenderId: "sender-id",
+//   appId: "app-id",
+//   measurementId: "G-measurement-id",
+// };
 
-  const handlePost = async () => {
-    const formData = new FormData();
-    formData.append("content", content);
-    formData.append("image", {
-      uri: image.assets[0].uri,
-      type: image.assets[0].type,
-      name: image.assets[0].fileName,
-    });
+// if (!firebase.apps.length) {
+//   firebase.initializeApp(firebaseConfig);
+// }
 
-    try {
-      const response = await axios.post(
-        "http://localhost:3000/api/posts",
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
+// const storage = firebase.storage();
 
-      console.log(response.data);
-    } catch (err) {
-      console.error(err);
-    }
-  };
+// const Test = () => {
+//   const [imageUri, setImageUri] = useState(null);
 
-  const handleImagePicker = async () => {
-    const result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      allowsEditing: true,
-      aspect: [4, 3],
-      quality: 1,
-    });
+//   const uploadImage = async () => {
+//     try {
+//       const result = await ImagePicker.launchImageLibraryAsync({});
+//       if (!result.cancelled) {
+//         const response = await fetch(result.uri);
+//         const blob = await response.blob();
+//         const reference = storage.ref().child("images/" + Date.now() + ".jpg");
+//         await reference.put(blob);
+//         const downloadURL = await reference.getDownloadURL();
+//         setImageUri(downloadURL);
+//       }
+//     } catch (error) {
+//       console.error("Error picking/uploading image: ", error);
+//     }
+//   };
 
-    if (!result.canceled) {
-      setImage(result);
-    }
-  };
+//   const fetchImage = async () => {
+//     try {
+//       const reference = storage.ref().child("images/your-image-name.jpg");
+//       const downloadURL = await reference.getDownloadURL();
+//       setImageUri(downloadURL);
+//     } catch (error) {
+//       console.error("Error fetching image:", error);
+//     }
+//   };
 
-  return (
-    <View style={{ paddingTop: 300 }}>
-      <Text>Content:</Text>
-      <TextInput value={content} onChangeText={setContent} />
+//   return (
+//     <View>
+//       {imageUri && (
+//         <Image source={{ uri: imageUri }} style={{ width: 200, height: 200 }} />
+//       )}
+//       <TouchableOpacity onPress={uploadImage}>
+//         <Text>Upload Image</Text>
+//       </TouchableOpacity>
+//       <TouchableOpacity onPress={fetchImage}>
+//         <Text>Fetch Image</Text>
+//       </TouchableOpacity>
+//     </View>
+//   );
+// };
 
-      <Text>Image:</Text>
-      <Button title="Pick Image" onPress={handleImagePicker} />
-
-      {image && (
-        <Image
-          source={{ uri: image.assets[0].uri }}
-          style={{ width: 200, height: 200 }}
-        />
-      )}
-
-      <Button title="Post" onPress={handlePost} />
-    </View>
-  );
-}
+// export default Test;

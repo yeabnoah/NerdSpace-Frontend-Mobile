@@ -31,7 +31,7 @@ export default function RegisterUi() {
 
   const handleRegister = () => {
     axios
-      .post(`http://${Ip}:5000/users/register`, {
+      .post(`https://nerdspace-backend.onrender.com/users/register`, {
         name,
         username,
         password,

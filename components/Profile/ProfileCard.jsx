@@ -41,7 +41,7 @@ export default function ProfileCard({ posts, setting, setSetting }) {
     }
   }
 
-  const urlCov = `http://${Ip}:5000/users/${userData?.coverImage}`;
+  const urlCov = `https://nerdspace-backend.onrender.com/users/${userData?.coverImage}`;
 
   if (userData?.avatarImage) {
     if (userData.avatarImage !== null) {
@@ -51,7 +51,7 @@ export default function ProfileCard({ posts, setting, setSetting }) {
     }
   }
 
-  const url = `http://${Ip}:5000/users/${userData?.avatarImage}`;
+  const url = `https://nerdspace-backend.onrender.com/users/${userData?.avatarImage}`;
 
   const Edit = () => {
     navigation.navigate("Edit");

@@ -43,10 +43,10 @@ export default function EditProfile() {
   // useEffect(() => {}, []);
 
   const [image, setImage] = useState(
-    `http://${Ip}:5000/users/${userData.avatarImage}`
+    `https://nerdspace-backend.onrender.com/${userData.avatarImage}`
   );
   const [cover, setCover] = useState(
-    `http://${Ip}:5000/users/${userData.coverImage}`
+    `https://nerdspace-backend.onrender.com/${userData.coverImage}`
   );
   const [name, setName] = useState(userData.name || "");
   const [username, setUserName] = useState(userData.username || "");
@@ -54,7 +54,9 @@ export default function EditProfile() {
   const [email, setEmail] = useState(userData.email || "");
   const [bio, setBio] = useState(userData.bio || "");
 
-  const [url, setUrl] = useState(`http://${Ip}:5000/users/${cover}`);
+  const [url, setUrl] = useState(
+    `https://nerdspace-backend.onrender.com/${cover}`
+  );
 
   const openModal = () => {
     setModalVisible(true);
@@ -110,7 +112,7 @@ export default function EditProfile() {
 
       console.log(formData);
       const response = await axios.post(
-        `http://${Ip}:5000/users/auth/profile/cover`,
+        `https://nerdspace-backend.onrender.com/auth/profile/cover`,
         formData,
         {
           headers: {
@@ -171,7 +173,7 @@ export default function EditProfile() {
 
       console.log(formData);
       const response = await axios.post(
-        `http://${Ip}:5000/users/auth/profile/`,
+        `https://nerdspace-backend.onrender.com/auth/profile/`,
         formData,
         {
           headers: {

@@ -34,10 +34,13 @@ export default function LoginComp() {
       }
 
       // Proceed with login
-      const response = await axios.post(`http://${Ip}:5000/users/login`, {
-        username,
-        password,
-      });
+      const response = await axios.post(
+        `https://nerdspace-backend.onrender.com/users/login`,
+        {
+          username,
+          password,
+        }
+      );
 
       if (response.status === 200) {
         const token = response.data.token;

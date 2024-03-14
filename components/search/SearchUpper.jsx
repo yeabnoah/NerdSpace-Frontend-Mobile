@@ -38,7 +38,7 @@ export default function SearchUpper() {
 
     axios
       .post(
-        `http://${Ip}:5000/users/auth/follow/${id}`,
+        `https://nerdspace-backend.onrender.com/users/auth/follow/${id}`,
         { userIdToken: userData.userId },
         {
           headers: {
@@ -59,7 +59,7 @@ export default function SearchUpper() {
 
     axios
       .post(
-        `http://${Ip}:5000/users/auth/follow/${id}`,
+        `https://nerdspace-backend.onrender.com/users/auth/follow/${id}`,
         { userIdToken: userData.userId },
         {
           headers: {
@@ -81,7 +81,7 @@ export default function SearchUpper() {
     isClicked
       ? axios
           .post(
-            `http://${Ip}:5000/users/auth/user/findByUserName`,
+            `https://nerdspace-backend.onrender.com/users/auth/user/findByUserName`,
             { username: userInput },
             {
               headers: {
@@ -102,7 +102,7 @@ export default function SearchUpper() {
           })
       : axios
           .post(
-            `http://${Ip}:5000/users/auth/user/findByName`,
+            `https://nerdspace-backend.onrender.com/users/auth/user/findByName`,
             // JSON.stringify(userInput),
             { name: userInput },
             {
@@ -312,7 +312,7 @@ export default function SearchUpper() {
           //   setFollowedTwo(true);
           // }
 
-          const url = `http://${Ip}:5000/users/${each[0]?.avatar_image}`;
+          const url = `https://nerdspace-backend.onrender.com/users/${each[0]?.avatar_image}`;
           // console.log("Image URL &&&&&&&&&&&&&&:", compare, cc);
 
           return (

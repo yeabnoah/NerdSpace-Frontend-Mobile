@@ -15,6 +15,7 @@ import MockImages from "../../utils/mockImage";
 import PostBox from "./PostBox";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { UidContext } from "../../context/UID";
+import { useNavigation } from "@react-navigation/native";
 
 const { width, height } = Dimensions.get("window");
 const FEED_REFRESH_INTERVAL = 2000;
@@ -25,17 +26,21 @@ const FeedUpper = () => {
   const [post, setPost] = useState([]);
   const [poster, setPoster] = useState({});
   const [liked, setLiked] = useState(false);
+  const navigation = useNavigation();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://${Ip}:5000/users/auth/feed`, {
-          headers: {
-            authorization: value,
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-        });
+        const response = await axios.get(
+          `https://nerdspace-backend.onrender.com/users/auth/feed`,
+          {
+            headers: {
+              authorization: value,
+              Accept: "application/json",
+              "Content-Type": "application/json",
+            },
+          }
+        );
 
         setPost(response.data.slice().reverse());
       } catch (error) {
@@ -111,7 +116,11 @@ const FeedUpper = () => {
             <View
               style={{ flexDirection: "row", justifyContent: "space-between" }}
             >
-              <TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => {
+                  navigation.navigate("Test");
+                }}
+              >
                 <Ionicons
                   name="notifications"
                   style={{

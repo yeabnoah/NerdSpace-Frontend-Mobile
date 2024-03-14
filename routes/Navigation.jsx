@@ -53,7 +53,7 @@ export default function AppNavigation() {
       const value = await AsyncStorage.getItem("token");
       if (value !== null) {
         axios
-          .get(`http://${Ip}:5000/users/auth/profile`, {
+          .get(`https://nerdspace-backend.onrender.com/users/auth/profile`, {
             headers: {
               authorization: value,
               Accept: "application/json",
@@ -107,7 +107,7 @@ export default function AppNavigation() {
               <Stack.Screen name="Chat" component={Chat} />
               <Stack.Screen name="Login" component={Login} />
               <Stack.Screen name="Register" component={Register} />
-              <Stack.Screen name="Test" component={Test} />
+              {/* <Stack.Screen name="Test" component={Test} /> */}
               <Stack.Screen name="Edit" component={EditProfile} />
               <Stack.Screen name="Poster" component={Poster} />
             </Stack.Navigator>
