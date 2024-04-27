@@ -1,4 +1,4 @@
-<img src="https://i.ibb.co/WGFYN7V/Beige-And-Beige-Delicate-Product-Launch-Mockup-Instagram-Story.png" alt="Beige-And-Beige-Delicate-Product-Launch-Mockup-Instagram-Story" border="0">
+<img src="https://i.ibb.co/WGFYN7V/Beige-And-Beige-Delicate-Product-Launch-Mockup-Instagram-Story.png" alt="Beige-And-Beige-Delicate-Product-Launch-Mockup-Instagram-Story" border="0" height=300px>
 
 # Nerdspace Mobile Project
 
