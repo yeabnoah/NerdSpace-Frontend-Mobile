@@ -1,3 +1,5 @@
+<img src="https://i.ibb.co/WGFYN7V/Beige-And-Beige-Delicate-Product-Launch-Mockup-Instagram-Story.png" alt="Beige-And-Beige-Delicate-Product-Launch-Mockup-Instagram-Story" border="0">
+
 # Nerdspace Mobile Project
 
 Nerdspace is a social networking platform designed to connect like-minded and passionate individuals who are typically considered as Nerds. Built using React Native and Expo, the Nerdspace mobile app offers a platform for nerds to interact, share ideas, and build connections. The app integrates various technologies listed in the dependencies to provide a seamless and feature-rich user experience.
